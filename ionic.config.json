@@ -1,0 +1,7 @@
+{
+  "name": "games-community-and-store",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
