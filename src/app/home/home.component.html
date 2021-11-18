@@ -3,8 +3,38 @@
     <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header> 
-<ion-content>
-  <ion-list>
-    <ion-item button="true" (click)="createModal();">Home</ion-item>
+
+<ion-content >
+  <ion-list *ngIf="postCards">
+    <ion-item button="true" (click)="createModal();" *ngFor="let postCard of postCards">
+
+      <div class="item-grid-class">
+        <div>
+          <ion-label>{{ postCard.title }}</ion-label>
+        </div>
+        <div class="item-time-p-class">
+          <div class="item-time-class">
+            <ion-note >{{ postCard.releaseTime }} · {{ postCard.communityDomain }}</ion-note>
+            <div class="item-comment-class">
+
+              <ion-icon name="chatbox-outline" ></ion-icon>
+              <ion-note >&nbsp;{{postCard.numberOfComments}}</ion-note>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="item-img-class">
+          <!-- <ion-thumbnail > -->
+
+              <ion-img [src]="postCard.imageUrl" id="item-img-class"></ion-img>
+
+          <!-- </ion-thumbnail> -->
+        </div>
+      </div>
+
+
+    </ion-item>
   </ion-list>
+
 </ion-content>
