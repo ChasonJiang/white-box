@@ -4,17 +4,28 @@
   </ion-toolbar>
 </ion-header> 
 
+<<<<<<< HEAD
 <ion-content [fullscreen]="true" [forceOverscroll]="true">
   <ion-list *ngIf="postCards">
     <ion-item button="true" *ngFor="let postCard of postCards" (click)="createModal(postCard);">
     <!-- <ion-item button="true" *ngFor="let postCard of postCards" routerLink="post"> -->
+=======
+<ion-content >
+  <ion-list *ngIf="postCards">
+    <ion-item button="true" (click)="createModal();" *ngFor="let postCard of postCards">
+
+>>>>>>> f8752b5f9aa4d3f92493c9e8ad49da90ac486d75
       <div class="item-grid-class">
         <div>
           <ion-label>{{ postCard.title }}</ion-label>
         </div>
         <div class="item-time-p-class">
           <div class="item-time-class">
+<<<<<<< HEAD
             <ion-note >{{ postCard.releaseTime }} · {{ postCard.topic }}</ion-note>
+=======
+            <ion-note >{{ postCard.releaseTime }} · {{ postCard.communityDomain }}</ion-note>
+>>>>>>> f8752b5f9aa4d3f92493c9e8ad49da90ac486d75
             <div class="item-comment-class">
 
               <ion-icon name="chatbox-outline" ></ion-icon>
@@ -25,7 +36,15 @@
 
         
         <div class="item-img-class">
+<<<<<<< HEAD
             <ion-img [src]="postCard.coverUrl" id="item-img-class"></ion-img>
+=======
+          <!-- <ion-thumbnail > -->
+
+              <ion-img [src]="postCard.imageUrl" id="item-img-class"></ion-img>
+
+          <!-- </ion-thumbnail> -->
+>>>>>>> f8752b5f9aa4d3f92493c9e8ad49da90ac486d75
         </div>
       </div>
 
