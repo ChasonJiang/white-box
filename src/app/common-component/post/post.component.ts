@@ -62,4 +62,5 @@ export class PostComponent implements OnInit {
     this.componentRef=this.dynamicTemplateRendererService.compileTemplate(this.post.content,this.postContainer);
   }
 
+  
 }
