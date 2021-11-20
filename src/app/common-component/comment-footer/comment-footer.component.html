@@ -8,7 +8,7 @@
 
 
 <ion-footer >
-  <ion-toolbar>
+  <div class="footer-toolbar">
     <div class="comment-bar" (click)="openCommentBox();">
         <ion-note *ngIf="numberOfComments; else elseNoShow">评论(已有{{numberOfComments}}条评论)</ion-note>
         <ng-template #elseNoShow>
@@ -23,5 +23,5 @@
       <ion-icon slot="icon-only" name="star"></ion-icon>
     </ion-button>
     </ion-buttons>
-  </ion-toolbar>
+  </div>
 </ion-footer>

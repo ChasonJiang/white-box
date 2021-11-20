@@ -19,9 +19,9 @@
         <div *ngFor="let reply_item of comment.reply">
           <div class="reply-content">
             <ion-label>
-              {{reply_item.userInfo.userName}} 回复 {{reply_item.replyTo.userName}}: {{reply_item.commentContent}}
+              <ion-label style="color: #3880ff;">{{reply_item.userInfo.userName}}</ion-label><ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
             </ion-label> 
-            <ion-note>{{reply_item.commentTime}}</ion-note>
+            <ion-note id="commentTime">{{reply_item.commentTime}}</ion-note>
           </div>
         </div>
       </div>
