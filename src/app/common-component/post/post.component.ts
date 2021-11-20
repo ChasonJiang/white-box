@@ -2,7 +2,10 @@ import { Component, ComponentRef, Input, OnInit, ViewChild, ViewContainerRef } f
 import { ModalController } from '@ionic/angular';
 import { PostService } from '../../services/post.service';
 import { PostInfo,Post,PostRequestOptions } from '../../interface/Post';
-import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
+import { UserCardInfo } from 'src/app/interface/User';
+import { CommentService } from 'src/app/services/comment.service';
+import { Comment } from "../../interface/Comment";
 import { DynamicTemplateRendererService } from"../../services/dynamic-template-renderer.service";
 @Component({
   selector: 'app-post',
@@ -14,15 +17,14 @@ export class PostComponent implements OnInit {
   @Input() postInfo?: PostInfo;
   private componentRef: ComponentRef<{}>;
   post?: Post;
+  userCardInfo?: UserCardInfo;
+
+  // commentPRO?:PostRequestOptions;
   // status:Boolean=false;
   // changeStatus(){
   //   this.status = !this.status;
   // }
 
-  enableBackdropDismiss = false;
-  showBackdrop = false;
-  shouldPropagate = false;
-  showCommentBox= false;
 
   constructor(
     public modalController:ModalController,
@@ -31,13 +33,14 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.renderPost();
   }
 
-  getPost(){
-    this.post=this.postService.requestPost({uid:0,title:""});
+  async getPost(){
+    this.post=this.postService.requestPost({ uid: 0, title: "" });
   }
-  
+
   modalDismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
@@ -63,17 +66,7 @@ export class PostComponent implements OnInit {
       this.componentRef=null;
     }
     await this.getPost();
-    this.componentRef=this.dynamicTemplateRendererService.compileTemplate({selector:"app-post-content",template:this.post.content},this.postContainer);
+    this.componentRef=this.dynamicTemplateRendererService.compileTemplate({ selector: "app-post-content", template: this.post.content }, this.postContainer);
   }  
 
-  openCommentBox(){
-    // this.enableBackdropDismiss=!this.enableBackdropDismiss;
-    this.showBackdrop=!this.showBackdrop;
-    this.showCommentBox=!this.showCommentBox;
-
-  }
-  closeCommentBox(){
-    this.showCommentBox=!this.showCommentBox;
-    this.showBackdrop=!this.showBackdrop;
-  }
 }

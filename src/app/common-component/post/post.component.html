@@ -9,54 +9,16 @@
   </ion-toolbar>
 </ion-header>
 
-<div *ngIf="showBackdrop" (click)="closeCommentBox();">
-  <ion-backdrop tappable="false" visible="true" stopPropagation="false" style="opacity: 0.6;" ></ion-backdrop>
-</div>
-
 <ion-content [fullscreen]="true">
-  <!-- <ion-button (click)="changeStatus();"></ion-button> -->
-  <!-- <div class="post" *ngIf="status"> -->
   <div class="post" *ngIf="post">
-    <!-- <ion-button (click)="createModal(post);"></ion-button> -->
-    <!-- <ion-button (click)="renderPost();"></ion-button> -->
     <ion-title>{{post.title}}</ion-title>
-    <div class="author-info"></div>
+    <div class="author-bar">
+      <app-user-card [uid]="postInfo.uid"></app-user-card>
+    </div>
     <div class="post-content" #postContainer>
     </div>  
-    <div class="comment">
-      <div class="comment-area-bar">
-        <ion-toolbar>
-          <ion-label>评论</ion-label>
-        </ion-toolbar>
-      </div>
-      <div class="comment-area"></div>
-    </div>
+    <app-comment-area [postRequestOptions]="postInfo"></app-comment-area>
   </div>
 </ion-content>
 
-<div class="comment-box-parent" *ngIf="showCommentBox">
-  <div class="comment-box">
-    <ion-textarea></ion-textarea>
-  </div>
-  <div class="comment-box-toolbar">
-  </div>
-</div> 
-
-<ion-footer >
-  <ion-toolbar >
-    <div class="comment-bar" (click)="openCommentBox();">
-        <ion-note *ngIf="post; else elseNoShow">评论(已有{{post.numberOfComments}}条评论)</ion-note>
-        <ng-template #elseNoShow>
-          <ion-note>评论</ion-note>
-        </ng-template>
-    </div>
-    <ion-buttons slot="end">
-    <ion-button>
-      <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
-    </ion-button>
-    <ion-button>
-      <ion-icon slot="icon-only" name="star"></ion-icon>
-    </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+<app-comment-footer [numberOfComments]="postInfo.numberOfComments"></app-comment-footer>

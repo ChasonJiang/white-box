@@ -1,0 +1,21 @@
+<div class="comment">
+  <div class="comment-area-bar">
+    <ion-toolbar>
+      <ion-label>评论</ion-label>
+    </ion-toolbar>
+  </div>
+  <div *ngIf="comments">
+    <div class="comment-area--comment" *ngFor="let comment of comments">
+      <app-user-card [uid]="postRequestOptions.uid"></app-user-card>
+      <ion-label>{{comment.commentContent}}</ion-label>
+      <div class="comment-area--comment--reply-area" *ngFor="let reply_item of comment.reply">
+        <div class="comment-area--comment--reply-area--reply">
+          <ion-label>
+            {{reply_item.userInfo.userName}} 回复 {{reply_item.replyTo.userName}}: {{reply_item.commentContent}}
+          </ion-label> 
+          <ion-note>{{reply_item.commentTime}}</ion-note>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

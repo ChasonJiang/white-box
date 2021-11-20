@@ -5,6 +5,8 @@ export interface UserBaseInfo{
 export interface UserCardInfo extends UserBaseInfo{
     userLevel: number;
     avatarUrl: string;
+    releaseTime?:string;
+    numberOfStars?:number;
 }
 export interface UserDetails extends UserCardInfo{
 

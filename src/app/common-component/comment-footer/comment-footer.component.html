@@ -1,0 +1,27 @@
+<div *ngIf="showBackdrop" (click)="closeCommentBox();" >
+  <ion-backdrop tappable="false" visible="true" stopPropagation="false" style="opacity: 0.6;" ></ion-backdrop>
+</div>
+
+<div *ngIf="showCommentBox">
+  <app-comment-editer></app-comment-editer>
+</div>
+
+
+<ion-footer >
+  <ion-toolbar>
+    <div class="comment-bar" (click)="openCommentBox();">
+        <ion-note *ngIf="numberOfComments; else elseNoShow">评论(已有{{numberOfComments}}条评论)</ion-note>
+        <ng-template #elseNoShow>
+          <ion-note>评论</ion-note>
+        </ng-template>
+    </div>
+    <ion-buttons slot="end">
+    <ion-button>
+      <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
+    </ion-button>
+    <ion-button>
+      <ion-icon slot="icon-only" name="star"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
