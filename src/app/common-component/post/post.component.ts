@@ -10,28 +10,32 @@ import { DynamicTemplateRendererService } from"../../services/dynamic-template-r
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  // @ViewChild("content") contentRef: TemplateRef<any>;
   @ViewChild("postContainer", {read: ViewContainerRef}) postContainer: ViewContainerRef;
-  private componentRef: ComponentRef<{}>;
   @Input() postInfo?: PostInfo;
+  private componentRef: ComponentRef<{}>;
   post?: Post;
-  
-  template: string = "";
+  // status:Boolean=false;
+  // changeStatus(){
+  //   this.status = !this.status;
+  // }
+
+  enableBackdropDismiss = false;
+  showBackdrop = false;
+  shouldPropagate = false;
+  showCommentBox= false;
+
   constructor(
     public modalController:ModalController,
     private postService:PostService,
-    private dynamicTemplateRendererService:DynamicTemplateRendererService
-
+    private dynamicTemplateRendererService:DynamicTemplateRendererService,
   ) { }
 
   ngOnInit() {
     this.renderPost();
-
-
   }
 
   getPost(){
-    this.post=this.postService.requestPost({uid:"",title:""});
+    this.post=this.postService.requestPost({uid:0,title:""});
   }
   
   modalDismiss() {
@@ -59,8 +63,17 @@ export class PostComponent implements OnInit {
       this.componentRef=null;
     }
     await this.getPost();
-    this.componentRef=this.dynamicTemplateRendererService.compileTemplate(this.post.content,this.postContainer);
-  }
+    this.componentRef=this.dynamicTemplateRendererService.compileTemplate({selector:"app-post-content",template:this.post.content},this.postContainer);
+  }  
 
-  
+  openCommentBox(){
+    // this.enableBackdropDismiss=!this.enableBackdropDismiss;
+    this.showBackdrop=!this.showBackdrop;
+    this.showCommentBox=!this.showCommentBox;
+
+  }
+  closeCommentBox(){
+    this.showCommentBox=!this.showCommentBox;
+    this.showBackdrop=!this.showBackdrop;
+  }
 }

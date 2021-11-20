@@ -1,5 +1,5 @@
 export interface PostInfo{
-    uid:string;
+    uid:number;
     title:string;
     coverUrl:string;
     releaseTime:string;
@@ -21,6 +21,6 @@ export interface Post extends PostCard,PostContent{
 }
 
 export interface PostRequestOptions{
-    uid:string;
+    uid:number;
     title:string;
 }

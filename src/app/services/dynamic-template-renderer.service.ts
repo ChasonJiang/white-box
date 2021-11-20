@@ -11,14 +11,9 @@ export class DynamicTemplateRendererService {
       private compiler: Compiler) {
   }
 
-  compileTemplate(template: string, container: ViewContainerRef,componentClass?: any) {
+  compileTemplate(componentMetaData: Component, container: ViewContainerRef,componentClass?: any) {
 
-      let metadata = {
-          selector: `runtime-component-sample`,
-          template: template
-      };
-
-      let factory = this.createComponentFactorySync(this.compiler, metadata, componentClass);
+      let factory = this.createComponentFactorySync(this.compiler, componentMetaData, componentClass);
       
  
       return container.createComponent(factory);

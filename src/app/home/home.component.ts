@@ -3,6 +3,8 @@ import { PostComponent } from '../common-component/post/post.component';
 import { ModalController } from '@ionic/angular';
 import { PostCardService } from '../services/PostCard.service';
 import { PostCard,PostInfo } from "../interface/Post"
+import { AnimationController } from '@ionic/angular';
+import { ModalFromBottomEnter,ModalFromBottomLeave } from "../module/myAnimation"
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,8 @@ export class HomeComponent implements OnInit {
   postCards?: PostCard[];
   constructor(
     public modalController:ModalController,
-    private postCardService:PostCardService
+    private postCardService:PostCardService,
+    private animationCtrl:AnimationController,
     ) {}
 
   ngOnInit() {
@@ -21,12 +24,13 @@ export class HomeComponent implements OnInit {
   }
 
   async createModal(postInfo:PostInfo){
+        
     const modal = await this.modalController.create({
       component:PostComponent,
       cssClass:"fullscreen-class",
       componentProps:{
         'postInfo': postInfo,
-      }
+      },
     });
     
     return await modal.present();

@@ -4,15 +4,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module'
 import { HomeComponent }from './home.component'
-import { PostComponent } from '../common-component/post/post.component';
+import { PostModule } from '../common-component/post/post.module';
 
 @NgModule({
-  declarations: [HomeComponent,PostComponent],
+  declarations: [HomeComponent,],
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
     HomeRoutingModule,
+    PostModule
   ]
 })
 export class HomeModule { }

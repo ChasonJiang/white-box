@@ -6,7 +6,7 @@ const CONTENT:string=`<ion-text>The refresher provides pull-to-refresh functiona
 <ion-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU"></ion-img>
 <ion-text>Both iOS and Android platforms provide refreshers that take advantage of properties exposed by their respective devices that give pull to refresh a fluid, native-like feel.</ion-text>`;
 export const POST:Post={
-    uid:"88888888",
+    uid:88888888,
     title:"Post Title",
     coverUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU",
     releaseTime:"2021-11-18",
