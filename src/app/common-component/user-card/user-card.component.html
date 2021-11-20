@@ -1,7 +1,17 @@
-<ion-item>
-  <ion-avatar slot="start">
-    <ion-img [src]="userCardInfo.avatarUrl"></ion-img>
-  </ion-avatar>
-  <ion-label>{{userCardInfo.userName}}</ion-label>
-  <ion-note>{{userCardInfo.releaseTime}}</ion-note>
-</ion-item>
+<div class="user-card">
+  <div class="user-avatar">
+    <ion-avatar>
+      <ion-img [src]="userCardInfo.avatarUrl"></ion-img>
+    </ion-avatar>
+
+  </div>
+  <div class="user-name">
+    <ion-label>{{userCardInfo.userName}}</ion-label>
+  </div>
+  <div class="user-releaseTime" *ngIf="userCardInfo.releaseTime">
+    <ion-note>{{userCardInfo.releaseTime}}</ion-note>
+  </div>
+  <div class="user-other">
+    <p>other</p> 
+  </div>
+</div>

@@ -6,5 +6,6 @@ export const USER_CARD_INFO:UserCardInfo=
         userName:"UserName",
         userLevel:1,
         avatarUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU",
+        releaseTime:"2021-11-18"
     }
 

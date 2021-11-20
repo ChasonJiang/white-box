@@ -9,15 +9,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" >
   <div class="post" *ngIf="post">
-    <ion-title>{{post.title}}</ion-title>
+
+    <div class="post-cover">
+      <ion-img [src]="post.coverUrl" id="cover"></ion-img>
+    </div>
+
+    <div class="post-title">
+      <ion-title style="padding: 0;">{{post.title}}</ion-title>
+    </div>
+
     <div class="author-bar">
       <app-user-card [uid]="postInfo.uid"></app-user-card>
     </div>
-    <div class="post-content" #postContainer>
-    </div>  
+
+    <div class="post-content">
+      <div #postContainer></div>
+    </div>
+
     <app-comment-area [postRequestOptions]="postInfo"></app-comment-area>
+
   </div>
 </ion-content>
 
