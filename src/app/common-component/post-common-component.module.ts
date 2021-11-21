@@ -9,19 +9,25 @@ import { CommentEditerComponent } from './comment-editer/comment-editer.componen
 import { UserCardComponent } from './user-card/user-card.component'
 import { PostCardComponent } from './post-card/post-card.component'
 import { CommentCardComponent } from './comment-card/comment-card.component'
+import { PostModule } from './post/post.module';
+import { CommentFooterModule } from './comment-footer/comment-footer.module';
+
+
 @NgModule({
   declarations: [
-    PostComponent,
-    CommentAreaComponent,
-    CommentFooterComponent,
-    CommentEditerComponent,
-    UserCardComponent,
+    // PostComponent,
+    // CommentAreaComponent,
+    // CommentFooterComponent,
+    // CommentEditerComponent,
+    // UserCardComponent,
     // CommentCardComponent,
   ],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
+    PostModule,
+    // CommentFooterModule,
   ]
 })
 export class PostCommonComponentModule { }

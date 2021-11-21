@@ -16,7 +16,7 @@ import { PostCardComponent } from '../common-component/post-card/post-card.compo
     CommonModule,
     FormsModule,
     HomeRoutingModule,
-    PostCommonComponentModule
+    PostModule
     // PostModule,
     // CommentAreaModule,
   ]

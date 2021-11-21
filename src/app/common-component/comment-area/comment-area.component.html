@@ -2,8 +2,10 @@
   <div class="comment-area-bar">
     <ion-label>全部评论</ion-label>
   </div>
-  <div *ngIf="comments">
-    <div class="comment-area" *ngFor="let comment of comments">
+
+  <div *ngIf="comments" #CommentsContainer>
+    <!-- <app-comment-card></app-comment-card> -->
+    <!-- <div class="comment-area" *ngFor="let comment of comments">
       <div class="comment-area-user-card">
           <app-user-card [uid]="postRequestOptions.uid" ></app-user-card>
       </div>
@@ -20,6 +22,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

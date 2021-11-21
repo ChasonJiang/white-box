@@ -12,5 +12,6 @@ export class CommentCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+  
 
 }

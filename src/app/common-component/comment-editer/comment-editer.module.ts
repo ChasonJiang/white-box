@@ -5,10 +5,15 @@ import { CommentEditerComponent } from './comment-editer.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CommentEditerComponent
+  ],
   imports: [
     CommonModule,
     IonicModule
-  ]
+  ],
+  exports: [
+    CommentEditerComponent
+  ],
 })
 export class CommentEditerModule { }
