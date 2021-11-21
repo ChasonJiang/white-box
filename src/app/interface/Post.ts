@@ -22,5 +22,5 @@ export interface Post extends PostCard,PostContent{
 
 export interface PostRequestOptions{
     uid:number;
-    title:string;
+    hash:string; //uid + 发布时间的hash  保证资源的唯一识别码
 }

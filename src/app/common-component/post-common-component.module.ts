@@ -7,13 +7,16 @@ import { CommentAreaComponent } from './comment-area/comment-area.component';
 import { CommentFooterComponent } from './comment-footer/comment-footer.component';
 import { CommentEditerComponent } from './comment-editer/comment-editer.component';
 import { UserCardComponent } from './user-card/user-card.component'
+import { PostCardComponent } from './post-card/post-card.component'
+import { CommentCardComponent } from './comment-card/comment-card.component'
 @NgModule({
   declarations: [
     PostComponent,
     CommentAreaComponent,
     CommentFooterComponent,
     CommentEditerComponent,
-    UserCardComponent
+    UserCardComponent,
+    // CommentCardComponent,
   ],
   imports: [
     CommonModule,

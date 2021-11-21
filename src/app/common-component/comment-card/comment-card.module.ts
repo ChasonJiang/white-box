@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+// import { CommentCardComponent } from './comment-card.component';
+
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    IonicModule,
+    CommonModule
   ]
 })
-export class CommentAreaModule { }
+export class CommentCardModule { }
