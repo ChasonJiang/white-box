@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" >
+<ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true" (ionScrollEnd)="lazyLoadPostCard(postCards);">
   <div class="post" *ngIf="post">
 
     <div class="post-cover">
@@ -27,7 +27,7 @@
     <div class="post-content">
       <div #postContainer></div>
     </div>
-
+    <!-- <app-comment-card></app-comment-card> -->
     <app-comment-area [postRequestOptions]="postInfo"></app-comment-area>
 
   </div>

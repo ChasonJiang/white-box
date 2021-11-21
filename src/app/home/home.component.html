@@ -4,29 +4,12 @@
   </ion-toolbar>
 </ion-header> 
 
-<ion-content [fullscreen]="true" [forceOverscroll]="true">
-  <ion-list *ngIf="postCards">
-    <ion-item button="true" *ngFor="let postCard of postCards" (click)="createModal(postCard);">
-    <!-- <ion-item button="true" *ngFor="let postCard of postCards" routerLink="post"> -->
-      <div class="item-grid-class">
-        <div>
-          <ion-label>{{ postCard.title }}</ion-label>
-        </div>
-        <div class="item-time-p-class">
-          <div class="item-time-class">
-            <ion-note >{{ postCard.releaseTime }} · {{ postCard.topic }}</ion-note>
-            <div class="item-comment-class">
-
-              <ion-icon name="chatbox-outline" ></ion-icon>
-              <ion-note >&nbsp;{{postCard.numberOfComments}}</ion-note>
-            </div>
-          </div>
-        </div>
-        <div class="item-img-class">
-            <ion-img [src]="postCard.coverUrl" id="item-img-class"></ion-img>
-        </div>
-      </div>
-    </ion-item>
-  </ion-list>
-
+<ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true" (ionScrollEnd)="lazyLoadPostCard(postCards);">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+      <!-- <ion-button (click)="lazyLoadPostCard(postCards);"></ion-button> -->
+      <ion-list #postCardContainer>
+      </ion-list>
 </ion-content>
+

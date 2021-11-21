@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { PostComponent } from '../common-component/post/post.component';
+import { ApplicationRef, Component, ComponentFactoryResolver, ComponentRef, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PostCardService } from '../services/PostCard.service';
 import { PostCard,PostInfo } from "../interface/Post"
-import { AnimationController } from '@ionic/angular';
-import { ModalFromBottomEnter,ModalFromBottomLeave } from "../module/myAnimation"
+import { PostCardService } from 'src/app/services/PostCard.service';
+import { PostComponent } from '../common-component/post/post.component';
+import { PostCardComponent } from '../common-component/post-card/post-card.component';
 
 @Component({
   selector: 'app-home',
@@ -12,32 +11,49 @@ import { ModalFromBottomEnter,ModalFromBottomLeave } from "../module/myAnimation
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('postCardContainer',{read: ViewContainerRef }) postCardContainerViewContainerRef:ViewContainerRef;
+
   postCards?: PostCard[];
+  private postCardCompts:any[];
   constructor(
-    public modalController:ModalController,
+    private componentFactoryResolver: ComponentFactoryResolver,
     private postCardService:PostCardService,
-    private animationCtrl:AnimationController,
-    ) {}
+    private injector: Injector,
+    private appRef: ApplicationRef
+  
+  ) { }
 
   ngOnInit() {
     this.postCards=this.updatePostCard();
+
   }
 
-  async createModal(postInfo:PostInfo){
-        
-    const modal = await this.modalController.create({
-      component:PostComponent,
-      cssClass:"fullscreen-class",
-      componentProps:{
-        'postInfo': postInfo,
-      },
-    });
-    
-    return await modal.present();
-  }
 
   updatePostCard():PostCard[]{
     return this.postCardService.getPostCard();
   }
+
+  lazyLoadPostCard(postCards:PostCard[]){
+    for (let postCard of postCards)
+    {
+      const postCardComponentFactory=this.componentFactoryResolver
+        .resolveComponentFactory(PostCardComponent);
+      //   .create(this.injector);
+      // this.appRef.attachView(postCardComponentFactory.hostView);
+      const postCardComponentRef=this.postCardContainerViewContainerRef.createComponent(postCardComponentFactory);
+      postCardComponentRef.instance.postCard=postCard;
+      // this.postCardCompts.push(postCardComponentRef);
+  
+    }
+  }
+  doRefresh(event) {
+    // console.log('Begin async operation');
+      console.log('Async operation has ended');
+      this.updatePostCard();
+      this.postCardContainerViewContainerRef.clear();
+      this.lazyLoadPostCard(this.postCards);
+      event.target.complete();
+    }
+
 
 }

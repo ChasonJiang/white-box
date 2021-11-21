@@ -1,20 +1,15 @@
 <div class="comment">
-
   <div class="comment-area-bar">
     <ion-label>全部评论</ion-label>
   </div>
-
   <div *ngIf="comments">
     <div class="comment-area" *ngFor="let comment of comments">
-
       <div class="comment-area-user-card">
           <app-user-card [uid]="postRequestOptions.uid" ></app-user-card>
       </div>
-
       <div class="comment-content">
         <ion-label>{{comment.commentContent}}</ion-label>
       </div>
-
       <div class="reply-area" >
         <div *ngFor="let reply_item of comment.reply">
           <div class="reply-content">
@@ -25,9 +20,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
-
 </div>

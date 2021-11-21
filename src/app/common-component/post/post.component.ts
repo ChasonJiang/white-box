@@ -33,12 +33,12 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    // this.getPost();
     this.renderPost();
   }
 
   async getPost(){
-    this.post=this.postService.requestPost({ uid: 0, title: "" });
+    this.post=this.postService.requestPost({ uid: 0, hash:"" });
   }
 
   modalDismiss() {
@@ -66,7 +66,9 @@ export class PostComponent implements OnInit {
       this.componentRef=null;
     }
     await this.getPost();
-    this.componentRef=this.dynamicTemplateRendererService.compileTemplate({ selector: "app-post-content", template: this.post.content }, this.postContainer);
+    this.componentRef=this.dynamicTemplateRendererService.compileTemplate({ selector: "app-post-content", template: this.post.content ,styles:["ion-img{padding-top:10px;padding-bottom:10px;}"],}, this.postContainer);
+    // this.componentRef=this.dynamicTemplateRendererService.createComponent({ selector: "app-post-content", template: this.post.content }, this.postContainer);
+
   }  
 
 }
