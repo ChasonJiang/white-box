@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostRequestOptions } from 'src/app/interface/Post';
+import { PostRequestOptions } from 'src/app/interface/Requeste';
 
 @Component({
   selector: 'app-comment-footer',

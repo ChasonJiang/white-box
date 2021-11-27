@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, View
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from "../../interface/Comment";
 import { CommentCardComponent } from '../comment-card/comment-card.component';
-import { PostRequestOptions } from '../../interface/Post'
+import { PostRequestOptions } from '../../interface/Requeste'
 import { COMMENT } from '../../comment';
 @Component({
   selector: 'app-comment-area',
@@ -11,7 +11,7 @@ import { COMMENT } from '../../comment';
 })
 export class CommentAreaComponent implements AfterViewInit,OnInit {
 
-  @Input() postRequestOptions?:PostRequestOptions;
+  @Input() pid?:number;
   @ViewChild("CommentsContainer",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
   comments?:Comment[];
 
@@ -37,7 +37,7 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
       const ComponentFactory=this.componentFactoryResolver.resolveComponentFactory(CommentCardComponent);
       const ComponentRef=this.viewContainerRef.createComponent(ComponentFactory);
       ComponentRef.instance.comment=comment;
-      ComponentRef.instance.postRequestOptions=this.postRequestOptions;
+      ComponentRef.instance.userCardInfo=comment.userInfo;
     }
   }
 

@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ApplicationRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PostCard,PostInfo } from "../interface/Post"
 import { PostCardService } from 'src/app/services/PostCard.service';
@@ -10,11 +10,11 @@ import { PostCardComponent } from '../common-component/post-card/post-card.compo
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements AfterViewInit,OnInit {
   @ViewChild('postCardContainer',{read: ViewContainerRef }) postCardContainerViewContainerRef:ViewContainerRef;
   // @ViewChild('ion-content',{read: ElementRef}) ionContentRef:ElementRef;
   postCards?: PostCard[];
-  private postCardCompts:any[];
+  // private postCardCompts:any[];
 
 
   constructor(
@@ -28,13 +28,18 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.postCards=this.updatePostCard();
 
   }
+  ngAfterViewInit(){
+    this.lazyLoadPostCard(this.updatePostCard());
+  }
 
-
-  updatePostCard():PostCard[]{
-    return this.postCardService.getPostCard();
+  updatePostCard(){
+    this.postCardService.requestPostCard({uid: 0,type: 'PostCardList'})
+      .subscribe(postCards=>{
+        this.postCards=postCards;
+      });
+      return this.postCards;
   }
 
   lazyLoadPostCard(postCards:PostCard[]){
@@ -42,20 +47,16 @@ export class HomeComponent implements OnInit {
     {
       const postCardComponentFactory=this.componentFactoryResolver
         .resolveComponentFactory(PostCardComponent);
-      //   .create(this.injector);
-      // this.appRef.attachView(postCardComponentFactory.hostView);
       const postCardComponentRef=this.postCardContainerViewContainerRef.createComponent(postCardComponentFactory);
       postCardComponentRef.instance.postCard=postCard;
-      // this.postCardCompts.push(postCardComponentRef);
   
     }
   }
   doRefresh(event) {
     // console.log('Begin async operation');
       console.log('Async operation has ended');
-      this.updatePostCard();
       this.postCardContainerViewContainerRef.clear();
-      this.lazyLoadPostCard(this.postCards);
+      this.lazyLoadPostCard(this.updatePostCard());
       event.target.complete();
     }
     onScroll(event){
@@ -63,6 +64,4 @@ export class HomeComponent implements OnInit {
       console.log(event.scrollTop);
       
     }
-
-
 }

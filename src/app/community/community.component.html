@@ -1,3 +1,24 @@
-<p>
-  community works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Community</ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true"  >
+  <swiper scrollbar="true">
+    <ng-template swiperSlide>
+        <app-post-card-detail-area></app-post-card-detail-area>
+    </ng-template>
+    <ng-template swiperSlide>Slide 31230948</ng-template>
+    <!-- <ng-template swiperSlide>Slide 3</ng-template> -->
+  </swiper>
+
+
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list #postCardContainer></ion-list> -->
+</ion-content>
+
+
+

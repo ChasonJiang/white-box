@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostCardDetailComponent } from './post-card-detail.component';
+import { UserCardModule } from '../user-card/user-card.module';
 
 
 @NgModule({
@@ -8,7 +9,8 @@ import { PostCardDetailComponent } from './post-card-detail.component';
     PostCardDetailComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    UserCardModule
   ],
   exports: [
     PostCardDetailComponent

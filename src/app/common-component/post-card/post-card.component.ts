@@ -19,13 +19,13 @@ export class PostCardComponent implements OnInit {
 
   }
 
-  async createModal(postInfo:PostInfo){
+  async createModal(pid:number){
         
     const modal = await this.modalController.create({
       component:PostComponent,
       cssClass:"fullscreen-class",
       componentProps:{
-        'postInfo': postInfo,
+        'pid': pid,
       },
     });
     return await modal.present();

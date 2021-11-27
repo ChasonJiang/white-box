@@ -8,20 +8,20 @@ import { UserCardInfo } from 'src/app/interface/User';
   styleUrls: ['./user-card.component.scss'],
 })
 export class UserCardComponent implements OnInit {
-  @Input() uid?:number;
-  userCardInfo?: UserCardInfo;
+  // @Input() uid?:number;
+  @Input() userCardInfo?: UserCardInfo;
   constructor(
     private userService:UserService,
   ) { }
 
   ngOnInit() {
-    this.getUserCardInfo();
+    // this.getUserCardInfo();
   }
 
-  getUserCardInfo(){
-    console.log("uid:"+this.uid);
-    this.userCardInfo=this.userService.requestUserCardInfo(this.uid);
-    console.log(this.userCardInfo.avatarUrl)
-  }
+  // getUserCardInfo(){
+  //   console.log("uid:"+this.uid);
+  //   this.userCardInfo=this.userService.requestUserCardInfo(this.uid);
+  //   console.log(this.userCardInfo.avatarUrl)
+  // }
 
 }

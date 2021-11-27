@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PostCardDetail } from 'src/app/interface/Post';
+import { UserCardInfo } from 'src/app/interface/User';
 
 @Component({
   selector: 'app-post-card-detail',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostCardDetailComponent implements OnInit {
 
+  @Input() postCardDetail?:PostCardDetail
   constructor() { }
 
   ngOnInit() {}

@@ -5,11 +5,11 @@
         <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title >{{postInfo.title}}</ion-title>
+    <ion-title *ngIf="post">{{post.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true" (ionScrollEnd)="lazyLoadPostCard(postCards);">
+<ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true" >
   <div class="post" *ngIf="post">
 
     <div class="post-cover">
@@ -21,16 +21,16 @@
     </div>
 
     <div class="author-bar">
-      <app-user-card [uid]="postInfo.uid"></app-user-card>
+      <app-user-card [userCardInfo]="post.userCardInfo"></app-user-card>
     </div>
 
     <div class="post-content">
       <div #postContainer></div>
     </div>
     <!-- <app-comment-card></app-comment-card> -->
-    <app-comment-area [postRequestOptions]="postInfo"></app-comment-area>
+    <app-comment-area [pid]="post.pid"></app-comment-area>
 
   </div>
 </ion-content>
 
-<app-comment-footer [numberOfComments]="postInfo.numberOfComments"></app-comment-footer>
+<app-comment-footer [numberOfComments]="post.numberOfComments"></app-comment-footer>s

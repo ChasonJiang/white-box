@@ -1,20 +1,15 @@
-<ion-item button="true" (click)="createModal(postCard);">
-  <div class="item-grid-class">
-    <div>
-      <ion-label>{{ postCard.title }}</ion-label>
-    </div>
-    <div class="item-time-p-class">
-      <div class="item-time-class">
-        <ion-note >{{ postCard.releaseTime }} · {{ postCard.topic }}</ion-note>
-        <div class="item-comment-class">
-
-          <ion-icon name="chatbox-outline" ></ion-icon>
-          <ion-note >&nbsp;{{postCard.numberOfComments}}</ion-note>
-        </div>
-      </div>
-    </div>
-    <div class="item-img-class">
-        <ion-img [src]="postCard.coverUrl" id="item-img-class"></ion-img>
-    </div>
+<div class="post-card-detail">
+  <div class="user-card">
+    <app-user-card [userCardInfo]="postCardDetail.userCardInfo"></app-user-card>
   </div>
-</ion-item>
+  <div class="post-card-detail-content">
+    <ion-title *ngIf="true">Post title</ion-title>
+    <ion-text>The refresher provides pull-to-refresh functionality on a content component. The pull-to-refresh pattern lets a user pull down on a list of data using touch in order to retrieve more data.</ion-text>
+  </div>
+  <div class="post-card-detail-img">
+    <img class="post-card-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU">
+    <img class="post-card-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU">
+    <img class="post-card-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU">
+
+  </div>
+</div> 
