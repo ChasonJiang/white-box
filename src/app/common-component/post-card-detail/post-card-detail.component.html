@@ -1,15 +1,20 @@
-<div class="post-card-detail">
+<div class="post-card-detail" >
   <div class="user-card">
     <app-user-card [userCardInfo]="postCardDetail.userCardInfo"></app-user-card>
   </div>
-  <div class="post-card-detail-content">
+  <div class="post-card-detail-content" (click)="createModal(postCardDetail.pid);">
     <ion-title *ngIf="true">Post title</ion-title>
     <ion-text>The refresher provides pull-to-refresh functionality on a content component. The pull-to-refresh pattern lets a user pull down on a list of data using touch in order to retrieve more data.</ion-text>
   </div>
-  <div class="post-card-detail-img">
-    <img class="post-card-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU">
-    <img class="post-card-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU">
-    <img class="post-card-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQHlJW3iX0eSx0YEsPnrToEC7iKW4m3TEgiQ&usqp=CAU">
-
+  <div class="post-card-detail-img"  *ngIf="postCardDetail.postContent.imgUrl!=[]">
+    <img class="post-card-img" *ngIf="postCardDetail.postContent.imgUrl.length>=1" [src]="postCardDetail.postContent.imgUrl[0]">
+    <img class="post-card-img" *ngIf="postCardDetail.postContent.imgUrl.length>=2" [src]="postCardDetail.postContent.imgUrl[1]">
+    <div style="width: 100%; height: 100%; " >
+      <div class="numOfImg" *ngIf="postCardDetail.postContent.imgUrl.length>3">
+        共{{postCardDetail.postContent.imgUrl.length}}张
+      </div>
+      <img class="post-card-img" *ngIf="postCardDetail.postContent.imgUrl.length>=3" [src]="postCardDetail.postContent.imgUrl[2]">
+    </div>
   </div>
+
 </div> 

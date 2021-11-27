@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { PostCardDetail } from 'src/app/interface/Post';
 import { UserCardInfo } from 'src/app/interface/User';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-post-card-detail',
@@ -10,8 +12,23 @@ import { UserCardInfo } from 'src/app/interface/User';
 export class PostCardDetailComponent implements OnInit {
 
   @Input() postCardDetail?:PostCardDetail
-  constructor() { }
+  constructor(
+    public modalController:ModalController,
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log(this.postCardDetail.postContent)
+  }
 
+  async createModal(pid:number){
+        
+    const modal = await this.modalController.create({
+      component:PostComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'pid': pid,
+      },
+    });
+    return await modal.present();
+  }
 }
