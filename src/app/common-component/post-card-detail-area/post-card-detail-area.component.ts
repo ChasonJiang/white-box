@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { PostCardDetail } from 'src/app/interface/Post';
 import { PostCardDetailComponent } from '../post-card-detail/post-card-detail.component';
 import { PostCardDetailService } from '../../services/post-card-detail.service';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-card-detail-area',
@@ -11,19 +12,22 @@ import { PostCardDetailService } from '../../services/post-card-detail.service';
 export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
   @ViewChild("Container",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
   postCardsDetail:PostCardDetail[];
   
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private PostCardDetailService: PostCardDetailService
   ) { }
-  ngAfterViewInit(){
-    this.lazyLoad(this.postCardsDetail);
-  }
 
   ngOnInit() {
     this.getpostCardDetail();
 
+  }
+  
+  ngAfterViewInit(){
+    this.lazyLoad(this.postCardsDetail);
   }
 
   getpostCardDetail(){
@@ -50,4 +54,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
     event.target.complete();
   }
 
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
 }

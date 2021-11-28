@@ -4,9 +4,12 @@
   </ion-toolbar>
 </ion-header> 
 
-<ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true"  >
-  <swiper scrollbar="true">
-    <ng-template swiperSlide>
+<ion-content [fullscreen]="true">
+  <ion-button (click)="toggleInfiniteScroll()" expand="block">
+    Toggle Infinite Scroll
+  </ion-button>
+  <swiper #swiperRef (slideChange)="onSlideChange($event)" >
+    <ng-template swiperSlide >
         <app-post-card-detail-area></app-post-card-detail-area>
     </ng-template>
     <ng-template swiperSlide>Slide 31230948</ng-template>
