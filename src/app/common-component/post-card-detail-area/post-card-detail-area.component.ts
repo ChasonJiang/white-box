@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, 
 import { PostCardDetail } from 'src/app/interface/Post';
 import { PostCardDetailComponent } from '../post-card-detail/post-card-detail.component';
 import { PostCardDetailService } from '../../services/post-card-detail.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-post-card-detail-area',
@@ -34,6 +33,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
         type: 'PostCardDetailList',
         requestOptions:{pid:0}}).subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
         });
+        return this.postCardsDetail;
   }
 
   lazyLoad(postCardsDetail:PostCardDetail[]){
@@ -43,6 +43,11 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
       const ComponentRef=this.viewContainerRef.createComponent(ComponentFactory);
       ComponentRef.instance.postCardDetail=postCardDetail;
     }
+  }
+
+  loadData(event) {
+    this.lazyLoad(this.getpostCardDetail());
+    event.target.complete();
   }
 
 }

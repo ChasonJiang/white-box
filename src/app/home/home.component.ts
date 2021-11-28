@@ -4,6 +4,7 @@ import { PostCard,PostInfo } from "../interface/Post"
 import { PostCardService } from 'src/app/services/PostCard.service';
 import { PostComponent } from '../common-component/post/post.component';
 import { PostCardComponent } from '../common-component/post-card/post-card.component';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -59,9 +60,22 @@ export class HomeComponent implements AfterViewInit,OnInit {
       this.lazyLoadPostCard(this.updatePostCard());
       event.target.complete();
     }
-    onScroll(event){
-      
-      console.log(event.scrollTop);
-      
+
+    loadData(event) {
+      this.lazyLoadPostCard(this.updatePostCard());
+      event.target.complete();
+                // event.target.disabled = true;
+      // setTimeout(() => {
+      //   console.log('Done');
+      //   event.target.complete();
+  
+      //   // App logic to determine if all data is loaded
+      //   // and disable the infinite scroll
+      //   if (data.length == 1000) {
+      //     event.target.disabled = true;
+      //   }
+      // }, 500);
     }
+
+
 }
