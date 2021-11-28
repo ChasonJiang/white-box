@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar >
+
+    <ion-buttons>
+      <ion-button (click)="modalDismiss();">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+        <!-- <ion-label>返回</ion-label> -->
+      </ion-button>
+      <ion-title style="text-align:center;">{{currentEditerType}}</ion-title>
+      <ion-button slot="end">
+        <ion-icon name="file-tray-full-outline"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" (click)="sendPost();">
+        <ion-icon name="paper-plane-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="contianer" #Container>
+    <div class="cover">
+      <label class="cover-note">+添加封面</label>
+    </div>
+    <div class="title">
+      <div class="title-textarea" role="textbox" contenteditable >
+        <!-- <label>标题</label> -->
+      </div>
+    </div>
+    <div class="main-body">
+      <div class="main-textarea"  role="textbox" contenteditable >
+        <!-- <label>正文</label> -->
+      </div> 
+      <!-- <textarea rows="10" ons="this.style.posHeight=this.scrollHeight"></textarea> -->
+    </div>
+  </div>
+
+</ion-content>
+
+<div class="edit-toolbar">
+  <div class="toolbar-tool" (click)="insertImg();">
+    <ion-icon name="image" style="font-size: 25px;"></ion-icon>
+  </div>
+  <div class="toolbar-tool" >
+    <ion-icon name="at" style="font-size: 25px;"></ion-icon>
+  </div>
+  <div class="toolbar-tool">
+    <ion-icon name="chatbox-ellipses" style="font-size: 25px;"></ion-icon>
+  </div>
+  <div class="toolbar-tool">
+    <ion-icon name="caret-up" style="font-size: 25px;" ></ion-icon>
+    <ion-icon name="caret-down" style="font-size: 25px;"></ion-icon>
+  </div>
+
+  <!-- <ion-icon name="link"></ion-icon> -->
+</div>
