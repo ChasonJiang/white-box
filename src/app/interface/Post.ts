@@ -1,7 +1,9 @@
 import { UserCardInfo } from './User'
 
 export interface PostInfo{
+    // user id
     uid:number;
+    // post id
     pid:number;
     releaseTime:string;
     topic:string;
@@ -12,7 +14,6 @@ export interface PostCard extends PostInfo{
     coverUrl:string;
     numberOfComments:number;
 }
-
 
 export interface PostContent{
     // content is a template of the post,and it included text and image
@@ -30,4 +31,5 @@ export interface Post extends PostInfo{
 }
 
 export interface PostCardDetail extends Post{
+    
 }

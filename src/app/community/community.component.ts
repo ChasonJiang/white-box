@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation} from 'swiper';
@@ -14,16 +14,20 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
   styleUrls: ['./community.component.scss'],
   // encapsulation: ViewEncapsulation.None
 })
-export class CommunityComponent implements OnInit {
+export class CommunityComponent implements OnInit, AfterViewInit {
   @ViewChild("swiperRef", { static: false }) swiperRef?: SwiperComponent;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @Input() index:number=0;
-
+  // isShow:boolean=false;
   constructor(
     private modalController: ModalController,
   ) { }
 
   ngOnInit() {}
+
+  ngAfterViewInit(){
+    // this.isShow=true;
+  }
 
   onSlideChange(event){
     if(this.swiperRef.swiperRef.activeIndex!=0){

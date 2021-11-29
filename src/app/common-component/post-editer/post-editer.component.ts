@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-
+import { from } from 'rxjs';
+import { Post } from 'src/app/interface/Post';
+import { PhotoService } from 'src/app/services/photo.service';
+import { USER_CARD_INFO } from 'src/app/user';
 @Component({
   selector: 'app-post-editer',
   templateUrl: './post-editer.component.html',
@@ -9,8 +12,9 @@ import { ModalController } from '@ionic/angular';
 export class PostEditerComponent implements OnInit {
   @Input() editerType: string;
   @ViewChild('Container',{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
-  
-
+  private imgUrl:string[];
+  private isShowCover:boolean = false;
+  private coverUrl:string;
   private currentEditerType: string;
   private TypeDict={
     'post':"帖子/动态",
@@ -18,6 +22,7 @@ export class PostEditerComponent implements OnInit {
   }
   constructor(
     private modalController: ModalController,
+    private photoService:PhotoService
   ) { }
 
   ngOnInit() {
@@ -39,18 +44,54 @@ export class PostEditerComponent implements OnInit {
   }
 
   sendPost(){
-    let cover
-    let title = this.viewContainerRef.element.nativeElement.querySelector('title');
+    let cover = this.viewContainerRef.element.nativeElement.querySelector('#cover');
+    let title = this.viewContainerRef.element.nativeElement.querySelector('.title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
     
-    console.log(main_textarea.innerText);
+    let post:Post={
+      uid:0, // fake uid
+      pid:0, // fake pid
+      title: title.innerText,
+      coverUrl:cover.src,
+      userCardInfo:USER_CARD_INFO, // fake user card info
+      postContent:{
+        content:main_textarea.innerHTML
+      },
+      numberOfComments:0,
+      numberOfApproval:0,
+      releaseTime:"2021-11-29", // fake releaseTime
+      topic:"原神" // fake topic
+    }
+    console.log(post);
+  }
+
+  deleteImg(url:string){
+    this.imgUrl.slice(this.imgUrl.indexOf(url),1);
   }
 
   insertImg(){
-    // let title = this.viewContainerRef.element.nativeElement.querySelector('title');
+    
+    // let title = this.viewContainerRef.ele ment.nativeElement.querySelector('title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
-    main_textarea.innerText+="[*@IMAGE@*]";
+    console.log(main_textarea.innerText);
+    from(this.photoService.takePicture()).subscribe(
+      url=>{
+        main_textarea.innerHTML+="<img src=" + url +" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>";
+      });
+
+    // console.log(main_textarea.innerText);
 
   }
+  appendCover(){
 
+    from(this.photoService.takePicture()).subscribe(
+      url=>{
+        this.coverUrl=url;
+        if(this.coverUrl!=null){
+          this.isShowCover=true;
+        }
+      }
+      );
+  }
+  
 }
