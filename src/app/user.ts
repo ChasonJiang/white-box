@@ -1,6 +1,6 @@
-import{ UserCardInfo } from "./interface/User"
+import{ UserCard } from "./interface/User"
 
-export const USER_CARD_INFO:UserCardInfo=
+export const USER_CARD_INFO:UserCard=
     {
         uid:88888888,
         userName:"UserName",

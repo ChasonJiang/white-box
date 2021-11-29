@@ -3,11 +3,11 @@ import { ModalController } from '@ionic/angular';
 import { PostService } from '../../services/post.service';
 import { PostInfo,Post } from '../../interface/Post';
 import { UserService } from '../../services/user.service';
-import { UserCardInfo } from 'src/app/interface/User';
+import { UserCard } from 'src/app/interface/User';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from "../../interface/Comment";
 import { DynamicTemplateRendererService } from"../../services/dynamic-template-renderer.service";
-import { PostRequestOptions } from 'src/app/interface/Requeste';
+
 
 @Component({
   selector: 'app-post',
@@ -17,9 +17,10 @@ import { PostRequestOptions } from 'src/app/interface/Requeste';
 export class PostComponent implements OnInit,AfterViewInit {
   @ViewChild("postContainer", {read: ViewContainerRef}) postContainer: ViewContainerRef;
   @Input() pid?: number;
+  @Input() previewMode: boolean= false;
   private componentRef: ComponentRef<{}>;
-  post?: Post;
-  userCardInfo?: UserCardInfo;
+  @Input() post?: Post;
+  userCard?: UserCard;
 
   constructor(
     public modalController:ModalController,
@@ -29,7 +30,10 @@ export class PostComponent implements OnInit,AfterViewInit {
 
    ngOnInit() {
     // this.getPost();
-    this.getPost();
+    if(!this.previewMode){
+      this.getPost();
+    }
+
 
     // console.log("ok")
 
@@ -40,7 +44,7 @@ export class PostComponent implements OnInit,AfterViewInit {
   }
 
   async getPost(){
-    await this.postService.requestPost({ uid:0 ,type:"Post",requestOptions:{pid:0}})
+    await this.postService.requestPost({header:{uid:JSON.parse(localStorage.getItem('userDetails')).uid,type:''}})
       .subscribe(post => {
         this.post=post;
       });

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostRequestOptions } from 'src/app/interface/Requeste';
 
 @Component({
   selector: 'app-comment-footer',
@@ -9,7 +8,7 @@ import { PostRequestOptions } from 'src/app/interface/Requeste';
 export class CommentFooterComponent implements OnInit {
 
   @Input() numberOfComments?: number;
-  @Input() commentPRO?:PostRequestOptions;
+
   enableBackdropDismiss = false;
   showBackdrop = false;
   shouldPropagate = false;

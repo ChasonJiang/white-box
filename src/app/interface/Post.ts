@@ -1,4 +1,4 @@
-import { UserCardInfo } from './User'
+import { UserCard } from './User'
 
 export interface PostInfo{
     // user id
@@ -23,7 +23,7 @@ export interface PostContent{
 
 export interface Post extends PostInfo{
     coverUrl?:string;
-    userCardInfo:UserCardInfo;
+    userCard:UserCard;
     title?:string;
     postContent:PostContent;
     numberOfComments:number;

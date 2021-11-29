@@ -10,25 +10,43 @@ const BASE_COMMENT: BaseComment ={
 
 export const COMMENT:Comment[]=[
     {
-        userInfo:USER_CARD_INFO,
+        userCard:USER_CARD_INFO,
+        cid:4,
         commentContent:"comment content",
         reply:[BASE_COMMENT,BASE_COMMENT,BASE_COMMENT,BASE_COMMENT],
         commentTime:"2021-11-18",
     },
     {
-        userInfo:USER_CARD_INFO,
+        userCard:USER_CARD_INFO,
+        cid:4,
         commentContent:"comment content",
         reply:[BASE_COMMENT,BASE_COMMENT,BASE_COMMENT,BASE_COMMENT],
         commentTime:"2021-11-18",
     },
     {
-        userInfo:USER_CARD_INFO,
+        userCard:USER_CARD_INFO,
+        cid:4,
         commentContent:"comment content",
         reply:[BASE_COMMENT,BASE_COMMENT,BASE_COMMENT,BASE_COMMENT],
         commentTime:"2021-11-18",
     },
     {
-        userInfo:USER_CARD_INFO,
+        userCard:USER_CARD_INFO,
+        cid:4,
+        commentContent:"comment content",
+        reply:[BASE_COMMENT,BASE_COMMENT,BASE_COMMENT,BASE_COMMENT],
+        commentTime:"2021-11-18",
+    },
+    {
+        userCard:USER_CARD_INFO,
+        cid:4,
+        commentContent:"comment content",
+        reply:[BASE_COMMENT,BASE_COMMENT,BASE_COMMENT,BASE_COMMENT],
+        commentTime:"2021-11-18",
+    },
+    {
+        userCard:USER_CARD_INFO,
+        cid:4,
         commentContent:"comment content",
         reply:[BASE_COMMENT,BASE_COMMENT,BASE_COMMENT,BASE_COMMENT],
         commentTime:"2021-11-18",

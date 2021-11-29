@@ -1,15 +1,15 @@
 <div class="user-card">
   <div class="user-avatar">
     <ion-avatar>
-      <ion-img [src]="userCardInfo.avatarUrl"></ion-img>
+      <ion-img [src]="userCard.avatarUrl"></ion-img>
     </ion-avatar>
 
   </div>
   <div class="user-name">
-    <ion-label>{{userCardInfo.userName}}</ion-label>
+    <ion-label>{{userCard.userName}}</ion-label>
   </div>
-  <div class="user-releaseTime" *ngIf="userCardInfo.releaseTime">
-    <ion-note>{{userCardInfo.releaseTime}}</ion-note>
+  <div class="user-releaseTime" *ngIf="userCard.releaseTime">
+    <ion-note>{{userCard.releaseTime}}</ion-note>
   </div>
   <div class="user-other">
     <p>other</p> 

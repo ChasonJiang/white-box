@@ -4,6 +4,8 @@ import { from } from 'rxjs';
 import { Post } from 'src/app/interface/Post';
 import { PhotoService } from 'src/app/services/photo.service';
 import { USER_CARD_INFO } from 'src/app/user';
+import { PostComponent } from '../post/post.component';
+
 @Component({
   selector: 'app-post-editer',
   templateUrl: './post-editer.component.html',
@@ -29,11 +31,37 @@ export class PostEditerComponent implements OnInit {
     this.currentEditerType=this.TypeDict[this.editerType];
   }
 
-  // async createModal(){
-  //   // const modal = await this.modalController.create({
+  async createPreviewModal(pid:number){
 
-  //   // });
-  // }
+    let cover = this.viewContainerRef.element.nativeElement.querySelector('#cover');
+    let title = this.viewContainerRef.element.nativeElement.querySelector('.title');
+    let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
+    
+    let post:Post={
+      uid:0, // fake uid
+      pid:0, // fake pid
+      userCard:USER_CARD_INFO,
+      title: title.innerText,
+      coverUrl:cover.src,
+      postContent:{
+        content:main_textarea.innerHTML
+      },
+      numberOfComments:0,
+      numberOfApproval:0,
+      releaseTime:"2021-11-29", // fake releaseTime
+      topic:"原神" // fake topic
+    }
+        
+    const modal = await this.modalController.create({
+      component:PostComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'post': post,
+        'previewMode':true,
+      },
+    });
+    return await modal.present();
+  }
 
   modalDismiss() {
     // using the injected ModalController this page
@@ -51,9 +79,9 @@ export class PostEditerComponent implements OnInit {
     let post:Post={
       uid:0, // fake uid
       pid:0, // fake pid
+      userCard:USER_CARD_INFO,
       title: title.innerText,
       coverUrl:cover.src,
-      userCardInfo:USER_CARD_INFO, // fake user card info
       postContent:{
         content:main_textarea.innerHTML
       },

@@ -5,6 +5,8 @@ import { CommunityComponent } from './community.component';
 import { SwiperModule } from 'swiper/angular';
 import { PostCardDetailAreaModule } from '../common-component/post-card-detail-area/post-card-detail-area.module';
 import { PostEditerModule } from '../common-component/post-editer/post-editer.module';
+import { PostModule } from '../common-component/post/post.module';
+
 @NgModule({
   declarations: [CommunityComponent],
   imports: [
@@ -12,7 +14,8 @@ import { PostEditerModule } from '../common-component/post-editer/post-editer.mo
     CommunityRoutingModule,
     SwiperModule,
     PostCardDetailAreaModule,
-    PostEditerModule
+    PostEditerModule,
+    PostModule
   ]
 })
 export class CommunityModule { }

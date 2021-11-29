@@ -1,4 +1,4 @@
-import { UserBaseInfo,UserCardInfo } from './User'
+import { UserBaseInfo,UserCard } from './User'
 
 export interface BaseComment{
     userInfo:UserBaseInfo,
@@ -6,7 +6,12 @@ export interface BaseComment{
     commentContent:string,
     commentTime:string,
 }
-export interface Comment extends BaseComment{
-    userInfo:UserCardInfo,
+
+export interface Comment{
+    cid:number,
+    userCard:UserCard,
     reply:BaseComment[];
+    replyTo?:UserBaseInfo,
+    commentContent:string,
+    commentTime:string,
 }

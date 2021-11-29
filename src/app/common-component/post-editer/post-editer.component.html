@@ -6,8 +6,12 @@
         <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
         <!-- <ion-label>返回</ion-label> -->
       </ion-button>
+      <ion-button slot="end" (click)="createPreviewModal();">
+        <ion-icon name="eye-outline"></ion-icon>
+      </ion-button>
+
       <ion-title style="text-align:center;">{{currentEditerType}}</ion-title>
-      <ion-button slot="end">
+      <ion-button slot="end" >
         <ion-icon name="file-tray-full-outline"></ion-icon>
       </ion-button>
       <ion-button slot="end" (click)="sendPost();">
@@ -41,17 +45,17 @@
 
 <div class="edit-toolbar">
   <div class="toolbar-tool" (click)="insertImg();">
-    <ion-icon name="image" style="font-size: 25px;"></ion-icon>
+    <ion-icon name="image-outline" style="font-size: 25px;"></ion-icon>
   </div>
   <div class="toolbar-tool" >
     <ion-icon name="at" style="font-size: 25px;"></ion-icon>
   </div>
   <div class="toolbar-tool">
-    <ion-icon name="chatbox-ellipses" style="font-size: 25px;"></ion-icon>
+    <ion-icon name="chatbox-ellipses-outline" style="font-size: 25px;"></ion-icon>
   </div>
   <div class="toolbar-tool">
-    <ion-icon name="caret-up" style="font-size: 25px;" ></ion-icon>
-    <ion-icon name="caret-down" style="font-size: 25px;"></ion-icon>
+    <ion-icon name="caret-up-outline" style="font-size: 25px;" ></ion-icon>
+    <ion-icon name="caret-down-outline" style="font-size: 25px;"></ion-icon>
   </div>
 
   <!-- <ion-icon name="link"></ion-icon> -->

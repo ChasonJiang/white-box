@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Post } from '../interface/Post';
-import { PostRequestOptions, RequestHeader } from '../interface/Requeste';
+import { PostRequestParams, Requester } from '../interface/Request';
 import { POST } from '../post'
 
 @Injectable({
@@ -11,7 +11,7 @@ export class PostService {
   
   constructor() { }
 
-  requestPost(RH:RequestHeader<PostRequestOptions>):Observable<Post>{
+  requestPost(req:Requester<PostRequestParams>):Observable<Post>{
     console.log("request post...");
     const post=of(POST);
     return post;

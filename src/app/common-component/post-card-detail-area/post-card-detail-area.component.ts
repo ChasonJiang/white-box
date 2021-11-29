@@ -31,11 +31,11 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   }
 
   getpostCardDetail(){
-    this.PostCardDetailService.requestPostCardDetail(
-      {
-        uid:0,
-        type: 'PostCardDetailList',
-        requestOptions:{pid:0}}).subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
+    this.PostCardDetailService.requestPostCardDetail({
+      header:{
+        uid:JSON.parse(localStorage.getItem('userDetails')).uid,type:''
+      },
+    }).subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
         });
         return this.postCardsDetail;
   }

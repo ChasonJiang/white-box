@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { UserCardInfo } from 'src/app/interface/User';
+import { UserCard } from 'src/app/interface/User';
 
 @Component({
   selector: 'app-user-card',
@@ -9,7 +9,7 @@ import { UserCardInfo } from 'src/app/interface/User';
 })
 export class UserCardComponent implements OnInit {
   // @Input() uid?:number;
-  @Input() userCardInfo?: UserCardInfo;
+  @Input() userCard?: UserCard;
   constructor(
     private userService:UserService,
   ) { }
@@ -18,10 +18,10 @@ export class UserCardComponent implements OnInit {
     // this.getUserCardInfo();
   }
 
-  // getUserCardInfo(){
+  // getUserCard(){
   //   console.log("uid:"+this.uid);
-  //   this.userCardInfo=this.userService.requestUserCardInfo(this.uid);
-  //   console.log(this.userCardInfo.avatarUrl)
+  //   this.userCard=this.userService.requestUserCardInfo(this.uid);
+  //   console.log(this.userCard.avatarUrl)
   // }
 
 }
