@@ -5,11 +5,10 @@ export interface UserBaseInfo{
 export interface UserCard extends UserBaseInfo{
     userLevel: number;
     avatarUrl: string;
-    releaseTime?:string;
-    numberOfStars?:number;
+    // releaseTime?:string;
+    // numberOfStars?:number;
 }
 
-export interface UserDetails extends UserBaseInfo{
-    userLevel: number;
-    avatarUrl: string;
+export interface UserInfo extends UserCard{
+    
 }

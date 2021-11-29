@@ -42,12 +42,12 @@ export class CommunityComponent implements OnInit, AfterViewInit {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
 
-  async createPostEditerModal(editerType){
+  async createPostEditerModal(paperMode){
     const modal = await this.modalController.create({
       component:PostEditerComponent,
       cssClass: 'fullscreen-class',
       componentProps:{
-        'editerType' : editerType
+        'paperMode' : paperMode
       }
     });
 

@@ -18,6 +18,7 @@ export const POST:Post={
     },
     numberOfComments:5,
     numberOfApproval:99,
+    isPaper:true,
     postContent:{
         content:CONTENT,
         imgUrl:[

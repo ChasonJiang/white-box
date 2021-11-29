@@ -1,6 +1,6 @@
 <div class="comment-area" >
   <div class="comment-area-user-card">
-      <app-user-card [userCard]="comment.userCard" ></app-user-card>
+      <app-user-card [userCard]="comment.userCard" [releaseTime]="comment.commentTime"></app-user-card>
   </div>
   <div class="comment-content">
     <ion-label>{{comment.commentContent}}</ion-label>

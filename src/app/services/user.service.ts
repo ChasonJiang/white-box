@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { UserDetailsResponse } from '../interface/Response';
-import { UserCard, UserDetails }from"../interface/User";
+import { UserCard, UserInfo }from"../interface/User";
 import { USER_CARD_INFO } from '../user';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class UserService {
   constructor() { }
 
    requestLoginValidation():Observable<UserDetailsResponse> {
-     const userDetails: UserDetails = {
+     const userInfo: UserInfo = {
        uid:0,
        userName:'test',
        userLevel:10,
@@ -21,7 +21,7 @@ export class UserService {
      }
      const userDetailsResponse:UserDetailsResponse={
       success:true,
-      userDetails:userDetails
+      userInfo:userInfo
      }
     return of(userDetailsResponse);
   }
@@ -30,7 +30,7 @@ export class UserService {
   login(){
     this.requestLoginValidation().subscribe(userDetailsResponse=>{
       if(userDetailsResponse.success){
-        localStorage.setItem('userDetails', JSON.stringify(userDetailsResponse.userDetails));
+        localStorage.setItem('userInfo', JSON.stringify(userDetailsResponse.userInfo));
       }else{
         console.log(userDetailsResponse.message);
       }
@@ -38,7 +38,7 @@ export class UserService {
   }
 
   loginStatusCheck(){
-    if(localStorage.getItem('userDetails')!=null){
+    if(localStorage.getItem('userInfo')!=null){
       return true;
     }
     return false;

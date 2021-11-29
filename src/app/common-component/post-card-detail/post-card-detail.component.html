@@ -1,6 +1,6 @@
 <div class="post-card-detail" >
   <div class="user-card">
-    <app-user-card [userCard]="postCardDetail.userCard"></app-user-card>
+    <app-user-card [userCard]="postCardDetail.userCard" [releaseTime]="postCardDetail.releaseTime"></app-user-card>
   </div>
   <div class="post-card-detail-content" (click)="createModal(postCardDetail.pid);">
     <ion-title *ngIf="true">Post title</ion-title>

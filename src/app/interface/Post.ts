@@ -29,6 +29,7 @@ export interface Post extends PostInfo{
     postContent:PostContent;
     numberOfComments:number;
     numberOfApproval:number;
+    isPaper:boolean;
 }
 
 export interface PostCardDetail extends Post{

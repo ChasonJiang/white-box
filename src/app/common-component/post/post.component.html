@@ -1,36 +1,36 @@
-<ion-header >
-  <ion-toolbar>
+<ion-header class="ion-no-border" style="border-bottom:1px solid rgba(65, 65, 65, 0.13);">
+  <ion-toolbar >
     <ion-buttons slot="start">
       <ion-button (click)="modalDismiss();">
         <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title *ngIf="post">{{post.title}}</ion-title>
+    <ion-title *ngIf="post" >{{post.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" [forceOverscroll]="false" [scrollEvents]="true" >
   <div class="post" *ngIf="post">
 
-    <div class="post-cover">
+    <div class="post-cover" *ngIf="post.isPaper">
       <ion-img [src]="post.coverUrl" id="cover"></ion-img>
     </div>
 
-    <div class="post-title">
-      <ion-title style="padding: 0;">{{post.title}}</ion-title>
+    <div class="post-title" *ngIf="post.title">
+      <ion-title style="padding: 0;" >{{post.title}}</ion-title>
     </div>
 
     <div class="author-bar">
-      <app-user-card [userCard]="post.userCard"></app-user-card>
+      <app-user-card [userCard]="post.userCard" [releaseTime]="post.releaseTime"></app-user-card>
     </div>
 
     <div class="post-content">
       <div #postContainer></div>
     </div>
     <!-- <app-comment-card></app-comment-card> -->
-    <app-comment-area [pid]="post.pid"></app-comment-area>
+    <app-comment-area [pid]="post.pid" *ngIf="!previewMode"></app-comment-area>
 
   </div>
 </ion-content>
 
-<app-comment-footer [numberOfComments]="post.numberOfComments"></app-comment-footer>
+<app-comment-footer [numberOfComments]="post.numberOfComments" *ngIf="!previewMode"></app-comment-footer>

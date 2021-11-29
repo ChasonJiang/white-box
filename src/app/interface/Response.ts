@@ -1,7 +1,7 @@
-import { UserDetails } from "./User";
+import { UserInfo } from "./User";
 
 export interface UserDetailsResponse{
     success: boolean;
     message?: string;
-    userDetails?: UserDetails;
+    userInfo?: UserInfo;
 }

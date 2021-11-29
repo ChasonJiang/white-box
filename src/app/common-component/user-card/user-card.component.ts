@@ -9,6 +9,7 @@ import { UserCard } from 'src/app/interface/User';
 })
 export class UserCardComponent implements OnInit {
   // @Input() uid?:number;
+  @Input() releaseTime:string;
   @Input() userCard?: UserCard;
   constructor(
     private userService:UserService,

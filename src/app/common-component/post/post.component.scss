@@ -16,7 +16,7 @@
 }
 .post-title{
     padding: 12px;
-    
+
 }
 .post-cover ion-img{
     width:100%;
@@ -27,5 +27,10 @@
     padding: 8px;
 }
 .author-bar{
-    padding: 12px;
+    position:sticky;
+    top: -1.5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    z-index: 10;
+    background-color:white;
 }

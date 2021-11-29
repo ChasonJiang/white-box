@@ -17,7 +17,6 @@ export class PhotoService {
       }
     }
     const image = await Camera.getPhoto(imageOptions);
-    console.log(image.dataUrl);
     return  image.dataUrl;
   };
 }

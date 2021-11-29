@@ -8,8 +8,8 @@
   <div class="user-name">
     <ion-label>{{userCard.userName}}</ion-label>
   </div>
-  <div class="user-releaseTime" *ngIf="userCard.releaseTime">
-    <ion-note>{{userCard.releaseTime}}</ion-note>
+  <div class="user-releaseTime" *ngIf="true">
+    <ion-note>{{releaseTime| date:"yyyy-MM-dd HH:mm"}}</ion-note>
   </div>
   <div class="user-other">
     <p>other</p> 

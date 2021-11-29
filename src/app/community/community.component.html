@@ -1,8 +1,9 @@
-<ion-header>
+<ion-header class="ion-no-border" style="border-bottom:1px solid rgba(65, 65, 65, 0.13);">
   <ion-toolbar>
     <ion-title>Community</ion-title>
   </ion-toolbar>
 </ion-header> 
+
 
 <ion-content [fullscreen]="true">
   <swiper #swiperRef (slideChange)="onSlideChange($event)" style="width: 100%; height: 100%;">
@@ -14,10 +15,10 @@
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="start">
-            <ion-fab-button (click)="createPostEditerModal('post');">
+            <ion-fab-button (click)="createPostEditerModal(false);">
               <ion-icon name="reader-outline"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button (click)="createPostEditerModal('paper');">
+            <ion-fab-button (click)="createPostEditerModal(true);">
               <ion-icon name="newspaper-outline"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>
