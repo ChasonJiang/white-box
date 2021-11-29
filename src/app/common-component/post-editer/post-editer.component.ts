@@ -49,7 +49,10 @@ export class PostEditerComponent implements OnInit {
       numberOfComments:0,
       numberOfApproval:0,
       releaseTime:"2021-11-29", // fake releaseTime
-      topic:"原神" // fake topic
+      topic:{
+        tid:0,
+        name:"test domain",
+    },
     }
         
     const modal = await this.modalController.create({
@@ -88,7 +91,10 @@ export class PostEditerComponent implements OnInit {
       numberOfComments:0,
       numberOfApproval:0,
       releaseTime:"2021-11-29", // fake releaseTime
-      topic:"原神" // fake topic
+      topic:{
+        tid:0,
+        name:"test domain",
+    },
     }
     console.log(post);
   }

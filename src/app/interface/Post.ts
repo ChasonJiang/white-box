@@ -1,3 +1,4 @@
+import { Topic } from './Topic';
 import { UserCard } from './User'
 
 export interface PostInfo{
@@ -6,7 +7,7 @@ export interface PostInfo{
     // post id
     pid:number;
     releaseTime:string;
-    topic:string;
+    topic:Topic;
 }
 
 export interface PostCard extends PostInfo{
