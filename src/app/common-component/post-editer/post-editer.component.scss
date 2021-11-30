@@ -12,12 +12,14 @@
 }
 .title{
     border-bottom: 1px solid;
-    border-color: whitesmoke;
+    border-color: white;
+    margin-top: 6px;
 }
 .title-textarea {
     font-weight:initial;
     font-size: 20px;
     padding: 10px;
+    margin-top: 6px;
     display: block;
     width: 100%;
     overflow: hidden;
@@ -27,11 +29,14 @@
     border: none;
     resize: none;
     outline: none;
+    background-color:whitesmoke;
+    border-radius: 4px;
   }
 .main-body{
     width: 100%;
-
-
+    background-color:whitesmoke;
+    margin-top: 6px;
+    border-radius: 4px;
 }
 .main-textarea {
     font-size: 16px; 
@@ -41,6 +46,7 @@
     outline: none; 
     border-bottom: 1px solid;
     border-color: whitesmoke;
+
 }
 .edit-toolbar{
     position: sticky;
