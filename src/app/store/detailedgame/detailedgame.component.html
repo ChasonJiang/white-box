@@ -1,0 +1,248 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="chevron-back-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{detailedgame.gameName}}</ion-title>
+   
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-content style="float: left;">
+<img #a [src]="showimg" alt="">
+<ion-content> -->
+<ion-content style="float: left;">
+
+  
+  <swiper
+  style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+  [spaceBetween]="10"
+  [navigation]="true"
+  [autoplay]="true"
+  [thumbs]="{ swiper: thumbsSwiper }"
+  class="mySwiper2"
+>
+<ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;" ><img 
+  [src]="item"></ng-template>
+</swiper>
+<swiper
+  (swiper)="thumbsSwiper = $event"
+  [spaceBetween]="10"
+  [slidesPerView]="4"
+  [freeMode]="true"
+  [watchSlidesProgress]="true"
+  class="mySwiper"
+>
+<ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;let i=index"><img 
+  [src]="item">
+
+</ng-template>
+</swiper>
+<!-- 
+    <swiper [autoplay]="true" [keyboard]="true"   >
+      <ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;" ><img 
+          [src]="item"></ng-template>
+
+    </swiper>
+
+    <swiper [slidesPerView]="3.5" [loop]="true" >
+
+      <ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;let i=index"><img 
+          [src]="item">
+
+      </ng-template>
+
+    </swiper> -->
+  
+
+  <!-- </ion-content> -->
+  <!-- <item>
+  <img (click)="a.src=$event.target.src" src="https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=auto&app=120&f=JPEG?w=690&h=391"   style="width: 20%;">
+  <img (click)="a.src=$event.target.src" src="https://img0.baidu.com/it/u=1048139790,3786911039&fm=26&fmt=auto" alt="" style="width: 20%;">
+  <img (click)="a.src=$event.target.src" src="https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=auto&app=120&f=JPEG?w=690&h=391" alt="" style="width: 20%;">
+  <img (click)="a.src=$event.target.src" src="https://img0.baidu.com/it/u=1048139790,3786911039&fm=26&fmt=auto" alt="" style="width: 20%;">
+  <img (click)="a.src=$event.target.src" src="https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=auto&app=120&f=JPEG?w=690&h=391" alt="" style="width: 20%;">
+  
+  </item> -->
+
+  <!-- <ion-item >
+
+
+    <img *ngFor="let item of detailedgame.imgshow;let i=index" (click)="a.src=$event.target.src" [src]="item" alt="" style="width: 20%;">
+    </ion-item> -->
+
+
+
+    <ion-item>
+      <ion-badge slot='start'>
+        ￥{{detailedgame.nowPrice}}
+      </ion-badge>
+
+
+      <s>
+        ￥{{detailedgame.oldPrice}}
+      </s>
+
+
+
+    </ion-item>
+
+    <ion-item lines="none">
+      <span slot="start"> {{detailedgame.gameName}}</span>
+      <ion-chip slot="end" color="secondary">
+        <ion-icon name="ribbon-outline"></ion-icon>
+
+        <ion-label>{{detailedgame.score}}</ion-label>
+
+      </ion-chip>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-badge *ngFor="let item of detailedgame.gameLable;"
+        style="margin-left:5px; margin-right: 5px;background-color:#aac3ca;">
+        {{item}}
+      </ion-badge>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid style="text-align: center;">
+        <ion-row>
+          <ion-col><span>{{detailedgame.onlineNumber}}</span>
+            <br>
+            <span style="font-size:10px">当前在线</span>
+          </ion-col>
+          <ion-col><span>{{detailedgame.Minimumprice}}</span> <br>
+            <span style="font-size:10px">史低价格</span>
+          </ion-col>
+          <ion-col><span>{{detailedgame.OnlineMaxYesterday}}</span>
+            <br>
+            <span style="font-size:10px">昨日峰值在线</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col><span>{{detailedgame.averageOlnine}}万</span> <br>
+            <span style="font-size:10px">本月平均在线</span>
+          </ion-col>
+          <ion-col><span>{{detailedgame.playerNumber}}万</span> <br>
+            <span style="font-size:10px">小黑盒玩家数</span>
+          </ion-col>
+          <ion-col><span>{{detailedgame.onlineTime}}h</span> <br>
+            <span style="font-size:10px">平均游戏时长</span>
+          </ion-col>
+        </ion-row>
+
+
+      </ion-grid>
+
+    </ion-item>
+
+
+    <ion-item>
+      <span>游戏简介</span>
+      <div slot='end'>
+        <lable>更多
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </lable>
+      </div>
+
+    </ion-item>
+
+<ion-item>
+<p class="p">
+  {{detailedgame.briefintroduction.text}}
+</p>
+</ion-item>
+
+<ion-item>
+  <span slot='start'>发布时间：{{detailedgame.briefintroduction.Issuedate}}</span>
+  <span slot='end'>开发商：{{detailedgame.briefintroduction.Developers}}</span>
+</ion-item>
+<ion-item>
+  <span slot='start'> 发行商：{{detailedgame.briefintroduction.Issuedate}}</span>
+  <span slot='end'>硬件配置：{{detailedgame.briefintroduction.Developers}}</span>
+</ion-item>
+
+
+<!-- <swiper [slidesPerView]="3" [loop]="true">
+
+  <ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;">
+    <div><img (click)="a.src=$event.target.src"
+      [src]="item">
+<br style="width: 0px;height: 0;margin: 0px">
+<span style="width: 0px;height: 0;margin: 0px">asdasdda</span>
+</div>
+  </ng-template>
+
+</swiper> -->
+
+<swiper
+      style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+      [spaceBetween]="10"
+      [navigation]="true"
+      [thumbs]="{ swiper: thumbsSwiper }"
+      class="mySwiper2"
+    >
+    <ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;" ><img 
+      [src]="item"></ng-template>
+    </swiper>
+    <swiper
+      (swiper)="thumbsSwiper = $event"
+      [spaceBetween]="10"
+      [slidesPerView]="4"
+      [freeMode]="true"
+      [watchSlidesProgress]="true"
+      class="mySwiper"
+    >
+    <ng-template swiperSlide *ngFor="let item of detailedgame.imgshow;let i=index"><img 
+      [src]="item">
+
+  </ng-template>
+    </swiper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+<ion-footer>
+  <ion-item>
+    <div style="width: 18%;margin: 0px;display: inline-block;text-align: center;">
+      <ion-icon name="heart-outline" style="width: 30px;height: 30px;" (click)="changefollowstatus($event)"></ion-icon>
+      <p style="font-size: 12px;margin: 0px;line-height: 5px;">关注</p>
+    </div>
+
+    <ion-button style="float: right;width: 80%;" (click)="presentActionSheet()">购买</ion-button>
+
+  </ion-item>
+
+
+</ion-footer>

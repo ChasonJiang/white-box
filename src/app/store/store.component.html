@@ -1,3 +1,177 @@
-<p>
-  store works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;" >推荐</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+
+  <swiper [autoplay]="true" [keyboard]="true">
+    <ng-template swiperSlide *ngFor="let item of storeShowImg;let i=index">
+      <img [src]="item" alt="">
+    </ng-template>
+
+  </swiper>
+
+
+  <!-- <ion-header>
+      <ion-toolbar>
+      <ion-title>为您推荐</ion-title>
+      </ion-toolbar>
+      <ion-icon  name="chevron-forward-outline" style="float: right;"></ion-icon>
+    </ion-header> -->
+
+
+
+
+  <ion-item>
+    <ion-title slot="start">最新游戏</ion-title>
+    <ion-buttons slot="end">
+      <span (click)="showModel('最新游戏')">更多</span>
+      <ion-button name='go' (click)="showModel('最新游戏')">
+        <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+
+  </ion-item>
+
+  <div>
+    <ion-card class="card" *ngFor="let item of simpleGamelist1;let i=index" (click)='showModelDetailed(item.gid)'
+      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+      <img [src]="item.imgUrl" alt="asdasd">
+      {{item.gameName}}
+
+      <br>
+      <span>￥{{item.oldPrice}}</span>
+      <span>￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+    </ion-card>
+    <div style='clear: both;'></div>
+  </div>
+
+
+
+
+
+
+  <ion-item>
+    <ion-title slot="start">为您推荐</ion-title>
+    <ion-buttons slot="end">
+      <span (click)="showModel('为您推荐')">更多</span>
+      <ion-button name='go' (click)="showModel('为您推荐')">
+        <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-item>
+  <div>
+    <ion-card class="card" *ngFor="let item of simpleGamelist2;let i=index" (click)='showModelDetailed(item.gid)'
+      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+      <img [src]="item.imgUrl" alt="asdasd">
+      {{item.gameName}}
+
+      <br>
+      <span>￥{{item.oldPrice}}</span>
+      <span>￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+    </ion-card>
+    <div style='clear: both;'></div>
+  </div>
+
+
+
+  <ion-item>
+    <ion-title slot="start">最新上架</ion-title>
+    <ion-buttons slot="end">
+      <span (click)="showModel('最新上架')">更多</span>
+      <ion-button name='go' (click)="showModel('最新上架')">
+        <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-item>
+  <div>
+    <ion-card class="card" *ngFor="let item of simpleGamelist3;let i=index" (click)='showModelDetailed(item.gid)'
+      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+      <img [src]="item.imgUrl" alt="asdasd">
+      {{item.gameName}}
+
+      <br>
+      <span>￥{{item.oldPrice}}</span>
+      <span>￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+    </ion-card>
+    <div style='clear: both;'></div>
+  </div>
+  <!-- <ion-card class="card" *ngFor="let item of simpleGamelist;let i=index" (click)='showModelDetailed(item.gid)'
+      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+      <img [src]="item.imgUrl" alt="asdasd">
+      {{item.gameName}}
+     
+      <br>
+      
+    
+
+      <span>￥{{item.oldPrice}}</span>
+      <span>￥{{item.nowPrice}}</span>                     
+      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+    </ion-card> -->
+
+
+
+  
+    
+    
+     
+        <ion-card class="card"  (click)='showModelDetailed(item.gid)'
+      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}" *ngFor="let item of simpleGamelist4;let i=index">
+      <img [src]="item.imgUrl" alt="asdasd">
+      {{item.gameName}}
+
+      <br>
+      <span>￥{{item.oldPrice}}</span>
+      <span>￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+    </ion-card>
+    <div style='clear: both;'></div>
+   
+    
+ 
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+        <!-- <ion-button (click)="lazyLoadPostCard(postCards);"></ion-button> -->
+    <ion-list #gamelongcardContainer>
+    </ion-list>
+  
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    
+
+      
+    <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" >
+      <ion-fab-button>
+        <ion-icon name="settings"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top" >
+        
+        <ion-fab-button ><ion-icon name="add-outline" (click)="showModeladdDetailedGame()"></ion-icon></ion-fab-button>
+        <ion-fab-button><ion-icon name="close-outline"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+
+</ion-content>
+
+
+
+

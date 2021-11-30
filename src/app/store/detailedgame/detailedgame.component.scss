@@ -9,3 +9,14 @@
 @import '~swiper/scss/scrollbar';
 @import '~swiper/scss/zoom';
 @import '~@ionic/angular/css/ionic-swiper';
+
+
+
+
+
+p {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	overflow: hidden;
+}

@@ -1,0 +1,13 @@
+<ion-card   (click)='showModelDetailed(simplegame.gid)'
+      style="border-radius: 5px;"  >
+      <img [src]="simplegame.imgUrl" alt="" >
+      <div class='nature' >
+     <span class='gamename'>{{simplegame.gameName}}</span> 
+      <br>
+      <s class='price'>￥{{simplegame.oldPrice}}</s>
+      <span class='price'>￥{{simplegame.nowPrice}}</span>
+      <ion-badge class='badge' *ngIf="simplegame.Minimum<simplegame.nowPrice">史低</ion-badge>
+    </div>
+    </ion-card>
+
+
