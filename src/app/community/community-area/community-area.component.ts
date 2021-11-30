@@ -10,5 +10,8 @@ export class CommunityAreaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+  searchSubmit(searchContent:string){
+    console.log(searchContent);
+  }
 
 }

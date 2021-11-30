@@ -29,15 +29,6 @@ export class CommunityComponent implements OnInit, AfterViewInit {
     // this.isShow=true;
   }
 
-  onSlideChange(event){
-    if(this.swiperRef.swiperRef.activeIndex!=0){
-      this.infiniteScroll.disabled = true;
-    }
-    else{
-      // this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-    }
-    // console.log(this.swiperRef.swiperRef.activeIndex);
-  }
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
