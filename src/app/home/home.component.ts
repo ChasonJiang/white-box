@@ -62,21 +62,21 @@ export class HomeComponent implements AfterViewInit,OnInit {
       event.target.complete();
     }
 
-    loadData(event) {
-      this.lazyLoadPostCard(this.updatePostCard());
-      event.target.complete();
-                // event.target.disabled = true;
-      // setTimeout(() => {
-      //   console.log('Done');
-      //   event.target.complete();
-  
-      //   // App logic to determine if all data is loaded
-      //   // and disable the infinite scroll
-      //   if (data.length == 1000) {
-      //     event.target.disabled = true;
-      //   }
-      // }, 500);
-    }
+  loadData(event) {
+    this.lazyLoadPostCard(this.updatePostCard());
+    event.target.complete();
+              // event.target.disabled = true;
+    // setTimeout(() => {
+    //   console.log('Done');
+    //   event.target.complete();
+
+    //   // App logic to determine if all data is loaded
+    //   // and disable the infinite scroll
+    //   if (data.length == 1000) {
+    //     event.target.disabled = true;
+    //   }
+    // }, 500);
+  }
 
 
 }

@@ -82,7 +82,15 @@ export class PostComponent implements OnInit,AfterViewInit {
         selector: "app-post-content", 
         template: this.post.postContent.content ,
         styles:["ion-img{padding-top:10px;padding-bottom:10px;}"],
-      }, this.postContainer);
+      }, 
+      this.postContainer,
+      class DynamicTemplateComponent{
+        constructor(){}
+        showImg(){
+          console.log('img click ok!');
+        }
+      }
+      );
     // this.componentRef=this.dynamicTemplateRendererService.createComponent({ selector: "app-post-content", template: post.postContent.content }, this.postContainer);
   }  
 

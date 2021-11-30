@@ -72,7 +72,8 @@ export class PostEditerComponent implements OnInit {
     });
   }
 
-  private checkPost(){
+  //检查帖子是否编辑完整
+  private checkPost():boolean{
     // let cover = this.viewContainerRef.element.nativeElement.querySelector('#cover');
     let title = this.viewContainerRef.element.nativeElement.querySelector('.title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
@@ -96,7 +97,7 @@ export class PostEditerComponent implements OnInit {
     return true;
   }
 
-
+  //将编辑好的帖子打包成Post对象
   private packUpPost():Post{
     
     let cover = this.viewContainerRef.element.nativeElement.querySelector('#cover');
@@ -114,7 +115,7 @@ export class PostEditerComponent implements OnInit {
       numberOfComments:0,
       numberOfApproval:0,
       isPaper:this.paperMode?true:false,
-      releaseTime:new Date().getTime().toString(), // fake releaseTime
+      releaseTime:new Date().getTime().toString(),
       topic:{
         tid:0,
         name:"test domain",
@@ -133,18 +134,22 @@ export class PostEditerComponent implements OnInit {
     if(!this.checkPost()){return}
   }
 
+  saveDraft(){
+    let post:Post = this.packUpPost();
+    
+  }
+
   deleteImg(){
 
   }
 
   insertImg(){
-    
     // let title = this.viewContainerRef.ele ment.nativeElement.querySelector('title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
     console.log(main_textarea.innerText);
     from(this.photoService.takePicture()).subscribe(
       url=>{
-        main_textarea.innerHTML+="<img src=" + url +" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>";
+        main_textarea.innerHTML+="<img src=" + url +` (click)="showImg();" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
       });
 
     // console.log(main_textarea.innerText);
