@@ -29,7 +29,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
    }
 
   ngOnInit() {
-    console.log(JSON.parse(localStorage.getItem('userDetails')).uid);
+    console.log(JSON.parse(localStorage.getItem('userInfo')).uid);
   }
   ngAfterViewInit(){
     this.lazyLoadPostCard(this.updatePostCard());
@@ -37,7 +37,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
   updatePostCard(){
     
-    this.postCardService.requestPostCard({header:{uid:JSON.parse(localStorage.getItem('userDetails')).uid,type:''}})
+    this.postCardService.requestPostCard({header:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}})
       .subscribe(postCards=>{
         this.postCards=postCards;
       });

@@ -44,7 +44,7 @@ export class PostComponent implements OnInit,AfterViewInit {
   }
 
   async getPost(){
-    await this.postService.requestPost({header:{uid:JSON.parse(localStorage.getItem('userDetails')).uid,type:''}})
+    await this.postService.requestPost({header:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}})
       .subscribe(post => {
         this.post=post;
       });

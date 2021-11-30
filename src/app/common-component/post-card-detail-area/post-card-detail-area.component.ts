@@ -33,7 +33,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   getpostCardDetail(){
     this.PostCardDetailService.requestPostCardDetail({
       header:{
-        uid:JSON.parse(localStorage.getItem('userDetails')).uid,type:''
+        uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''
       },
     }).subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
         });
