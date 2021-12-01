@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraResultType,ImageOptions } from '@capacitor/camera';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,6 @@ export class PhotoService {
       }
     }
     const image = await Camera.getPhoto(imageOptions);
-    return  image.dataUrl;
+    return image.dataUrl;
   };
 }

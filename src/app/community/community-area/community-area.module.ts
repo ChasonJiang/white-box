@@ -10,7 +10,8 @@ import { SearchBarModule } from 'src/app/common-component/search-bar/search-bar.
   imports: [
     CommonModule,
     CommunityCardModule,
-    SearchBarModule
+    SearchBarModule,
+    CommunityCardModule
   ],
   exports:[CommunityAreaComponent]
 })

@@ -1,3 +1,14 @@
-<p>
-  community-card works!
-</p>
+<div class="community-card" (click)="createTopicModal();">
+  <div class="topic-icon">
+    <img [src]="topicCard.iconUrl">
+  </div>
+  <div class="topic-name">
+    <ion-label>{{ topicCard.name }}</ion-label>
+  </div>
+  <div class="topic-info">
+    <ion-note style="font-size:12px;">
+      <ion-icon name="chatbox-ellipses-outline" style="font-size:12px;"></ion-icon> {{topicCard.numberOfComments}}讨论
+    </ion-note>
+  </div>
+  <ion-icon class="arrow" name="chevron-forward-outline"></ion-icon>
+</div>

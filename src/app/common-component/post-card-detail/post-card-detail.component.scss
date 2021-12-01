@@ -5,12 +5,15 @@
     grid-row-gap: 5px;
     padding:10px;
     // grid-template-columns: auto;
-    border-top: 0px;
-    border-bottom: 1px;
-    border-left: 0;
-    border-right: 0;
-    border-color: rgba(65, 65, 65, 0.13);
-    border-style: solid;
+    // border-top: 0px;
+    // border-bottom: 1px;
+    // border-left: 0;
+    // border-right: 0;
+    // border-color: rgba(65, 65, 65, 0.13);
+    // border-style: solid;
+    margin-top:6px;
+    border-radius: 6px;
+    background-color: white;
 }
 .user-card{
     grid-row-start: 1;

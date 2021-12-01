@@ -1,0 +1,41 @@
+<!-- <div class="topic" *ngIf="true"> -->
+  <ion-content  [fullscreen]="true" >
+    <div class="topic">
+      <div class="topic-info">
+        <div class="topic-card" (click)="createTopicModal();">
+          <div class="topic-card-icon">
+            <img [src]="topicCard.iconUrl">
+          </div>
+          <div class="topic-card-name">
+            <ion-label>{{ topicCard.name }}</ion-label>
+          </div>
+          <div class="topic-card-info">
+            <ion-note style="font-size:12px; color:rgba(255, 255, 255, 0.55);">
+              <ion-icon name="chatbox-ellipses-outline" style="font-size:12px;"></ion-icon> {{topicCard.numberOfComments}}讨论
+            </ion-note>
+          </div>
+          <div class="topic-card-follow-button">
+            <div class="following-label" *ngIf="topicCard.follow">已关注</div>
+            <div class="follow-label" *ngIf="!topicCard.follow">关注</div>
+          </div>
+        </div>
+        <div class="topic-introduction" *ngIf="topicCard.introduction">
+          <div class="introduction-content">
+            {{topicCard.introduction}}
+          </div>
+        </div>
+        <div class="backgourd-filter">
+          <img  [src]="topicCard.iconUrl">
+        </div>
+      </div>
+      <div class="topic-bar">
+        <div class="topic-bar-title">话题</div>
+      </div>
+  
+      <div class="post-card-container">
+        <app-post-card-detail-area></app-post-card-detail-area>
+        <!-- <PostCardDetailAreaModule></PostCardDetailAreaModule> -->
+      </div>
+    </div>
+  </ion-content>
+<!-- </div> -->
