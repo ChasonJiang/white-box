@@ -8,6 +8,7 @@ import { detailedgame } from '../game';
 import { GameserviceService } from 'src/app/services/gameservice.service';
 import SwiperCore, { Autoplay, FreeMode, Keyboard, Navigation, Pagination, Scrollbar, Thumbs, Zoom } from 'swiper';
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
+import { GameintroduceComponent } from '../gameintroduce/gameintroduce.component';
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom,FreeMode, Navigation, Thumbs]);
 
 @Component({
@@ -110,7 +111,14 @@ showimg:string='https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=aut
 
   }
 
- 
+  async showModelgameintroduce(detailedgame:detailedgame){
+    const modal=await this.modalController.create({
+      component:GameintroduceComponent,
+      cssClass: 'my-custom-class',//modal的css
+      componentProps:{"detailedgame":detailedgame}//传入title
+    })
+    return await modal.present();
+  }
 
 
 

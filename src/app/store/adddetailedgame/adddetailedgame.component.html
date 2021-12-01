@@ -5,19 +5,17 @@
         <ion-icon slot="icon-only" name="chevron-back-outline" ></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>添加游戏</ion-title>
-   
+    <ion-title>tianjia</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-content style="float: left;">
 <span>gid</span>
-<input ngmodel="detailedgame.gid">
-  <span>gameName</span><ion-input ngmodel="detailedgame.gameName"></ion-input>
+<br><input ngmodel="detailedgame.gid"><br>
+  <span>gameName</span><br><input ngmodel="detailedgame.gameName"><br>
+  <span>imgUrl</span><br><input ngmodel="detailedgame.imgUrl"><br>
+  <span>imgshow</span><br><div class="imgshow" *ngFor="let item of imgshow; let i=index" role="textbox" contenteditable></div>
+  <ion-icon class="addicon" name="add-outline" ng-click="insertImg()"></ion-icon>
 
-  <span>imgUrl</span><ion-input ngmodel="detailedgame.imgUrl"></ion-input>
-  <span>imgshow</span>
-  <div *ngFor="let item of imgshow; let i=index"></div>
-  <ion-icon name="add-outline"></ion-icon>
   <!-- imgshow: [
       'https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto',
       'https://img1.baidu.com/it/u=3309502357,1081703439&fm=26&fmt=auto', 
@@ -49,3 +47,4 @@ gameType: ['杀戮', '英雄'],
       Developers: 'string',
       publisher: 'string',
   } -->
+</ion-content>
