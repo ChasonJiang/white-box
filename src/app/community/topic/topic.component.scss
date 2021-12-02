@@ -4,6 +4,33 @@ ion-content{
     // height: 100%;
     // z-index: -66;
 }
+.topic{
+    position: relative;
+}
+.topic-header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color:rgba(0, 0, 0, 0);
+    z-index: 10;
+}
+.topic-back-button{
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    left: 10px;
+    font-size:30px;
+
+}
+.topic-search-button{
+    position: absolute;
+    top: 50%;
+    margin-top: -12.5px;
+    right: 15px;
+    font-size:25px;
+}
 .topic-info{
     position: relative;
     // top: 0;

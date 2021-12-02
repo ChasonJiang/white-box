@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { TopicCard } from 'src/app/interface/Topic';
 import { TopicCardService } from 'src/app/services/topic-card.service';
 import { CommunityCardComponent } from './community-card/community-card.component';
@@ -11,6 +11,7 @@ import { CommunityCardComponent } from './community-card/community-card.componen
 export class CommunityAreaComponent implements OnInit, AfterViewInit {
   @ViewChild('TopicCardContainer',{read: ViewContainerRef}) TopicCardContainer:ViewContainerRef;
   private topicCards: TopicCard[];
+  @Input() tid: number;
   
   constructor(
     private topicCardService: TopicCardService,

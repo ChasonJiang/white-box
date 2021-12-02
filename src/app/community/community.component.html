@@ -9,7 +9,7 @@
   <swiper #swiperRef style="width: 100%; height: 100%;">
     <ng-template swiperSlide>
       <ion-content>
-        <app-post-card-detail-area ></app-post-card-detail-area>
+        <app-post-card-detail-area [tid]="0"></app-post-card-detail-area>
         <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
           <ion-fab-button>
             <ion-icon name="add"></ion-icon>

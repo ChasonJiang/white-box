@@ -7,6 +7,7 @@ import { USER_CARD_INFO } from 'src/app/user';
 import { PostComponent } from '../post/post.component';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { AlertController } from '@ionic/angular';
+import { Topic } from 'src/app/interface/Topic';
 
 @Component({
   selector: 'app-post-editer',
@@ -21,6 +22,8 @@ export class PostEditerComponent implements OnInit {
   private currentEditerType: string;
   private isShowtitle:boolean = false;
   @Input() paperMode:boolean = false;
+  @Input() topic:Topic=null;
+
   private TypeDict={
     'post':"帖子/动态",
     'paper':"文章/文图"

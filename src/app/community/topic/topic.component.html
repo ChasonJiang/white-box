@@ -1,8 +1,19 @@
 <!-- <div class="topic" *ngIf="true"> -->
   <ion-content  [fullscreen]="true" >
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <div class="topic">
+      <div class="topic-header">
+        <div class="topic-back-button" (click)="goBack();">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </div>
+        <div class="topic-search-button">
+          <ion-icon name="search-outline"></ion-icon>
+        </div>
+      </div>
       <div class="topic-info">
-        <div class="topic-card" (click)="createTopicModal();">
+        <div class="topic-card">
           <div class="topic-card-icon">
             <img [src]="topicCard.iconUrl">
           </div>
@@ -14,9 +25,9 @@
               <ion-icon name="chatbox-ellipses-outline" style="font-size:12px;"></ion-icon> {{topicCard.numberOfComments}}讨论
             </ion-note>
           </div>
-          <div class="topic-card-follow-button">
-            <div class="following-label" *ngIf="topicCard.follow">已关注</div>
-            <div class="follow-label" *ngIf="!topicCard.follow">关注</div>
+          <div class="topic-card-follow-button" (click)="follow();">
+            <div class="following-label" *ngIf="isFollow">已关注</div>
+            <div class="follow-label" *ngIf="!isFollow">关注</div>
           </div>
         </div>
         <div class="topic-introduction" *ngIf="topicCard.introduction">
@@ -31,11 +42,27 @@
       <div class="topic-bar">
         <div class="topic-bar-title">话题</div>
       </div>
-  
+
       <div class="post-card-container">
-        <app-post-card-detail-area></app-post-card-detail-area>
+        <app-post-card-detail-area [tid]="topicCard.tid"></app-post-card-detail-area>
         <!-- <PostCardDetailAreaModule></PostCardDetailAreaModule> -->
       </div>
     </div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+        <ion-fab-button (click)="createPostEditerModal(false);">
+          <ion-icon name="reader-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="createPostEditerModal(true);">
+          <ion-icon name="newspaper-outline"></ion-icon>
+        </ion-fab-button>
+        <!-- <ion-fab-button>
+          <ion-icon name="file-tray-full-outline"></ion-icon>
+        </ion-fab-button> -->
+      </ion-fab-list>
+    </ion-fab>
   </ion-content>
 <!-- </div> -->
