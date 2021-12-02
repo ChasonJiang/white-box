@@ -9,6 +9,7 @@ import { GamecardModule } from './gamecard/gamecard.module';
 import { GamelongcardModule } from './gamelongcard/gamelongcard.module';
 import { GamelongcardComponent } from './gamelongcard/gamelongcard.component';
 import { AdddetailedgameComponent } from './adddetailedgame/adddetailedgame.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [StoreComponent,GamelistComponent,DetailedGameComponent,GamelongcardComponent,AdddetailedgameComponent],
@@ -17,7 +18,8 @@ import { AdddetailedgameComponent } from './adddetailedgame/adddetailedgame.comp
     StoreRoutingModule,
     SwiperModule,
     GamecardModule,
-    GamelongcardModule
+    GamelongcardModule,
+    FormsModule
   ],
   entryComponents:[GamelistComponent]
 })

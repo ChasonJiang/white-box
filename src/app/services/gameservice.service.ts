@@ -35,6 +35,37 @@ getstoreShowImg():string[]{
 }
 
 
+initdetailedgame():detailedgame{
+return {
+  gid:null,
+  gameName: null,
+  imgUrl: null,
+  imgshow: [],
+  gameLable: [],
+  Minimumprice: null,
+  nowPrice: null,
+  oldPrice: null,
+  Minimum:null,
+  gameType: [],
+  score: null,
+  onlineNumber: null,
+  favorableRate: null,
+  OnlineMaxYesterday: null,
+  averageOlnine: null,
+  playerNumber: null,
+  onlineTime: null,
+
+
+  dlc: [],
+  briefintroduction: {
+      text:null,
+      Issuedate: null,
+      Developers: null,
+      publisher: null,
+  }
+}
+}
+
 //  getDetaileGame(id:number):detailedgame{
 //   return this.getDetaileGamelist().filter(element => element.id==id);
 //  }

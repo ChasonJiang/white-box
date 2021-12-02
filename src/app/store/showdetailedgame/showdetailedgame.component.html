@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title slot="content">预计展示效果</ion-title>
+    <ion-button slot="end">
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end " (click)="sendPost();">
+      <ion-icon name="paper-plane-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+
+<app-gamelongcard [simplegame]=item></app-gamelongcard>
