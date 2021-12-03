@@ -5,3 +5,9 @@ export interface UserDetailsResponse{
     message?: string;
     userInfo?: UserInfo;
 }
+
+export interface TopicSearchResponse{
+    success: boolean;
+    message?: string;
+    pid?: number[];
+}

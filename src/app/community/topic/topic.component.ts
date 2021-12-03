@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PostEditerComponent } from 'src/app/common-component/post-editer/post-editer.component';
 import { TopicCard } from 'src/app/interface/Topic';
+import { SearchComponent } from './search/search.component';
 
 @Component({
   selector: 'app-topic',
@@ -39,6 +40,16 @@ export class TopicComponent implements OnInit {
         'paperMode' : paperMode,
         'topic':this.topicCard,
       }
+    });
+
+    return await modal.present();
+  }
+
+  async createSearchModal() {
+    const modal = await this.modalController.create({
+      component:SearchComponent,
+      cssClass:'fullscreen-class',
+      
     });
 
     return await modal.present();

@@ -1,4 +1,7 @@
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="community-area">
     <app-search-bar (onSubmit)="searchSubmit($event);" ></app-search-bar>
     <div class="topic-container">

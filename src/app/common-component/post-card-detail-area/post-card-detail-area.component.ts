@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { PostCardDetail } from 'src/app/interface/Post';
 import { PostCardDetailComponent } from '../post-card-detail/post-card-detail.component';
 import { PostCardDetailService } from '../../services/post-card-detail.service';
@@ -13,7 +13,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
   @ViewChild("Container",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-
+  @Input() tid:number;
   postCardsDetail:PostCardDetail[];
   
   constructor(
@@ -57,4 +57,13 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
+
+  doRefresh(event) {
+    // console.log('Begin async operation');
+      console.log('Async operation has ended');
+      this.viewContainerRef.clear();
+      this.lazyLoad(this.getpostCardDetail());
+      event.target.complete();
+    }
+
 }

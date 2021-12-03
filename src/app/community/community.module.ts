@@ -7,11 +7,15 @@ import { PostCardDetailAreaModule } from '../common-component/post-card-detail-a
 import { PostEditerModule } from '../common-component/post-editer/post-editer.module';
 import { PostModule } from '../common-component/post/post.module';
 import { CommunityAreaModule } from './community-area/community-area.module';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CommunityComponent],
   imports: [
+    IonicModule,
     CommonModule,
+    FormsModule,
     CommunityRoutingModule,
     SwiperModule,
     PostCardDetailAreaModule,

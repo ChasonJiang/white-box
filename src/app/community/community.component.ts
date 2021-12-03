@@ -45,5 +45,4 @@ export class CommunityComponent implements OnInit, AfterViewInit {
     return await modal.present();
   }
 
-
 }

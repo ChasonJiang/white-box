@@ -31,3 +31,9 @@ export interface PostCardDetailRequestParams{
 export interface CommentCardRequestParams{
     pid: number;
 }
+
+
+export interface TopicSearchRequestParams{
+    tid:number;
+    content:string;
+}

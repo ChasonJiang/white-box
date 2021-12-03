@@ -12,6 +12,7 @@ import { PostComponent } from '../post/post.component';
 export class PostCardDetailComponent implements OnInit {
 
   @Input() postCardDetail?:PostCardDetail
+  private postContent:string;
   constructor(
     public modalController:ModalController,
   ) { }

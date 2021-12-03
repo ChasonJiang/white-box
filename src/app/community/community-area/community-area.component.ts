@@ -46,4 +46,13 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
     this.lazyLoad(this.getTopicCard());
     event.target.complete();
   }
+
+  doRefresh(event) {
+    // console.log('Begin async operation');
+      console.log('Async operation has ended');
+      this.TopicCardContainer.clear();
+      this.lazyLoad(this.getTopicCard());
+      event.target.complete();
+    }
+
 }

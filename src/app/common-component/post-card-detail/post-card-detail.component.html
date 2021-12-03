@@ -3,8 +3,8 @@
     <app-user-card [userCard]="postCardDetail.userCard" [releaseTime]="postCardDetail.releaseTime"></app-user-card>
   </div>
   <div class="post-card-detail-content" (click)="createModal(postCardDetail.pid);">
-    <ion-title *ngIf="true">Post title</ion-title>
-    <ion-text>The refresher provides pull-to-refresh functionality on a content component. The pull-to-refresh pattern lets a user pull down on a list of data using touch in order to retrieve more data.</ion-text>
+    <ion-title *ngIf="true">{{postCardDetail.title}}</ion-title>
+    <ion-text>{{postContent}}</ion-text>
   </div>
   <div class="post-card-detail-img"  *ngIf="postCardDetail.postContent.imgUrl!=[]">
     <img class="post-card-img" *ngIf="postCardDetail.postContent.imgUrl.length>=1" [src]="postCardDetail.postContent.imgUrl[0]">
