@@ -19,17 +19,17 @@ SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom,FreeMode, Naviga
 })
 export class DetailedGameComponent implements OnInit {
 
-detailedgamelist?:detailedgame[]
-detailedgame?:detailedgame
+detailedgamelist?:detailedgame[];
+detailedgame?:detailedgame;
   @Input() gameId: number;
-
+  @Input() _detailedgame?: detailedgame;
 
 //暂时
 isfollow:boolean=false;
 
 
 
-showimg:string='https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=auto&app=120&f=JPEG?w=690&h=391';
+// showimg:string='https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=auto&app=120&f=JPEG?w=690&h=391';
 
 
   constructor(public modalController:ModalController,
@@ -38,10 +38,23 @@ showimg:string='https://img1.baidu.com/it/u=1131786352,2450379066&fm=253&fmt=aut
 
   ngOnInit() {
     // this.detailedgamelist= this.gameserviceService.getDetaileGamelist()
-    this.detailedgame=this.gameserviceService.find(this.gameId)
-    this.showimg=this.detailedgame.imgshow[0];
+   // this.detailedgame=this.gameserviceService.find(this.gameId)
+    //this.showimg=this.detailedgame.imgshow[0];
+    this.detailedgame=this.getdetailedgame()
     // .filter(element => element.id==this.gameId);
   }
+
+  getdetailedgame(){
+    // console.log(this._detailedgame);
+if(this._detailedgame!=null){
+
+  return this._detailedgame;
+}
+else{
+  return this.gameserviceService.find(this.gameId)
+}
+  }
+
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data

@@ -2,44 +2,165 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="dismiss()">
-        <ion-icon slot="icon-only" name="chevron-back-outline" ></ion-icon>
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>tianjia</ion-title>
+    <ion-title slot="content">tianjia</ion-title>
+    <ion-button slot="end" (click)="showlongcardModel(detailedgame);" >
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" (click)="sendPost();">
+      <ion-icon name="paper-plane-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content style="float: left;">
-<span>gid</span>
-<br><input ngmodel="detailedgame.gid"><br>
-  <span>gameName</span><br><input ngmodel="detailedgame.gameName"><br>
-  <span>imgUrl</span><br><input ngmodel="detailedgame.imgUrl"><br>
-  <span>imgshow</span><br><div class="imgshow" *ngFor="let item of imgshow; let i=index" role="textbox" contenteditable></div>
-  <ion-icon class="addicon" name="add-outline" ng-click="insertImg()"></ion-icon>
 
-  <!-- imgshow: [
-      'https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto',
-      'https://img1.baidu.com/it/u=3309502357,1081703439&fm=26&fmt=auto', 
-      'https://img0.baidu.com/it/u=2396924154,1662350068&fm=26&fmt=auto',
-      'https://img1.baidu.com/it/u=3309502357,1081703439&fm=26&fmt=auto',
-       'https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto'
-  ,'https://img0.baidu.com/it/u=1048139790,3786911039&fm=26&fmt=auto',
-  'https://img0.baidu.com/it/u=2396924154,1662350068&fm=26&fmt=auto'
-  ],
-  gameLable: ['单人', '部分支持控制器','支持中文','建造','模拟',],
-  Minimumprice: 80,
-  nowPrice: 100,
-  oldPrice: 200,
-Minimum:50,
-gameType: ['杀戮', '英雄'],
-  score: 9.5,
-  onlineNumber: 14.15,
-  favorableRate: 46,
-  OnlineMaxYesterday: 30.24,
-  averageOlnine: 20,
-  playerNumber: 65,
-  onlineTime: 400,
+  
+
+  <ion-item>
+    <span>gid</span>
+    <input type="text" [(ngModel)]="detailedgame.gid" name='gid'>
+  </ion-item>
+  <ion-item>
+    <span>gameName</span>
+
+    <input type="text" name='gamename' [(ngModel)]="detailedgame.gameName">
+  </ion-item>
+  <p>detailedgame.gid:{{detailedgame.gid}}+detailedgame.gameName:{{detailedgame.gameName}}</p>
+
+  <ion-item lines="none">
+    <span (click)="insertImgUrl()">imgUrl:添加图片
+      <ion-icon class="addicon" name="add-outline"></ion-icon>
+    </span>
+  </ion-item>
+  <ion-item>
+    <div *ngIf="hasimgUrl">
+      <img [src]="detailedgame.imgUrl" alt="">
+    </div>
+  </ion-item>
 
 
+
+
+
+  <ion-item lines="none">
+
+    <span>imgshow添加图片</span>
+    <ion-icon class="addicon" name="add-outline" (click)="insertImgshow()"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <div class="imgshow" role="textbox" contenteditable #Container>
+      <img [src]="item" alt="" *ngFor="let item of detailedgame.imgshow; let i=index">
+    </div>
+  </ion-item>
+
+
+
+
+
+
+  <ion-item>
+    <span>gameLable</span>
+
+    <input type="text" [(ngModel)]="addgametable">
+    <ion-icon class="addicon" name="add-outline" (click)="detailedgame.gameLable.push(addgametable)"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-badge *ngFor="let item of detailedgame.gameLable">{{item}}</ion-badge>
+  </ion-item>
+
+  <ion-item>
+    <span>Minimumprice</span>
+    <input type="text" [(ngModel)]="detailedgame.Minimumprice" name='Minimumprice'>
+  </ion-item>
+  <ion-item>
+    <span>nowPrice</span>
+    <input type="text" [(ngModel)]="detailedgame.nowPrice" name='nowPrice'>
+  </ion-item>
+  <ion-item>
+    <span>oldPrice</span>
+    <input type="text" [(ngModel)]="detailedgame.oldPrice" name='oldPrice'>
+  </ion-item>
+  <ion-item>
+    <span>Minimum</span>
+    <input type="text" [(ngModel)]="detailedgame.Minimum" name='Minimum'>
+  </ion-item>
+
+
+
+  <ion-item>
+    <span>gameType</span>
+
+    <input type="text" [(ngModel)]="gameType" >
+    <ion-icon class="addicon" name="add-outline" (click)="addgameType()"></ion-icon>
+    <ion-icon name="close-outline" (click)="removegameType()"></ion-icon>
+    
+    
+  </ion-item>
+  <ion-item *ngIf="gameTypeerror!==''">
+    <span class="error-message" ngDefaultControl [(ngModel)]="gameTypeerror"></span>
+  </ion-item>
+ 
+  <ion-item>
+    <ion-badge *ngFor="let item of detailedgame.gameType" (click)="gameType=item">{{item}}</ion-badge>
+  </ion-item>
+
+
+
+  <ion-item>
+    <span>score</span>
+    <input type="text" [(ngModel)]="detailedgame.score" name='score'>
+  </ion-item>
+  <ion-item>
+    <span>onlineNumber</span>
+    <input type="text" [(ngModel)]="detailedgame.onlineNumber" name='onlineNumber'>
+  </ion-item>
+  <ion-item>
+    <span>favorableRate</span>
+    <input type="text" [(ngModel)]="detailedgame.favorableRate" name='favorableRate'>
+  </ion-item>
+  <ion-item>
+    <span>onlineNumber</span>
+    <input type="text" [(ngModel)]="detailedgame.onlineNumber" name='onlineNumber'>
+  </ion-item>
+  <ion-item>
+    <span>OnlineMaxYesterday</span>
+    <input type="text" [(ngModel)]="detailedgame.OnlineMaxYesterday" name='OnlineMaxYesterday'>
+  </ion-item>
+  <ion-item>
+    <span>averageOlnine</span>
+    <input type="text" [(ngModel)]="detailedgame.averageOlnine" name='averageOlnine'>
+  </ion-item>
+  <ion-item>
+    <span>playerNumber</span>
+    <input type="text" [(ngModel)]="detailedgame.playerNumber" name='playerNumber'>
+  </ion-item>
+  <ion-item>
+    <span>onlineTime</span>
+    <input type="text" [(ngModel)]="detailedgame.onlineTime" name='onlineTime'>
+  </ion-item>
+  <ion-item>
+    briefintroduction
+  </ion-item>
+  <ion-item>
+    <span>text</span>
+    <input type="text" [(ngModel)]="detailedgame.briefintroduction.text" name='text'>
+  </ion-item>
+  <ion-item>
+    <span>Issuedate</span>
+    <input type="text" [(ngModel)]="detailedgame.briefintroduction.Issuedate" name='Issuedate'>
+  </ion-item>
+  <ion-item>
+    <span>Developers</span>
+    <input type="text" [(ngModel)]="detailedgame.briefintroduction.Developers" name='Developers'>
+  </ion-item>
+  <ion-item>
+    <span>publisher</span>
+    <input type="text" [(ngModel)]="detailedgame.briefintroduction.publisher" name='publisher'>
+  </ion-item>
+  <!-- 
+ 
   dlc: [{ name: 'string', price: 120 }, { name: 'string', price: 103 }],
   briefintroduction: {
       text:'《猎人：荒野的召唤》将为你带来前所未有的狩猎体验。让自己投身一望无际的广袤世界，与各类生机勃勃的动植物为伴：从栩栩如生、威风凛凛的飞禽走兽到枝繁叶茂、遮天蔽日的参天大树，游戏里应有尽有。你大可孤身一人开启冒险之旅，也可与朋友结伴踏上征程。你并非这个世界中的匆匆过客，你的一呼一吸、一举一动都与这里息息相关，请将这一点牢记在心。当你在经过长途跋涉后，终于透过灌木丛第一次得见赤鹿的雄伟身姿，在那一瞬间，你一定会感到血脉偾张。',

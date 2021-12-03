@@ -1,0 +1,39 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title slot="content">预计展示效果</ion-title>
+    <ion-button slot="end">
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-button>
+    
+  </ion-toolbar>
+</ion-header> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title >展示效果</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card   (click)='showModelDetailed(detailedgame.gid,detailedgame)'
+  style="border-radius: 5px;"  >
+  <img [src]="detailedgame.imgUrl" alt="" >
+  <div class='nature' >
+ <span class='gamename'>{{detailedgame.gameName}}</span> 
+  <br>
+  <s class='price'>￥{{detailedgame.oldPrice}}</s>
+  <span class='price'>￥{{detailedgame.nowPrice}}</span>
+  <ion-badge class='badge' *ngIf="detailedgame.Minimum<detailedgame.nowPrice">史低</ion-badge>
+</div>
+</ion-card>
+
+
+</ion-content>
