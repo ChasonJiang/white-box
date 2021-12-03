@@ -16,9 +16,5 @@ export function getUserInfo():UserInfo|null{
 }
 
 export function getCurrentUserCard():UserCard|null{
-  let userCard:UserCard=getUserInfo();
-    if(userCard){
-        return userCard;
-    }
-    return null;
+    return getUserInfo() as UserCard;
 }
