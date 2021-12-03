@@ -7,7 +7,7 @@
 
 
 <ion-content>
-
+  
 
   <swiper [autoplay]="true" [keyboard]="true">
     <ng-template swiperSlide *ngFor="let item of storeShowImg;let i=index">
@@ -42,9 +42,9 @@
 
   <div>
     <ion-card class="card" *ngFor="let item of simpleGamelist1;let i=index" (click)='showModelDetailed(item.gid)'
-      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+       [ngStyle]="{'float': i%2==0?'left':'right'}">
       <img [src]="item.imgUrl" alt="asdasd">
-      {{item.gameName}}
+      <span class="name">{{item.gameName}}</span>
 
       <br>
       <span>￥{{item.oldPrice}}</span>
@@ -71,9 +71,9 @@
   </ion-item>
   <div>
     <ion-card class="card" *ngFor="let item of simpleGamelist2;let i=index" (click)='showModelDetailed(item.gid)'
-      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+       [ngStyle]="{'float': i%2==0?'left':'right'}">
       <img [src]="item.imgUrl" alt="asdasd">
-      {{item.gameName}}
+      <span class="name">{{item.gameName}}</span>
 
       <br>
       <span>￥{{item.oldPrice}}</span>
@@ -97,9 +97,10 @@
   </ion-item>
   <div>
     <ion-card class="card" *ngFor="let item of simpleGamelist3;let i=index" (click)='showModelDetailed(item.gid)'
-      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}">
+      [ngStyle]="{'float': i%2==0?'left':'right'}">
       <img [src]="item.imgUrl" alt="asdasd">
-      {{item.gameName}}
+      <span class="name">{{item.gameName}}</span>
+      
 
       <br>
       <span>￥{{item.oldPrice}}</span>
@@ -129,9 +130,9 @@
     
      
         <ion-card class="card"  (click)='showModelDetailed(item.gid)'
-      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}" *ngFor="let item of simpleGamelist4;let i=index">
+      [ngStyle]="{'float': i%2==0?'left':'right'}" *ngFor="let item of simpleGamelist4;let i=index">
       <img [src]="item.imgUrl" alt="asdasd">
-      {{item.gameName}}
+      <span class="name">{{item.gameName}}</span>
 
       <br>
       <span>￥{{item.oldPrice}}</span>
@@ -159,7 +160,7 @@
     
 
       
-    <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" >
+    <!-- <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" >
       <ion-fab-button>
         <ion-icon name="settings"></ion-icon>
       </ion-fab-button>
@@ -168,8 +169,19 @@
         <ion-fab-button ><ion-icon name="add-outline" (click)="showModeladdDetailedGame()"></ion-icon></ion-fab-button>
         <ion-fab-button><ion-icon name="close-outline"></ion-icon></ion-fab-button>
       </ion-fab-list>
+    </ion-fab> -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+      <ion-fab-button>
+        <ion-icon name="settings"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+        <ion-fab-button ><ion-icon name="add-outline" (click)="showModeladdDetailedGame()"></ion-icon></ion-fab-button>
+        <ion-fab-button><ion-icon name="close-outline" (click)="showModelgamesearch()"></ion-icon></ion-fab-button>
+        <!-- <ion-fab-button>
+          <ion-icon name="file-tray-full-outline"></ion-icon>
+        </ion-fab-button> -->
+      </ion-fab-list>
     </ion-fab>
-
 </ion-content>
 
 

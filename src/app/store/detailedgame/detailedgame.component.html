@@ -98,11 +98,16 @@
       </ion-chip>
     </ion-item>
 
-    <ion-item lines="none">
+    <ion-item lines="none" >
+      <div>
       <ion-badge *ngFor="let item of detailedgame.gameLable;"
-        style="margin-left:5px; margin-right: 5px;background-color:#aac3ca;">
+        style="margin-left:5px; margin-right: 5px;background-color:#aac3ca;" >
         {{item}}
       </ion-badge>
+      <ion-badge style="margin-left:5px; margin-right: 5px;background-color:#aac3ca;" >
+      添加标签+
+    </ion-badge>
+  </div>
     </ion-item>
 
     <ion-item>
@@ -142,9 +147,9 @@
     <ion-item>
       <span>游戏简介</span>
       <div slot='end'>
-        <lable>更多
+        <ion-label>更多
         <ion-icon name="chevron-forward-outline" (click)="showModelgameintroduce()"></ion-icon>
-      </lable>
+      </ion-label>
       </div>
 
     </ion-item>
@@ -209,14 +214,14 @@
 
 
 
-<ion-footer>
+<ion-footer style="height: 50px;">
   <ion-item>
     <div style="width: 18%;margin: 0px;display: inline-block;text-align: center;">
       <ion-icon name="heart-outline" style="width: 30px;height: 30px;" (click)="changefollowstatus($event)"></ion-icon>
-      <p style="font-size: 12px;margin: 0px;line-height: 5px;">关注</p>
+      <p style="font-size: 12px;margin: 0px;">关注</p>
     </div>
 
-    <ion-button style="float: right;width: 80%;" (click)="presentActionSheet()">购买</ion-button>
+    <ion-button style="float: right;width: 80%;height: 45px;" (click)="presentActionSheet()">￥{{detailedgame.nowPrice}} 购买</ion-button>
 
   </ion-item>
 

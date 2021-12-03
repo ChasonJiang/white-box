@@ -10,16 +10,18 @@ import { GamelongcardModule } from './gamelongcard/gamelongcard.module';
 import { GamelongcardComponent } from './gamelongcard/gamelongcard.component';
 import { AdddetailedgameComponent } from './adddetailedgame/adddetailedgame.component';
 import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from '../common-component/search-bar/search-bar.component';
+import { GamesearchComponent } from './gamesearch/gamesearch.component';
 
 @NgModule({
-  declarations: [StoreComponent,GamelistComponent,DetailedGameComponent,GamelongcardComponent,AdddetailedgameComponent],
+  declarations: [StoreComponent,GamelistComponent,DetailedGameComponent,GamelongcardComponent,AdddetailedgameComponent,SearchBarComponent,GamesearchComponent],
   imports: [
     CommonModule,
     StoreRoutingModule,
     SwiperModule,
     GamecardModule,
     GamelongcardModule,
-    FormsModule
+    FormsModule,
   ],
   entryComponents:[GamelistComponent]
 })

@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title slot="content">tianjia</ion-title>
+    <ion-title >游戏的属性</ion-title>
     <ion-button slot="end" (click)="showlongcardModel(detailedgame);" >
       <ion-icon name="eye-outline"></ion-icon>
     </ion-button>
@@ -20,14 +20,14 @@
 
   <ion-item>
     <span>gid</span>
-    <input type="text" [(ngModel)]="detailedgame.gid" name='gid'>
+    <input type="text" [(ngModel)]="detailedgame.gid" name='gid' placeholder='不能为空'>
   </ion-item>
   <ion-item>
     <span>gameName</span>
 
     <input type="text" name='gamename' [(ngModel)]="detailedgame.gameName">
   </ion-item>
-  <p>detailedgame.gid:{{detailedgame.gid}}+detailedgame.gameName:{{detailedgame.gameName}}</p>
+
 
   <ion-item lines="none">
     <span (click)="insertImgUrl()">imgUrl:添加图片
@@ -63,10 +63,19 @@
   <ion-item>
     <span>gameLable</span>
 
-    <input type="text" [(ngModel)]="addgametable">
-    <ion-icon class="addicon" name="add-outline" (click)="detailedgame.gameLable.push(addgametable)"></ion-icon>
+    <input type="text" [(ngModel)]="gameLable">
+    <ion-icon class="addicon" name="add-outline" (click)="addgameLable()"></ion-icon>
+    <ion-icon name="close-outline" (click)="removegameLable()"></ion-icon>
   </ion-item>
-  <ion-item>
+  
+
+<ion-item *ngIf="gameLableerror!==''">
+  <span class="error-message" ngDefaultControl >{{gameLableerror}}</span>
+  
+</ion-item>
+
+  <ion-item *ngIf="detailedgame.gameLable.length!==0">
+    
     <ion-badge *ngFor="let item of detailedgame.gameLable">{{item}}</ion-badge>
   </ion-item>
 
@@ -99,10 +108,11 @@
     
   </ion-item>
   <ion-item *ngIf="gameTypeerror!==''">
-    <span class="error-message" ngDefaultControl [(ngModel)]="gameTypeerror"></span>
+    <span class="error-message" ngDefaultControl [(ngModel)]="gameTypeerror">{{gameTypeerror}}</span>
+    
   </ion-item>
  
-  <ion-item>
+  <ion-item *ngIf="detailedgame.gameType.length!==0">
     <ion-badge *ngFor="let item of detailedgame.gameType" (click)="gameType=item">{{item}}</ion-badge>
   </ion-item>
 
@@ -120,10 +130,7 @@
     <span>favorableRate</span>
     <input type="text" [(ngModel)]="detailedgame.favorableRate" name='favorableRate'>
   </ion-item>
-  <ion-item>
-    <span>onlineNumber</span>
-    <input type="text" [(ngModel)]="detailedgame.onlineNumber" name='onlineNumber'>
-  </ion-item>
+
   <ion-item>
     <span>OnlineMaxYesterday</span>
     <input type="text" [(ngModel)]="detailedgame.OnlineMaxYesterday" name='OnlineMaxYesterday'>
