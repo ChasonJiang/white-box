@@ -8,6 +8,7 @@ import { PostComponent } from '../post/post.component';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { AlertController } from '@ionic/angular';
 import { Topic } from 'src/app/interface/Topic';
+import { TopicListComponent } from './topic-list/topic-list.component';
 
 @Component({
   selector: 'app-post-editer',
@@ -56,6 +57,16 @@ export class PostEditerComponent implements OnInit {
     });
     return await modal.present();
   }
+
+  async createTopicListModal(){
+    const modal = await this.modalController.create({
+      component:TopicListComponent,
+      cssClass:"fullscreen-class",
+    });
+    return await modal.present();
+  }
+
+  
 
   async alert(msg: string){
     const alert = await this.alertController.create({

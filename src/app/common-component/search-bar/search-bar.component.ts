@@ -8,14 +8,20 @@ import { NgForm } from '@angular/forms';
 })
 export class SearchBarComponent implements OnInit {
 
-  content: string=null;
+  @Output() content: string=null;
   constructor() { }
 
   @Output() onSubmit:EventEmitter<any> = new EventEmitter();
+  @Output() onChange:EventEmitter<any> = new EventEmitter();
   ngOnInit() {}
 
   Submit():void{
     this.onSubmit.emit(this.content);
+  }
+  Change(content:string):void{
+    this.content=content;
+    this.onChange.emit(content);
+
   }
 
 }

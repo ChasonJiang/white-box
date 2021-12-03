@@ -31,6 +31,7 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
   }
 
   searchSubmit(searchContent:string){
+    this.TopicCardContainer.clear();
     console.log(searchContent);
   }
 

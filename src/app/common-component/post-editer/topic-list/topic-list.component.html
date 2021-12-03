@@ -6,7 +6,7 @@
         <ion-icon name="chevron-back-outline" ></ion-icon>
       </div>
       <div class="search-bar">
-        <app-search-bar (onSubmit)="searchSubmit($event);" ></app-search-bar>
+        <app-search-bar (onSubmit)="searchSubmit($event);" (onChange)="searchChange($event);"></app-search-bar>
       </div>
     </div>
   

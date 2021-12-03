@@ -1,7 +1,7 @@
 <div class="searchbar">
   <div class="searchbar-container">
       <form (ngSubmit)="Submit()" role="search">
-        <input  [(ngModel)]="content"  [ngModelOptions]="{standalone: true}" inputmode="search" placeholder="Search" type="search" autocomplete="off"  spellcheck="false">
+        <input (ngModelChange)="Change($event);" [(ngModel)]="content"  [ngModelOptions]="{standalone: true}" inputmode="search" placeholder="Search" type="search" autocomplete="off"  spellcheck="false">
         <ion-icon id="search-icon" name="search" style="font-size:25px"></ion-icon>
       </form>
   </div>

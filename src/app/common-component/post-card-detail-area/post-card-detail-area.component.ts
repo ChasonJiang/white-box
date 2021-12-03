@@ -12,7 +12,6 @@ import { IonInfiniteScroll } from '@ionic/angular';
 export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
   @ViewChild("Container",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @Input() tid:number;
   postCardsDetail:PostCardDetail[];
   
@@ -52,10 +51,6 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   loadData(event) {
     this.lazyLoad(this.getpostCardDetail());
     event.target.complete();
-  }
-
-  toggleInfiniteScroll() {
-    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
 
   doRefresh(event) {
