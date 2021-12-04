@@ -39,8 +39,13 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
   }
   ngAfterViewInit(){
-    this.getpostCardIndex();
-    this.lazyLoadPostCard(this.getPostCard());
+    try{
+      this.getpostCardIndex();
+      this.lazyLoadPostCard(this.getPostCard());
+    }catch(e){
+      console.log(e.message);
+    }
+
   }
 
   getpostCardIndex(){
