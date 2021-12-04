@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>personalset</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像
+      </ion-button>
+      <i-alert></i-alert>
+    </ion-item>
+  
+    <ion-item>
+      <ion-button ng-click="showPopup()">
+        设置昵称
+      </ion-button>
+      <p style="float: right;">123</p>
+    </ion-item>
+  
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        设置签名
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

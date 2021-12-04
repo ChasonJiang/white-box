@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>设置</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        个人设置
+      </ion-button>
+    </ion-item>
+  
+    <ion-item>
+      <ion-button [routerLink]="[ 'test']">
+        推送设置
+      </ion-button>
+    </ion-item>
+  
+    <ion-item>
+      <ion-button [routerLink]="[ 'personalset']">
+        通用设置
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
