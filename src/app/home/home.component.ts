@@ -113,6 +113,8 @@ export class HomeComponent implements AfterViewInit,OnInit {
       this.lazyLoadPostCard(this.postCards);
     }catch(err){
       this.reqFailed=true;
+
+    }finally{
       event.target.complete();
     }
   }
