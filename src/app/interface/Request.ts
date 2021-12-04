@@ -25,7 +25,7 @@ export interface PostCardRequestParams{
 }
 
 export interface PostCardDetailRequestParams{
-    pid: number;
+    pid: number[];
 }
 
 export interface CommentCardRequestParams{
