@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { detailedgame } from '../game';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Camera, CameraResultType } from '@capacitor/camera';
@@ -14,6 +14,7 @@ import { ShowlongcardComponent } from '../showlongcard/showlongcard.component';
 })
 export class AdddetailedgameComponent implements OnInit {
   @ViewChild('Container', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
+  @Input() gameId: number;
   detailedgame?: detailedgame
   hasimgUrl: boolean = false;
 
@@ -30,8 +31,18 @@ export class AdddetailedgameComponent implements OnInit {
     private gameserviceService: GameserviceService,) { }
 
   ngOnInit() {
+    this.getdetailedgame();
+  }
+
+getdetailedgame(){
+  if(this.gameId!==undefined){
+    this.detailedgame =this.gameserviceService.find(this.gameId);
+  }
+  else{
     this.detailedgame = this.gameserviceService.initdetailedgame();
   }
+}
+
   async showlongcardModel(detailedgame) {
     const modal = await this.modalController.create({
       component: ShowlongcardComponent,

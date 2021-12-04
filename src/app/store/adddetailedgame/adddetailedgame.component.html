@@ -35,7 +35,8 @@
     </span>
   </ion-item>
   <ion-item>
-    <div *ngIf="hasimgUrl">
+    <div >
+     
       <img [src]="detailedgame.imgUrl" alt="">
     </div>
   </ion-item>
@@ -75,8 +76,9 @@
 </ion-item>
 
   <ion-item *ngIf="detailedgame.gameLable.length!==0">
-    
+    <div>
     <ion-badge *ngFor="let item of detailedgame.gameLable">{{item}}</ion-badge>
+  </div>
   </ion-item>
 
   <ion-item>
@@ -113,7 +115,9 @@
   </ion-item>
  
   <ion-item *ngIf="detailedgame.gameType.length!==0">
+    <div>
     <ion-badge *ngFor="let item of detailedgame.gameType" (click)="gameType=item">{{item}}</ion-badge>
+  </div>
   </ion-item>
 
 
