@@ -1,15 +1,15 @@
-<div *ngIf="showBackdrop" (click)="closeCommentBox();" >
+<!-- <div *ngIf="showBackdrop" (click)="closeCommentBox();" >
   <ion-backdrop tappable="false" visible="true" stopPropagation="false" style="opacity: 0.6;" ></ion-backdrop>
 </div>
 
 <div *ngIf="showCommentBox">
   <app-comment-editer></app-comment-editer>
-</div>
+</div> -->
 
 
 <ion-footer >
   <div class="footer-toolbar">
-    <div class="comment-bar" (click)="openCommentBox();">
+    <div class="comment-bar" (click)="createCommentEditerModal();">
         <ion-note *ngIf="numberOfComments; else elseNoShow">评论(已有{{numberOfComments}}条评论)</ion-note>
         <ng-template #elseNoShow>
           <ion-note>评论</ion-note>

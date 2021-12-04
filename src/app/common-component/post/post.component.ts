@@ -7,6 +7,7 @@ import { UserCard } from 'src/app/interface/User';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from "../../interface/Comment";
 import { DynamicTemplateRendererService } from"../../services/dynamic-template-renderer.service";
+import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
 
 
 @Component({
@@ -59,17 +60,7 @@ export class PostComponent implements OnInit,AfterViewInit {
     });
   }
 
-  async createModal(postInfo:PostInfo){
-    const modal = await this.modalController.create({
-      component:PostComponent,
-      cssClass:"fullscreen-class",
-      componentProps:{
-        'postInfo': postInfo,
-      }
-    });
-    
-    return await modal.present();
-  }
+
 
   async renderPost(){
     if(this.componentRef){

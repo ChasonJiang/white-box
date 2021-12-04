@@ -2,12 +2,12 @@
   <div class="comment-area-user-card">
       <app-user-card [userCard]="comment.userCard" [releaseTime]="comment.commentTime"></app-user-card>
   </div>
-  <div class="comment-content">
+  <div class="comment-content" (click)="createCommentEditerModal();">
     <ion-label>{{comment.commentContent}}</ion-label>
   </div>
   <div class="reply-area" >
     <div *ngFor="let reply_item of comment.reply">
-      <div class="reply-content">
+      <div class="reply-content" (click)="createCommentEditerModal();">
         <ion-label>
           <ion-label style="color: #3880ff;">{{reply_item.userInfo.userName}}</ion-label><ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
         </ion-label> 

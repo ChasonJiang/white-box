@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-comment-editer',
@@ -6,9 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-editer.component.scss'],
 })
 export class CommentEditerComponent implements OnInit {
+   content:string=null;
 
-  constructor() { }
+
+  constructor(
+    private modalController: ModalController,
+  ) { }
 
   ngOnInit() {}
+
+  modalDismiss() {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
+
+  Submit(){
+    console.log(this.content);
+    this.modalDismiss();
+  }
 
 }

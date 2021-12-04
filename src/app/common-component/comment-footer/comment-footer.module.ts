@@ -12,6 +12,7 @@ import { CommentEditerModule } from '../comment-editer/comment-editer.module';
   ],
   exports: [
     CommentFooterComponent,
+    CommentEditerModule
     
   ],
 })

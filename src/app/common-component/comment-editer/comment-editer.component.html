@@ -1,8 +1,10 @@
+<div class="background" (click)="modalDismiss();">
+</div>
 <div class="comment-box-parent" >
   <div class="comment-box">
-    <ion-textarea rows="3" autofocus="true" enterkeyhint="send"></ion-textarea>
-    <div class="comment-box-toolbar">
-    </div>
+    <ion-textarea  (keyup.enter)="Submit();" [(ngModel)]="content" rows="3" autofocus="true" enterkeyhint="send"></ion-textarea>
+    <!-- <div class="comment-box-toolbar">
+    </div> -->
   </div>
 
 </div> 

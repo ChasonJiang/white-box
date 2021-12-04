@@ -4,24 +4,5 @@
   </div>
 
   <div *ngIf="comments" #CommentsContainer>
-    <!-- <app-comment-card></app-comment-card> -->
-    <!-- <div class="comment-area" *ngFor="let comment of comments">
-      <div class="comment-area-user-card">
-          <app-user-card [uid]="postRequestOptions.uid" ></app-user-card>
-      </div>
-      <div class="comment-content">
-        <ion-label>{{comment.commentContent}}</ion-label>
-      </div>
-      <div class="reply-area" >
-        <div *ngFor="let reply_item of comment.reply">
-          <div class="reply-content">
-            <ion-label>
-              <ion-label style="color: #3880ff;">{{reply_item.userInfo.userName}}</ion-label><ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
-            </ion-label> 
-            <ion-note id="commentTime">{{reply_item.commentTime}}</ion-note>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>

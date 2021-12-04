@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
 
 @Component({
   selector: 'app-comment-footer',
@@ -9,25 +11,25 @@ export class CommentFooterComponent implements OnInit {
 
   @Input() numberOfComments?: number;
 
-  enableBackdropDismiss = false;
-  showBackdrop = false;
-  shouldPropagate = false;
-  showCommentBox= false;
+  // enableBackdropDismiss = false;
+  // showBackdrop = false;
+  // shouldPropagate = false;
+  // showCommentBox= false;
 
-  constructor() { }
+  constructor(
+    private modalController: ModalController,
+  ) { }
 
   ngOnInit() {}
 
-  openCommentBox(){
-    // this.enableBackdropDismiss=!this.enableBackdropDismiss;
-    this.showBackdrop=!this.showBackdrop;
-    this.showCommentBox=!this.showCommentBox;
-
+  async createCommentEditerModal(){
+    const modal = await this.modalController.create({
+      component:CommentEditerComponent,
+      cssClass:"transparent-class",
+      componentProps:{
+      }
+    });
+    
+    return await modal.present();
   }
-  closeCommentBox(){
-    console.log('closing comment box')
-    this.showCommentBox=!this.showCommentBox;
-    this.showBackdrop=!this.showBackdrop;
-  }
-
 }
