@@ -5,6 +5,7 @@ import { POST_CARD } from "../postcard";
 import { PostCardRequestParams, Requester } from '../interface/Request';
 import { HttpClient } from '@angular/common/http';
 import { ApiUrl } from '../Config';
+import { PostCardIndexResponse } from '../interface/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class PostCardService {
     private httpClient:HttpClient,
     ) { }
 
-  requestPostCardIndex(req: Requester<void>):Observable<number[]> {
-    return this.httpClient.post<number[]>(ApiUrl,req);
+  requestPostCardIndex(req: Requester<void>):Observable<PostCardIndexResponse> {
+    return this.httpClient.post<PostCardIndexResponse>(ApiUrl,req);
 
   }
 
