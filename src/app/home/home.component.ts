@@ -1,10 +1,9 @@
-import { AfterViewInit, ApplicationRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { PostCard,PostInfo } from "../interface/Post"
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { PostCard } from "../interface/Post"
 import { PostCardService } from 'src/app/services/PostCard.service';
-import { PostComponent } from '../common-component/post/post.component';
+
 import { PostCardComponent } from '../common-component/post-card/post-card.component';
-import { IonInfiniteScroll } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-home',
@@ -21,8 +20,6 @@ export class HomeComponent implements AfterViewInit,OnInit {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private postCardService:PostCardService,
-    private injector: Injector,
-    private appRef: ApplicationRef
   
   ) {
 
