@@ -51,7 +51,7 @@ export const detailedGame: detailedgame[] = [
     {
         gid: 0,
         gameName: '帝国神话',
-        imgUrl: 'string',
+        imgUrl: 'https://img0.baidu.com/it/u=1048139790,3786911039&fm=26&fmt=auto',
         imgshow: [
             'https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto',
             'https://img1.baidu.com/it/u=3309502357,1081703439&fm=26&fmt=auto', 

@@ -37,3 +37,8 @@ export interface TopicSearchRequestParams{
     tid:number;
     content:string;
 }
+
+export interface SimpleGameSearchRequestParams{
+    
+    content:string;
+}

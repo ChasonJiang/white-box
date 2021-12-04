@@ -1,6 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-title style="text-align: center;" >推荐</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showModelgamesearch('detailedgame')">
+        <ion-icon  slot="end" name="search" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -176,7 +182,7 @@
       </ion-fab-button>
       <ion-fab-list side="start">
         <ion-fab-button ><ion-icon name="add-outline" (click)="showModeladdDetailedGame()"></ion-icon></ion-fab-button>
-        <ion-fab-button><ion-icon name="close-outline" (click)="showModelgamesearch()"></ion-icon></ion-fab-button>
+        <ion-fab-button><ion-icon name="close-outline" (click)="showModelgamesearch('modify')"></ion-icon></ion-fab-button>
         <!-- <ion-fab-button>
           <ion-icon name="file-tray-full-outline"></ion-icon>
         </ion-fab-button> -->

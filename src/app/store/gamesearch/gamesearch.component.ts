@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { SimpleGameSearchRequestParams } from 'src/app/interface/Request';
+import { GameserviceService } from 'src/app/services/gameservice.service';
+import { simplegame } from '../game';
 
 @Component({
   selector: 'app-gamesearch',
@@ -7,10 +10,26 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./gamesearch.component.scss'],
 })
 export class GamesearchComponent implements OnInit {
+  @ViewChild('search') search:any;
+  @Input() operation:string;
+  searchmsg:string = '';
+  simpleGamelist?:simplegame[];
 
-  constructor(public modalController:ModalController,) { }
+  constructor(public modalController:ModalController,
+    private gameserviceService:GameserviceService,) { }
+
 
   ngOnInit() {}
+
+  getsearchmsg(e:string) {
+    this.searchmsg=e;
+    this.simpleGamelist= this.gameserviceService.getsearchsimplegamelist(
+      {head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:'SimpleGameSearchRequestParams'}})
+      console.log(this.simpleGamelist)
+  }
+
+
+  
 
 
 
@@ -35,3 +54,6 @@ export class GamesearchComponent implements OnInit {
     });
   };
 }
+
+
+

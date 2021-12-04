@@ -11,5 +11,11 @@
 </ion-header>
 
 <ion-content>
-<app-search-bar></app-search-bar>
+<app-search-bar  (onChange)=getsearchmsg($event)></app-search-bar>
+<app-gamelongcard  *ngFor="let item of simpleGamelist;" [simplegame]=item [operation]=operation> 
+</app-gamelongcard>
+
+
+
+
 </ion-content>

@@ -66,9 +66,26 @@ return {
 }
 }
 
+
+
+
+getsearchsimplegamelist(req:Requester<void>): simplegame[]{
+let simpleGamelist:simplegame[];
+    of(simpleGame).subscribe(_SimpleGamelist=>{
+    simpleGamelist=_SimpleGamelist;
+  })
+  return simpleGamelist;
+}
+
+
+
+
+
+
 //  getDetaileGame(id:number):detailedgame{
 //   return this.getDetaileGamelist().filter(element => element.id==id);
 //  }
 
 
 }
+
