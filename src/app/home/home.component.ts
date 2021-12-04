@@ -34,7 +34,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
   updatePostCard(){
     
-    this.postCardService.requestPostCard({header:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}})
+    this.postCardService.requestPostCard({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}})
       .subscribe(postCards=>{
         this.postCards=postCards;
       });

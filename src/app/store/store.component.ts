@@ -50,7 +50,7 @@ storeShowImg?:string[];
 
 updategamelongcard(){
   let simpleGamelist:simplegame[];
-   this.gameserviceService.getSimpleGame({header:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}}).subscribe(_SimpleGamelist=>{
+   this.gameserviceService.getSimpleGame({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}}).subscribe(_SimpleGamelist=>{
     simpleGamelist=_SimpleGamelist;
   })
   this.simpleGamelist4=simpleGamelist;

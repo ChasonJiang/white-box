@@ -1,11 +1,11 @@
 export interface Requester<T>{
-    header:RequestHeader;
+    head:RequestHead;
     body?:T;
 }
 
 
 
-export interface RequestHeader{
+export interface RequestHead{
     // uid: uid of the requester 
     // type: type of the request eg: PostCardList,Post, CommentList, PostCardDetailList, etc.
     uid: number;
