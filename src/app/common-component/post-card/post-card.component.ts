@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PostCard,PostInfo } from "../../interface/Post"
-import { PostCardService } from 'src/app/services/PostCard.service';
+import { PostCard } from "../../interface/Post"
+
 import { PostComponent } from '../post/post.component';
 
 @Component({

@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, Outp
 import { PostCardDetail } from 'src/app/interface/Post';
 import { PostCardDetailComponent } from '../post-card-detail/post-card-detail.component';
 import { PostCardDetailService } from '../../services/post-card-detail.service';
-import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-card-detail-area',

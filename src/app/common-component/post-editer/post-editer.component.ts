@@ -3,7 +3,6 @@ import { ModalController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { Post } from 'src/app/interface/Post';
 import { PhotoService } from 'src/app/services/photo.service';
-import { USER_CARD_INFO } from 'src/app/user';
 import { PostComponent } from '../post/post.component';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { AlertController } from '@ionic/angular';

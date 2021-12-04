@@ -1,13 +1,10 @@
 import { AfterViewInit, Component, ComponentRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PostService } from '../../services/post.service';
-import { PostInfo,Post } from '../../interface/Post';
-import { UserService } from '../../services/user.service';
+import { Post } from '../../interface/Post';
 import { UserCard } from 'src/app/interface/User';
-import { CommentService } from 'src/app/services/comment.service';
-import { Comment } from "../../interface/Comment";
 import { DynamicTemplateRendererService } from"../../services/dynamic-template-renderer.service";
-import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
+
 
 
 @Component({
