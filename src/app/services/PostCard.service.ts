@@ -4,7 +4,7 @@ import { PostCard } from "../interface/Post";
 import { POST_CARD } from "../postcard";
 import { PostCardRequestParams, Requester } from '../interface/Request';
 import { HttpClient } from '@angular/common/http';
-import { ApiUrl } from '../ServerConfig';
+import { ApiUrl } from '../Config';
 
 @Injectable({
   providedIn: 'root'
