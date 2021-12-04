@@ -1,0 +1,53 @@
+.toolbar{
+    position:fixed;
+    top:0;
+    left: 0;
+}
+
+.toolbar2{
+    position: fixed;
+    left: 0;
+    top: 200px;
+}
+
+.button{
+    padding: 0;
+    margin: 0;
+}
+
+.usertask{
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    float: left;
+    height: 55px;
+}
+
+.iocns{
+    width: 25%;
+    height: 55px;
+    float: left;
+}
+
+.fonts{
+    width: 60%;
+    height: 55px;
+    float: left;
+}
+
+.smallfont{
+    width: 15%;
+    height: 55px;
+    float: right;
+}
+
+.container{
+    display: grid;
+    grid-template-rows: 10% 10% 80%;
+    grid-template-columns: auto auto auto;
+}
+
+.item{
+    background-color: aqua;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+}

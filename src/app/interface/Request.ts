@@ -16,12 +16,12 @@ export interface RequestHead{
 
 
 export interface PostRequestParams{
-    pid: number;
+    pid: number[];
 
 }
 
 export interface PostCardRequestParams{
-    pid: number;
+    pid: number[];
 }
 
 export interface PostCardDetailRequestParams{
