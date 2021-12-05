@@ -1,3 +1,5 @@
+import { HttpHeaders } from "@angular/common/http";
+
 export interface Requester<T>{
     head:RequestHead;
     body?:T;
@@ -13,6 +15,12 @@ export interface RequestHead{
 
 }
 
+export const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    //   Authorization: 'my-auth-token'
+    })
+  };
 
 
 export interface PostRequestParams{

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { Post } from 'src/app/interface/Post';
@@ -8,6 +8,8 @@ import { getCurrentUserCard } from 'src/app/util/util';
 import { AlertController } from '@ionic/angular';
 import { Topic } from 'src/app/interface/Topic';
 import { TopicListComponent } from './topic-list/topic-list.component';
+import {NgxImageCompressService} from 'ngx-image-compress';
+import { CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-post-editer',
@@ -21,6 +23,7 @@ export class PostEditerComponent implements OnInit {
   private coverUrl:string;
   private currentEditerType: string;
   private isShowtitle:boolean = false;
+  private imgCounter:number = 0;
   @Input() paperMode:boolean = false;
   @Input() topic:Topic=null;
 
@@ -33,6 +36,9 @@ export class PostEditerComponent implements OnInit {
     private modalController: ModalController,
     private photoService:PhotoService,
     private alertController:AlertController,
+    private imageCompress:NgxImageCompressService,
+    private elementRef: ElementRef,
+    private renderer:Renderer2
   ) { }
 
   ngOnInit() {
@@ -122,9 +128,7 @@ export class PostEditerComponent implements OnInit {
       uid:_userCard.uid, // fake uid
       pid:-1, // fake pid
       userCard:_userCard,
-      postContent:{
-        content:main_textarea.innerHTML
-      },
+      content:main_textarea.innerHTML,
       numberOfComments:0,
       numberOfApproval:0,
       isPaper:this.paperMode?true:false,
@@ -145,6 +149,20 @@ export class PostEditerComponent implements OnInit {
 
   sendPost(){
     if(!this.checkPost()){return}
+    let post:Post = this.packUpPost();
+  //   let div=this.renderer.createElement('div');
+  //   div.innerHTML=post.content;
+  //   let imgs=div.querySelectorAll('.images');
+  //   let imgUrl:string[]=[];
+  //   let imgCounter=0;
+  //   for(let img of imgs){
+  //     this.imageCompress.compressFile(img.src, -2, 50, 30).then(result => {
+  //       imgUrl.push(img.src);
+  //       img.src = result;
+  //       img.setAttribute('id',imgCounter++);
+  //     });
+  //   }
+  //  console.log(div.innerHTML);
   }
 
   saveDraft(){
@@ -156,14 +174,30 @@ export class PostEditerComponent implements OnInit {
 
   }
 
+  // peelOffImgUrl(html:string){
+
+  
+  //   return imgUrl;
+  // }
+
   insertImg(){
     // let title = this.viewContainerRef.ele ment.nativeElement.querySelector('title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
     console.log(main_textarea.innerText);
-    from(this.photoService.takePicture()).subscribe(
+    let image:string;
+    from(this.photoService.takePicture({
+      quality:100,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl
+    })).subscribe(
       url=>{
-        main_textarea.innerHTML+="<img src=" + url +` (click)="showImg();" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
+
+          main_textarea.innerHTML+="<img src=" + url +` class="images" (click)="showImg($event);" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
+
+
+
       });
+      
 
     // console.log(main_textarea.innerText);
 

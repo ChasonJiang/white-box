@@ -1,1 +1,1 @@
-export const ApiUrl: string ="";
+export const ApiUrl: string ="/api";
