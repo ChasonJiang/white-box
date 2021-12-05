@@ -78,6 +78,10 @@ getdetailedgame(){
 
 
   }
+  deleteshowimg(imgurl){
+    this.detailedgame.imgshow.splice(imgurl, 1)
+  }
+
   insertImgshow() {
 
     // let imgshow = this.viewContainerRef.element.nativeElement.querySelector('.imgshow');
