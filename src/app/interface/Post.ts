@@ -16,17 +16,18 @@ export interface PostCard extends PostInfo{
     numberOfComments:number;
 }
 
-export interface PostContent{
-    // content is a template of the post,and it included text and image
-    content:string;
-    imgUrl?:string[];
-}
+// export interface PostContent{
+//     // content is a template of the post,and it included text and image
+//     content:string;
+//     imgUrl?:string[];
+// }
 
 export interface Post extends PostInfo{
     coverUrl?:string;
     userCard:UserCard;
     title?:string;
-    postContent:PostContent;
+    content:string;
+    imgUrl?:string[];
     numberOfComments:number;
     numberOfApproval:number;
     isPaper:boolean;
