@@ -1,0 +1,33 @@
+<div class="background" (click)="dismiss()">
+
+</div>
+
+
+<div class="down">
+  <ion-item>
+
+    <img class="imgurl" [src]="detailedgame.imgUrl" alt="">
+
+    <div>
+      <p class="nowPrice">￥{{detailedgame.nowPrice}}</p>
+      <span>发售参考价:{{detailedgame.oldPrice}}</span>
+    </div>
+  </ion-item>
+  <ion-item lines="none">
+    <p>商品类型</p>
+  </ion-item>
+  <ion-item>
+    <ion-button color="light">标准版</ion-button>
+  </ion-item>
+  <ion-item lines="none">
+    <p>发货方式</p>
+  </ion-item>
+  <ion-item>
+    <ion-button color="light">余额交易发货</ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button class="buy" (click)="presentToast()">
+      立即购买
+    </ion-button>
+  </ion-item>
+</div>

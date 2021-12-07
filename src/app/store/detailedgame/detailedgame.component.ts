@@ -9,6 +9,7 @@ import { GameserviceService } from 'src/app/services/gameservice.service';
 import SwiperCore, { Autoplay, FreeMode, Keyboard, Navigation, Pagination, Scrollbar, Thumbs, Zoom } from 'swiper';
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { GameintroduceComponent } from '../gameintroduce/gameintroduce.component';
+import { BuygameComponent } from '../buygame/buygame.component';
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom,FreeMode, Navigation, Thumbs]);
 
 @Component({
@@ -133,7 +134,14 @@ else{
     return await modal.present();
   }
 
-
+  async showModelbuygame(){
+    const modal=await this.modalController.create({
+      component:BuygameComponent,
+      cssClass: 'transparent-class',//modal的css
+      componentProps:{"detailedgame":this.detailedgame}//传入title
+    })
+    return await modal.present();
+  }
 
 // next(){
 
