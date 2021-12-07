@@ -56,4 +56,6 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
       event.target.complete();
     }
 
+
+
 }

@@ -10,7 +10,7 @@ export interface Requester<T>{
 export interface RequestHead{
     // uid: uid of the requester 
     // type: type of the request eg: PostCardList,Post, CommentList, PostCardDetailList, etc.
-    uid: number;
+    uid?: number;
     type: string;
 
 }
@@ -32,8 +32,16 @@ export interface PostCardRequestParams{
     pid: number[];
 }
 
+export interface PostCardDetailIndexRequestParams{
+    tid:number;
+}
+
 export interface PostCardDetailRequestParams{
     pid: number[];
+}
+
+export interface TopicCardRequestParams{
+
 }
 
 export interface CommentCardRequestParams{
@@ -47,6 +55,9 @@ export interface TopicSearchRequestParams{
 }
 
 export interface SimpleGameSearchRequestParams{
-    
+    content:string;
+}
+
+export interface SearchRequestParams{
     content:string;
 }

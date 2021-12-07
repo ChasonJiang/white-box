@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Requester, TopicSearchRequestParams } from '../interface/Request';
+import { ApiUrl } from '../Config';
+import { httpOptions, Requester, SearchRequestParams, TopicSearchRequestParams } from '../interface/Request';
 import { TopicSearchResponse } from '../interface/Response';
 
 @Injectable({
@@ -8,13 +10,11 @@ import { TopicSearchResponse } from '../interface/Response';
 })
 export class SearchService<T> {
 
-  constructor() { }
+  constructor(
+    private httpClient:HttpClient,
+  ) { }
 
-  search(req: Requester<T>):Observable<TopicSearchResponse>{
-    const res=of({
-      success:true,
-      pid:[0,0,0,0,0,0,0,0,]
-    }as TopicSearchResponse);
-    return res ;
+  search(req: Requester<any>):Observable<T>{
+    return this.httpClient.post<T>(ApiUrl,req,httpOptions);
   }
 }

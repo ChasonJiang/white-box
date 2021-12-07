@@ -6,6 +6,7 @@ import { httpOptions, PostCardRequestParams, Requester } from '../interface/Requ
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiUrl } from '../Config';
 import { PostCardIndexResponse } from '../interface/Response';
+import { PostCardResponse } from '../interface/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class PostCardService {
 
   }
 
-  requestPostCard(req:Requester<PostCardRequestParams>):Observable<PostCard[]> {
-    return this.httpClient.post<PostCard[]>(ApiUrl,req,httpOptions);
+  requestPostCard(req:Requester<PostCardRequestParams>):Observable<PostCardResponse> {
+    return this.httpClient.post<PostCardResponse>(ApiUrl,req,httpOptions);
     // const postCards=of(POST_CARD);
     //  postCards;
   }

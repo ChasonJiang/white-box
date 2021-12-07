@@ -45,14 +45,15 @@ export class HomeComponent implements AfterViewInit,OnInit {
       // this.toggleInfiniteScroll();
       this.refresh();
     }catch(e){
-      console.log(e);
       this.reqFailed=true;
+      console.log(e);
     }
 
   }
 
 
   lazyLoad(postCardsIndex:number[]):void{
+    this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
     if(index_strat>postCardsIndex.length){
@@ -71,16 +72,20 @@ export class HomeComponent implements AfterViewInit,OnInit {
     }
 
     this.postCardService.requestPostCard(req)
-      .subscribe(postCards=>{
+      .subscribe({next:postCardResponse=>{
         console.log("GetPostCardList");
-        console.log(postCards);
+        console.log(postCardResponse.postCards);
         // for(let i of postCards.pid){
         //   console.log(i);
         // }
 
-        this.renderPostCardList(postCards);
+        this.renderPostCardList(postCardResponse.postCards);
         this.counter++;
-      });
+      },
+      error:() => {
+        this.reqFailed=true;
+      }
+    });
 
   }
 
@@ -104,6 +109,8 @@ export class HomeComponent implements AfterViewInit,OnInit {
     }
 
     try{
+      console.log("GetPostCardIndexList");
+      let isError:boolean = false;
       this.postCardService.requestPostCardIndex(req)
         .subscribe({
           next:res =>{
@@ -116,14 +123,18 @@ export class HomeComponent implements AfterViewInit,OnInit {
           this.postCardContainerViewContainerRef.clear();
 
           this.lazyLoad(this.postCardsIndexList);
+        },
+        error:()=>{
+          this.reqFailed=true;
         }
       });
 
     }catch(err){
-      console.log(err.message);
-      this.reqFailed=true;
+      console.log("do refresh");
+      // console.log(err.message);
 
     }finally{
+      
     }
   }
 
@@ -132,6 +143,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
     this.infiniteScroll.disabled = false;
     this.isEnd=false;
+    
     event.target.complete();
 
   }
@@ -147,7 +159,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
     }catch(err){
       console.log(err.message);
       this.infiniteScroll.disabled = true;
-      this.isEnd=true;
+      // this.reqFailed=true;
     }finally{
       event.target.complete();
     }

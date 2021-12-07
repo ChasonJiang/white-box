@@ -1,9 +1,12 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { PostCardDetailComponent } from 'src/app/common-component/post-card-detail/post-card-detail.component';
 import { PostCardDetail } from 'src/app/interface/Post';
-import { TopicSearchRequestParams } from 'src/app/interface/Request';
+import { PostCardDetailRequestParams, Requester, SearchRequestParams, TopicSearchRequestParams } from 'src/app/interface/Request';
+import { TopicSearchResponse } from 'src/app/interface/Response';
+import { UserCard } from 'src/app/interface/User';
 import { SearchService } from 'src/app/services/search.service';
+import { getCurrentUserCard } from 'src/app/util/util';
 import { PostCardDetailService } from '../../../services/post-card-detail.service';
 
 @Component({
@@ -14,13 +17,19 @@ import { PostCardDetailService } from '../../../services/post-card-detail.servic
 export class SearchComponent implements OnInit, AfterViewInit{
   @Input() tid:number;
   @ViewChild("SearchResultContainer",{read: ViewContainerRef}) searchResultContainer:ViewContainerRef;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   private searchResults:number[];
-  private postCardsDetail:PostCardDetail[];
+  // private postCardsDetail:PostCardDetail[];
+  private userCard: UserCard=getCurrentUserCard();
+  private counter: number = 0;
+  private reqFailed: boolean =false;
+  private card_size: number=10;
+  private isEnd:boolean=false;
 
   constructor(
     private modalController: ModalController,
-    private searchService: SearchService<TopicSearchRequestParams>,
+    private searchService: SearchService<TopicSearchResponse>,
     private PostCardDetailService:PostCardDetailService,
     private componentFactoryResolver: ComponentFactoryResolver,
 
@@ -46,17 +55,13 @@ export class SearchComponent implements OnInit, AfterViewInit{
     });
   }
 
-  getpostCardDetail(){
-    this.PostCardDetailService.requestPostCardDetail({
-      head:{
-        uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''
-      },
-    }).subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
-        });
-        return this.postCardsDetail;
-  }
+  // getpostCardDetail(){
+  //   this.PostCardDetailService.requestPostCardDetail().subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
+  //       });
+  //       return this.postCardsDetail;
+  // }
 
-  lazyLoad(postCardsDetail:PostCardDetail[]){
+  renderCardList(postCardsDetail:PostCardDetail[]){
     for (let postCardDetail of postCardsDetail)
     {
       const ComponentFactory=this.componentFactoryResolver.resolveComponentFactory(PostCardDetailComponent);
@@ -64,39 +69,111 @@ export class SearchComponent implements OnInit, AfterViewInit{
       ComponentRef.instance.postCardDetail=postCardDetail;
     }
   }
-
-  loadData(event) {
-    this.lazyLoad(this.getpostCardDetail());
-    event.target.complete();
-  }
-
-  doRefresh(event) {
-    // console.log('Begin async operation');
-      console.log('Async operation has ended');
-      this.searchResultContainer.clear();
-      this.lazyLoad(this.getpostCardDetail());
-      event.target.complete();
+  lazyLoad(searchResults:number[]):void{
+    this.reqFailed=false;
+    let index_strat=this.counter*this.card_size;
+    let index_end=this.counter*this.card_size+this.card_size;
+    if(index_strat>searchResults.length){
+      throw new Error("searchResults is empty");
+    }else if(index_end>searchResults.length){
+      index_end=searchResults.length;
+    }
+    let req:Requester<PostCardDetailRequestParams>={
+      head:{
+        uid:this.userCard.uid,
+        type:"GetPostCardDetailList"
+      },
+      body:{
+        pid:searchResults.slice(index_strat,index_end),
+      }
     }
 
-  log(){
-    console.log('okk');
+    this.PostCardDetailService.requestPostCardDetail(req)
+      .subscribe({next:postCardDetailResponse=>{
+        console.log("GetPostCardDetailList");
+        console.log(postCardDetailResponse.postCardsDetail);
+        // for(let i of postCards.pid){
+        //   console.log(i);
+        // }
+
+        this.renderCardList(postCardDetailResponse.postCardsDetail);
+        this.counter++;
+      },
+      error:() => {
+        this.reqFailed=true;
+      }
+    });
+
   }
   searchSubmit(content: string){
-    this.searchService.search({
+    this.reqFailed=false;
+    let req:Requester<TopicSearchRequestParams>={
       head:{
-        uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''
+        uid:this.userCard.uid,
+        type:'SearchPostCardDetail'
       },
       body:{
         tid:this.tid,
         content:content
       }as TopicSearchRequestParams
-    }).subscribe(res => {
-      this.searchResults=res.pid;
-      this.lazyLoad(this.getpostCardDetail());
-      // console.log(this.searchResults); 
-    })
+    }
+    try{
+      this.searchService.search(req)
+        .subscribe({
+          next:res =>{
+          console.log("SearchPostCardDetail");
+          this.searchResults=res.pid;
+          // console.log(postCardsIndexRes);
+        },
+        complete:()=>{
+          this.counter=0;
+          this.searchResultContainer.clear();
+
+          this.lazyLoad(this.searchResults);
+        },
+        error:()=>{
+          this.reqFailed=true;
+        }
+      });
+
+    }catch(err){
+      // console.log("do refresh");
+      console.log(err.message);
+
+    }finally{
+      
+    }
 
   }
+  
 
+  loadData(event) {
+    try{
+      this.lazyLoad(this.searchResults);
+    }catch(err){
+      console.log(err.message);
+      this.infiniteScroll.disabled = true;
+      // this.reqFailed=true;
+    }finally{
+      event.target.complete();
+    }
+  }
+
+  // doRefresh(event) {
+  //   this.refresh();
+
+  //   this.infiniteScroll.disabled = false;
+  //   this.isEnd=false;
+    
+  //   event.target.complete();
+
+  // }
+
+
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+    this.isEnd!=this.isEnd;
+  }
 
 }
