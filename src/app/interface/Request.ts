@@ -47,15 +47,26 @@ export interface TopicCardRequestParams{
     tid:number[];
 }
 
-export interface CommentCardRequestParams{
+export interface CommentCardIndexRequestParams{
     pid: number;
 }
+export interface CommentCardRequestParams{
+    pid: number;
+    cid:number[];
+}
 
+export interface SubCommentRequestParams{
+    pid: number;
+    cid:number;
+    sub_cid:number[];
+}
 
 export interface TopicSearchRequestParams{
     tid:number;
     content:string;
 }
+
+
 
 export interface SimpleGameSearchRequestParams{
     content:string;

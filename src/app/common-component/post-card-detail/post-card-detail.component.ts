@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PostCardDetail } from 'src/app/interface/Post';
+import { UserCard } from 'src/app/interface/User';
 import { PostComponent } from '../post/post.component';
 
 @Component({
@@ -10,6 +11,7 @@ import { PostComponent } from '../post/post.component';
 })
 export class PostCardDetailComponent implements OnInit {
   private postContent:string;
+  @Input() userCard:UserCard;
   @Input() postCardDetail?:PostCardDetail
   private imgUrl:string[]=[];
   private lengthLimit:number = 180;

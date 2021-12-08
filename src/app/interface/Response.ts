@@ -1,7 +1,8 @@
+import { SubComment } from "./comment";
 import { Post, PostCard, PostCardDetail } from "./Post";
 import { TopicCard } from "./Topic";
 import { UserCard, UserInfo } from "./User";
-
+import { Comment } from "./Comment";
 export interface PostResponse{
     post: Post;
     userCard: UserCard;
@@ -43,4 +44,15 @@ export interface TopicCardIndexResponse{
 
 export interface TopicCardResponse{
     topicCards: TopicCard[];
+}
+
+export interface CommentIndexResponse{
+    cid:number[];
+}
+
+export interface CommentResponse{
+    comments:Comment[]
+}
+export interface SubCommentResponse{
+    subComments:SubComment[]
 }
