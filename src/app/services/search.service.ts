@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiUrl } from '../Config';
 import { httpOptions, Requester, SearchRequestParams, TopicSearchRequestParams } from '../interface/Request';
-import { TopicSearchResponse } from '../interface/Response';
 
 @Injectable({
   providedIn: 'root'

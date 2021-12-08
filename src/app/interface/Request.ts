@@ -24,7 +24,7 @@ export const httpOptions = {
 
 
 export interface PostRequestParams{
-    pid: number[];
+    pid: number;
 
 }
 
@@ -39,9 +39,12 @@ export interface PostCardDetailIndexRequestParams{
 export interface PostCardDetailRequestParams{
     pid: number[];
 }
+// export interface TopicCardIndexRequestParams{
+
+// }
 
 export interface TopicCardRequestParams{
-
+    tid:number[];
 }
 
 export interface CommentCardRequestParams{

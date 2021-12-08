@@ -24,7 +24,7 @@ export interface PostCard extends PostInfo{
 
 export interface Post extends PostInfo{
     coverUrl?:string;
-    userCard:UserCard;
+    // userCard:UserCard;
     title?:string;
     content:string;
     imgUrl?:string[];

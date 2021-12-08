@@ -5,7 +5,7 @@
   <div class="community-area">
     <app-search-bar (onSubmit)="searchSubmit($event);" ></app-search-bar>
     <div class="topic-container">
-      <div  *ngIf="topicCards" #TopicCardContainer>
+      <div #TopicCardContainer>
         <!-- <app-community-card *ngFor="let topicCard of topicCards" [topicCard]="topicCard"></app-community-card> -->
       </div>
     </div>

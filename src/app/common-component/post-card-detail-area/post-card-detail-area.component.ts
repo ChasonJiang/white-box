@@ -32,7 +32,6 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   ) { }
 
   ngOnInit() {
-    // this.getpostCardDetail();
 
   }
 
@@ -70,11 +69,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
     this.PostCardDetailService.requestPostCardDetail(req)
       .subscribe({next:postCardDetailResponse=>{
         console.log("GetPostCardDetailList");
-        console.log(postCardDetailResponse.postCardsDetail);
-        // for(let i of postCards.pid){
-        //   console.log(i);
-        // }
-
+        // console.log(postCardDetailResponse.postCardsDetail);
         this.renderCardList(postCardDetailResponse.postCardsDetail);
         this.counter++;
       },
@@ -145,10 +140,6 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
   }
 
-  // toggleInfiniteScroll() {
-  //   this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-  //   this.isEnd!=this.isEnd;
-  // }
 
   loadData(event) {
     try{

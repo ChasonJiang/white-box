@@ -1,5 +1,11 @@
-import { PostCard, PostCardDetail } from "./Post";
+import { Post, PostCard, PostCardDetail } from "./Post";
+import { TopicCard } from "./Topic";
 import { UserCard, UserInfo } from "./User";
+
+export interface PostResponse{
+    post: Post;
+    userCard: UserCard;
+}
 
 export interface PostCardIndexResponse{
     pid: number[];
@@ -25,8 +31,16 @@ export interface UserDetailsResponse{
     userInfo?: UserInfo;
 }
 
-export interface TopicSearchResponse{
+export interface PostSearchResponse{
     success: boolean;
     message?: string;
     pid?: number[];
+}
+
+export interface TopicCardIndexResponse{
+    tid:number[];
+}
+
+export interface TopicCardResponse{
+    topicCards: TopicCard[];
 }

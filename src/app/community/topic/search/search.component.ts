@@ -3,7 +3,7 @@ import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { PostCardDetailComponent } from 'src/app/common-component/post-card-detail/post-card-detail.component';
 import { PostCardDetail } from 'src/app/interface/Post';
 import { PostCardDetailRequestParams, Requester, SearchRequestParams, TopicSearchRequestParams } from 'src/app/interface/Request';
-import { TopicSearchResponse } from 'src/app/interface/Response';
+import { PostCardDetailIndexResponse, PostSearchResponse } from 'src/app/interface/Response';
 import { UserCard } from 'src/app/interface/User';
 import { SearchService } from 'src/app/services/search.service';
 import { getCurrentUserCard } from 'src/app/util/util';
@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
   @Input() tid:number;
   @ViewChild("SearchResultContainer",{read: ViewContainerRef}) searchResultContainer:ViewContainerRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-
+  private searchContent:string = "";
   private searchResults:number[];
   // private postCardsDetail:PostCardDetail[];
   private userCard: UserCard=getCurrentUserCard();
@@ -29,22 +29,17 @@ export class SearchComponent implements OnInit, AfterViewInit{
 
   constructor(
     private modalController: ModalController,
-    private searchService: SearchService<TopicSearchResponse>,
+    private searchService: SearchService<PostCardDetailIndexResponse>,
     private PostCardDetailService:PostCardDetailService,
     private componentFactoryResolver: ComponentFactoryResolver,
 
   ) { }
 
-
-
-
   ngOnInit() {
-    // this.getpostCardDetail();
 
   }
   
   ngAfterViewInit(){
-    // this.lazyLoad(this.postCardsDetail);
   }
 
   goBack(){
@@ -54,12 +49,6 @@ export class SearchComponent implements OnInit, AfterViewInit{
       'dismissed': true
     });
   }
-
-  // getpostCardDetail(){
-  //   this.PostCardDetailService.requestPostCardDetail().subscribe(postCardsDetail=>{this.postCardsDetail=postCardsDetail
-  //       });
-  //       return this.postCardsDetail;
-  // }
 
   renderCardList(postCardsDetail:PostCardDetail[]){
     for (let postCardDetail of postCardsDetail)
@@ -90,12 +79,8 @@ export class SearchComponent implements OnInit, AfterViewInit{
 
     this.PostCardDetailService.requestPostCardDetail(req)
       .subscribe({next:postCardDetailResponse=>{
-        console.log("GetPostCardDetailList");
-        console.log(postCardDetailResponse.postCardsDetail);
-        // for(let i of postCards.pid){
-        //   console.log(i);
-        // }
-
+        // console.log("GetPostCardDetailList");
+        // console.log(postCardDetailResponse.postCardsDetail);
         this.renderCardList(postCardDetailResponse.postCardsDetail);
         this.counter++;
       },
@@ -106,6 +91,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
 
   }
   searchSubmit(content: string){
+    this.searchContent=content;
     this.reqFailed=false;
     let req:Requester<TopicSearchRequestParams>={
       head:{
@@ -114,25 +100,27 @@ export class SearchComponent implements OnInit, AfterViewInit{
       },
       body:{
         tid:this.tid,
-        content:content
+        content:this.searchContent
       }as TopicSearchRequestParams
     }
     try{
       this.searchService.search(req)
         .subscribe({
           next:res =>{
-          console.log("SearchPostCardDetail");
           this.searchResults=res.pid;
           // console.log(postCardsIndexRes);
         },
         complete:()=>{
           this.counter=0;
           this.searchResultContainer.clear();
-
+          // console.log("SearchPostCardDetail");
+          // console.log(this.searchResults)
           this.lazyLoad(this.searchResults);
         },
         error:()=>{
           this.reqFailed=true;
+          console.log("SearchPostCardDetail error");
+
         }
       });
 
@@ -143,6 +131,12 @@ export class SearchComponent implements OnInit, AfterViewInit{
     }finally{
       
     }
+
+  }
+
+  doRefresh(event) {
+    this.searchSubmit(this.searchContent);
+    event.target.complete();
 
   }
   
@@ -158,18 +152,6 @@ export class SearchComponent implements OnInit, AfterViewInit{
       event.target.complete();
     }
   }
-
-  // doRefresh(event) {
-  //   this.refresh();
-
-  //   this.infiniteScroll.disabled = false;
-  //   this.isEnd=false;
-    
-  //   event.target.complete();
-
-  // }
-
-
 
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;

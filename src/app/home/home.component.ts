@@ -74,11 +74,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
     this.postCardService.requestPostCard(req)
       .subscribe({next:postCardResponse=>{
         console.log("GetPostCardList");
-        console.log(postCardResponse.postCards);
-        // for(let i of postCards.pid){
-        //   console.log(i);
-        // }
-
+        // console.log(postCardResponse.postCards);
         this.renderPostCardList(postCardResponse.postCards);
         this.counter++;
       },
