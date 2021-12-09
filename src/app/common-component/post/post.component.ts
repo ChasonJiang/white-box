@@ -56,6 +56,7 @@ export class PostComponent implements OnInit,AfterViewInit {
     if(!this.previewMode){
       this.loadPost();
     }else{
+      this.userCard=getCurrentUserCard();
       this.renderPost(this.post);
     }
   }
@@ -79,6 +80,7 @@ export class PostComponent implements OnInit,AfterViewInit {
         this.userCard=res.userCard;
       },
       complete:() => {
+        console.log(this.post);
         this.renderPost(this.post);
 
       },

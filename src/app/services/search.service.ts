@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiUrl } from '../Config';
-import { httpOptions, Requester, SearchRequestParams, TopicSearchRequestParams } from '../interface/Request';
+import { httpOptions, Requester, SearchRequestParams, } from '../interface/Request';
 
 @Injectable({
   providedIn: 'root'

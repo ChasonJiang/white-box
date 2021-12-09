@@ -10,6 +10,8 @@ import { Topic } from 'src/app/interface/Topic';
 import { TopicListComponent } from './topic-list/topic-list.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { CameraResultType } from '@capacitor/camera';
+import { PostService } from 'src/app/services/post.service';
+import { Requester, UploadPostRequestParams } from 'src/app/interface/Request';
 
 @Component({
   selector: 'app-post-editer',
@@ -24,6 +26,7 @@ export class PostEditerComponent implements OnInit {
   private currentEditerType: string;
   private isShowtitle:boolean = false;
   private imgCounter:number = 0;
+  private showSpinner:boolean = false;
   @Input() paperMode:boolean = false;
   @Input() topic:Topic=null;
 
@@ -36,6 +39,7 @@ export class PostEditerComponent implements OnInit {
     private modalController: ModalController,
     private photoService:PhotoService,
     private alertController:AlertController,
+    private postService:PostService,
     private imageCompress:NgxImageCompressService,
     private elementRef: ElementRef,
     private renderer:Renderer2
@@ -149,7 +153,31 @@ export class PostEditerComponent implements OnInit {
 
   sendPost(){
     if(!this.checkPost()){return}
+    this.showSpinner=true;
     let post:Post = this.packUpPost();
+    let req:Requester<UploadPostRequestParams>={
+      head:{
+        uid:getCurrentUserCard().uid,
+        type:'UploadPost'
+      },
+      body:{
+        post:post
+      }
+    }
+    this.postService.uploadPost(req).subscribe({
+      next:res =>{
+        this.showSpinner=false;
+        if(res.success){
+          this.alert("发表成功！");
+        }else{
+          this.alert("失败提示:\n"+res.message);
+        }
+      },
+      error:()=>{
+        this.showSpinner=false;
+        this.alert("发表失败！");
+      }
+    });
   //   let div=this.renderer.createElement('div');
   //   div.innerHTML=post.content;
   //   let imgs=div.querySelectorAll('.images');
@@ -164,6 +192,12 @@ export class PostEditerComponent implements OnInit {
   //   }
   //  console.log(div.innerHTML);
   }
+
+  // async imgCompress(img:string){
+  //   return await this.imageCompress.compressFile(img, -2, 50, 30).then(result => {
+      
+  //   });
+  // }
 
   saveDraft(){
     let post:Post = this.packUpPost();
@@ -191,10 +225,10 @@ export class PostEditerComponent implements OnInit {
       resultType: CameraResultType.DataUrl
     })).subscribe(
       url=>{
+        this.imageCompress.compressFile(url, -2, 50, 30).then(img => {
+          main_textarea.innerHTML+="<img src=" + img +` class="images" (click)="showImg($event);" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
 
-          main_textarea.innerHTML+="<img src=" + url +` class="images" (click)="showImg($event);" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
-
-
+        });
 
       });
       

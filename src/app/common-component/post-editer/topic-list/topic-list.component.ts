@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { CommunityCardComponent } from 'src/app/community/community-area/community-card/community-card.component';
-import { Requester, SearchRequestParams, TopicCardRequestParams, TopicSearchRequestParams } from 'src/app/interface/Request';
+import { Requester, SearchRequestParams, TopicCardRequestParams, } from 'src/app/interface/Request';
 import { TopicCardIndexResponse } from 'src/app/interface/Response';
 import { Topic, TopicCard } from 'src/app/interface/Topic';
 import { SearchService } from 'src/app/services/search.service';

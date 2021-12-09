@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, View
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { PostCardDetailComponent } from 'src/app/common-component/post-card-detail/post-card-detail.component';
 import { PostCardDetail } from 'src/app/interface/Post';
-import { PostCardDetailRequestParams, Requester, SearchRequestParams, TopicSearchRequestParams } from 'src/app/interface/Request';
+import { PostCardDetailRequestParams, PostSearchRequestParams, Requester, SearchRequestParams, } from 'src/app/interface/Request';
 import { PostCardDetailIndexResponse, PostSearchResponse } from 'src/app/interface/Response';
 import { UserCard } from 'src/app/interface/User';
 import { SearchService } from 'src/app/services/search.service';
@@ -93,7 +93,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
   searchSubmit(content: string){
     this.searchContent=content;
     this.reqFailed=false;
-    let req:Requester<TopicSearchRequestParams>={
+    let req:Requester<PostSearchRequestParams>={
       head:{
         uid:this.userCard.uid,
         type:'SearchPostCardDetail'
@@ -101,7 +101,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
       body:{
         tid:this.tid,
         content:this.searchContent
-      }as TopicSearchRequestParams
+      }as PostSearchRequestParams
     }
     try{
       this.searchService.search(req)

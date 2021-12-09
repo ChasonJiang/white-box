@@ -56,3 +56,7 @@ export interface CommentResponse{
 export interface SubCommentResponse{
     subComments:SubComment[]
 }
+export interface UploadPostResponse{
+    success: boolean;
+    message?: string;
+}

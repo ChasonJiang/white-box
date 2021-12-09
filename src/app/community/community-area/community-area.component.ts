@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
-import { Requester, SearchRequestParams, TopicCardRequestParams, TopicSearchRequestParams } from 'src/app/interface/Request';
+import { Requester, SearchRequestParams, TopicCardRequestParams, } from 'src/app/interface/Request';
 import { TopicCardIndexResponse } from 'src/app/interface/Response';
 import { TopicCard } from 'src/app/interface/Topic';
 import { SearchService } from 'src/app/services/search.service';

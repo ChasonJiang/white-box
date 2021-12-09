@@ -1,4 +1,5 @@
 import { HttpHeaders } from "@angular/common/http";
+import { Post } from "./Post";
 
 export interface Requester<T>{
     head:RequestHead;
@@ -27,7 +28,9 @@ export interface PostRequestParams{
     pid: number;
 
 }
-
+export interface UploadPostRequestParams{
+    post:Post;
+}
 export interface PostCardRequestParams{
     pid: number[];
 }
@@ -61,7 +64,7 @@ export interface SubCommentRequestParams{
     sub_cid:number[];
 }
 
-export interface TopicSearchRequestParams{
+export interface PostSearchRequestParams{
     tid:number;
     content:string;
 }
@@ -75,3 +78,4 @@ export interface SimpleGameSearchRequestParams{
 export interface SearchRequestParams{
     content:string;
 }
+
