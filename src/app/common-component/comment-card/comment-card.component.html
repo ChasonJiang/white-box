@@ -7,7 +7,7 @@
   </div>
   <div class="reply-area" *ngIf="reply" >
     <div *ngFor="let reply_item of reply">
-      <div class="reply-content" (click)="createCommentEditerModal();">
+      <div class="reply-content" (click)="createCommentEditerModal(reply_item.sub_cid);">
         <ion-label>
           <ion-label style="color: #3880ff;">{{reply_item.userInfo.userName}}</ion-label><ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
         </ion-label> 

@@ -79,3 +79,9 @@ export interface SearchRequestParams{
     content:string;
 }
 
+export interface UploadCommentRequestParams{
+    pid:number;
+    cid?:number;
+    sub_cid?:number;
+    content:string;
+}

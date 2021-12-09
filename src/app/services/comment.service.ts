@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Comment } from '../interface/comment'
 import { COMMENT } from '../comment'
-import { CommentCardIndexRequestParams, CommentCardRequestParams, httpOptions, Requester, SubCommentRequestParams } from '../interface/Request';
-import { CommentIndexResponse, CommentResponse, SubCommentResponse } from '../interface/Response';
+import { CommentCardIndexRequestParams, CommentCardRequestParams, httpOptions, Requester, SubCommentRequestParams, UploadCommentRequestParams } from '../interface/Request';
+import { CommentIndexResponse, CommentResponse, SubCommentResponse, UploadCommentResponse } from '../interface/Response';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiUrl } from '../Config';
@@ -26,5 +26,10 @@ export class CommentService {
 
   requestSubComments(req:Requester<SubCommentRequestParams>):Observable<SubCommentResponse>{
     return this.httpClient.post<SubCommentResponse>(ApiUrl,req,httpOptions);
-  } 
+  }
+  
+  uploadComment(req:Requester<UploadCommentRequestParams>):Observable<UploadCommentResponse>{
+    return this.httpClient.post<UploadCommentResponse>(ApiUrl,req,httpOptions);
+
+  }
 }

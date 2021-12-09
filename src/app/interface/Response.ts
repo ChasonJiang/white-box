@@ -60,3 +60,7 @@ export interface UploadPostResponse{
     success: boolean;
     message?: string;
 }
+export interface UploadCommentResponse{
+    success: boolean;
+    message?: string;
+}

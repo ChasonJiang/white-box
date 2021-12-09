@@ -28,11 +28,19 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
     this.getSubComment();
   }
 
-  async createCommentEditerModal(){
+  async createCommentEditerModal(sub_cid?:number){
+    let comment_info={
+      pid:this.comment.pid,
+      cid:this.comment.cid,
+      sub_cid:sub_cid
+    };
+
+
     const modal = await this.modalController.create({
       component:CommentEditerComponent,
       cssClass:"transparent-class",
       componentProps:{
+        comment_info:comment_info
       }
     });
     
