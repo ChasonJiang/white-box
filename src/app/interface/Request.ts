@@ -85,3 +85,13 @@ export interface UploadCommentRequestParams{
     sub_cid?:number;
     content:string;
 }
+
+export interface FollowRequestParams{
+    // follower_uid:number;
+    follow_uid:number;
+    follow:boolean;
+}
+
+export interface LoginRequestParams{
+    pwd:string;
+}
