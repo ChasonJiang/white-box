@@ -113,14 +113,14 @@
     <ion-item>
       <ion-grid style="text-align: center;">
         <ion-row>
-          <ion-col><span>{{detailedgame.onlineNumber}}</span>
+          <ion-col><span>{{detailedgame.onlineNumber}}万</span>
             <br>
             <span style="font-size:10px">当前在线</span>
           </ion-col>
-          <ion-col><span>{{detailedgame.Minimumprice}}</span> <br>
+          <ion-col><span>￥{{detailedgame.Minimumprice}}</span> <br>
             <span style="font-size:10px">史低价格</span>
           </ion-col>
-          <ion-col><span>{{detailedgame.OnlineMaxYesterday}}</span>
+          <ion-col><span>{{detailedgame.OnlineMaxYesterday}}万</span>
             <br>
             <span style="font-size:10px">昨日峰值在线</span>
           </ion-col>
@@ -148,7 +148,7 @@
       <span>游戏简介</span>
       <div slot='end'>
         <ion-label>更多
-        <ion-icon name="chevron-forward-outline" (click)="showModelgameintroduce()"></ion-icon>
+        <ion-icon name="chevron-forward-outline" (click)="showModelgameintroduce(detailedgame)" [detailedgame]=detailedgame></ion-icon>
       </ion-label>
       </div>
 

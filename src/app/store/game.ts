@@ -43,6 +43,3 @@ export interface detailedgame extends simplegame {//详细的游戏数据
 
 
 
-export interface storeshowimg{
-    storeimg:string[]
-}

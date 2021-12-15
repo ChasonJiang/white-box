@@ -7,6 +7,8 @@ import {simplegame}from'../game'
 import { DetailedGameComponent } from '../detailedgame/detailedgame.component';
 import{GamelongcardComponent} from '../gamelongcard/gamelongcard.component';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { getCurrentUserCard } from 'src/app/util/util';
+import { Requester, SimpleGameRequestParams } from 'src/app/interface/Request';
 @Component({
   selector: 'app-gamelist',
   templateUrl: './gamelist.component.html',
@@ -17,52 +19,70 @@ export class GamelistComponent implements OnInit {
 
 simpleGamelists?:simplegame[];
   @Input() title: string;
+  reqFailed: boolean;
+  index:number=0;
   constructor( private componentFactoryResolver: ComponentFactoryResolver,
      public modalController:ModalController,
      private gameserviceService:GameserviceService) { }
 
 
   ngOnInit() {
-    
+    this.updategamelongcard();
   }
  
 
 
-  async showModelDetailed(gameId:number){
-    const modal=await this.modalController.create({
-      component:DetailedGameComponent,
-      cssClass: 'my-custom-class',//modal的css
-      componentProps:{"gameId":gameId}//传入title
-    })
-    return await modal.present();
-  }
-
-
-  dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-  }
-
   ngAfterViewInit(){
-    this.lazyLoadgamelongcard(this.updategamelongcard());
-    this.lazyLoadgamelongcard(this.updategamelongcard());
+    
   }
 
+
+  // updategamelongcard(){
+  //   let simpleGamelist:simplegame[];
+  //    this.gameserviceService.getSimpleGame({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}}).subscribe(_SimpleGamelist=>{
+  //     simpleGamelist=_SimpleGamelist;
+  //   })
+  //   this.simpleGamelists=simpleGamelist;
+  //   return simpleGamelist;
+  // }
 
   updategamelongcard(){
     let simpleGamelist:simplegame[];
-     this.gameserviceService.getSimpleGame({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}}).subscribe(_SimpleGamelist=>{
-      simpleGamelist=_SimpleGamelist;
-    })
-    this.simpleGamelists=simpleGamelist;
-    return simpleGamelist;
+    let req: Requester<SimpleGameRequestParams> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'getSimpleGame'
+      },
+      body: {
+        type: this.title,
+        index:this.index
+      } as SimpleGameRequestParams
+    }
+    try {
+      this.gameserviceService.getsimplegamelist(req)
+        .subscribe({
+          next: res => {
+            console.log("getSimpleGame");
+            this.lazyLoadgamelongcard(res.simplegamelist)
+            this.index++;
+            simpleGamelist=res.simplegamelist
+            console.log(this.index)
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
+
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+      return simpleGamelist;
+    }
   }
 
   lazyLoadgamelongcard(gamelongcard:simplegame[]){
-    for (let item of this.simpleGamelists)
+    for (let item of gamelongcard)
     {
       
       const gamelongcardComponentFactory=this.componentFactoryResolver
@@ -76,13 +96,34 @@ simpleGamelists?:simplegame[];
     // console.log('Begin async operation');
       console.log('Async operation has ended');
       this.gamelongcardContainerViewContainerRef.clear();
-      this.lazyLoadgamelongcard(this.updategamelongcard());
+      this.updategamelongcard();
       event.target.complete();
     }
 
     loadData(event) {
-      this.lazyLoadgamelongcard(this.updategamelongcard());
+      this.updategamelongcard();
       event.target.complete();
+}
+
+
+
+
+async showModelDetailed(gameId:number){
+  const modal=await this.modalController.create({
+    component:DetailedGameComponent,
+    cssClass: 'my-custom-class',//modal的css
+    componentProps:{"gameId":gameId}//传入title
+  })
+  return await modal.present();
+}
+
+
+dismiss() {
+  // using the injected ModalController this page
+  // can "dismiss" itself and optionally pass back data
+  this.modalController.dismiss({
+    'dismissed': true
+  });
 }
 
 }

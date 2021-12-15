@@ -31,8 +31,8 @@
       <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
     </ion-card>
     <div style='clear: both;'></div> -->
-    <app-gamelongcard *ngFor="let item of simpleGamelist;" [simplegame]=item > 
-    </app-gamelongcard>
+    <!-- <app-gamelongcard *ngFor="let item of simpleGamelist;" [simplegame]=item > 
+    </app-gamelongcard> -->
 
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>

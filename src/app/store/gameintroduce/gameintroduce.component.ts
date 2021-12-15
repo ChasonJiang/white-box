@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { detailedgame } from '../game';
 
 @Component({
   selector: 'app-gameintroduce',
@@ -8,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class GameintroduceComponent implements OnInit {
 
+  @Input() detailedgame?:detailedgame;
   constructor(public modalController:ModalController,) { }
 
   ngOnInit() {}

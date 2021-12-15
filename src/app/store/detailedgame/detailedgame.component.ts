@@ -10,6 +10,8 @@ import SwiperCore, { Autoplay, FreeMode, Keyboard, Navigation, Pagination, Scrol
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { GameintroduceComponent } from '../gameintroduce/gameintroduce.component';
 import { BuygameComponent } from '../buygame/buygame.component';
+import { getdetailedgameRequestParams, Requester } from 'src/app/interface/Request';
+import { getCurrentUserCard } from 'src/app/util/util';
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom,FreeMode, Navigation, Thumbs]);
 
 @Component({
@@ -27,6 +29,7 @@ detailedgame?:detailedgame;
 
 //暂时
 isfollow:boolean=false;
+  reqFailed: boolean;
 
 
 
@@ -40,8 +43,9 @@ isfollow:boolean=false;
   ngOnInit() {
     // this.detailedgamelist= this.gameserviceService.getDetaileGamelist()
    // this.detailedgame=this.gameserviceService.find(this.gameId)
-    //this.showimg=this.detailedgame.imgshow[0];
-    this.detailedgame=this.getdetailedgame()
+   
+    this.getdetailedgame()
+    
     // .filter(element => element.id==this.gameId);
   }
 
@@ -49,10 +53,37 @@ isfollow:boolean=false;
     // console.log(this._detailedgame);
 if(this._detailedgame!=null){
 
-  return this._detailedgame;
+  this.detailedgame=this._detailedgame;
 }
 else{
-  return this.gameserviceService.find(this.gameId)
+  let req: Requester<getdetailedgameRequestParams> = {
+    head: {
+      uid: getCurrentUserCard().uid,
+      type: 'getdetailedgame'
+    },
+    body: {
+      gameid:this.gameId
+    } as getdetailedgameRequestParams
+  }
+  try {
+    this.gameserviceService.getdetailedgame(req).subscribe({
+        next: res => {
+          console.log("getdetailedgame");
+          console.log(res.detailedgame);
+          this.detailedgame = res.detailedgame;
+         
+        },
+        error: () => {
+          this.reqFailed = true;
+        }
+      });
+
+  } catch (err) {
+    // console.log("do refresh");
+    console.log(err.message);
+  } finally {
+  }
+  // this.gameserviceService.getdetailedgame(this.gameId)
 }
   }
 
@@ -110,6 +141,8 @@ else{
 
 
 
+
+
   changefollowstatus(e){
     if(!this.isfollow){
       e.target.name='heart'
@@ -121,7 +154,6 @@ else{
       e.target.style.color=''
        this.isfollow=false;
     };
-  
 
   }
 
