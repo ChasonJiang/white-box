@@ -11,7 +11,7 @@ import { getCurrentUserCard } from 'src/app/util/util';
 })
 export class CommentEditerComponent implements OnInit {
    content:string=null;
-  @Input() comment_info:{pid:number, cid?:number,sub_cid?:number,};
+  @Input() comment_info:{pid:number, reply_to:number, cid?:number,sub_cid?:number,};
 
   constructor(
     private modalController: ModalController,
@@ -31,10 +31,15 @@ export class CommentEditerComponent implements OnInit {
   sendComment(content: string) {
     let body:UploadCommentRequestParams={
       pid:this.comment_info.pid,
-      cid:this.comment_info.cid,
-      sub_cid:this.comment_info.sub_cid,
+      reply_to:this.comment_info.reply_to,
       content:content
     }
+    if(this.comment_info.cid!=undefined){
+      body.cid=this.comment_info.cid;
+    }else if(this.comment_info.sub_cid!=undefined){
+      body.sub_cid=this.comment_info.sub_cid;
+    }
+    console.log(body);
 
     let req:Requester<UploadCommentRequestParams>={
       head:{

@@ -28,10 +28,11 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
     this.getSubComment();
   }
 
-  async createCommentEditerModal(sub_cid?:number){
+  async createCommentEditerModal(reply_to:number,sub_cid?:number){
     let comment_info={
       pid:this.comment.pid,
       cid:this.comment.cid,
+      reply_to:reply_to,
       sub_cid:sub_cid
     };
 

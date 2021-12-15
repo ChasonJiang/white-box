@@ -7,6 +7,7 @@ import { HomeComponent }from './home.component'
 import { PostCommonComponentModule } from '../common-component/post-common-component.module';
 import { PostModule } from '../common-component/post/post.module';
 import { PostCardComponent } from '../common-component/post-card/post-card.component';
+import { PostCardModule } from '../common-component/post-card/post-card.module';
 
 @NgModule({
   declarations: [HomeComponent,],
@@ -16,8 +17,8 @@ import { PostCardComponent } from '../common-component/post-card/post-card.compo
     CommonModule,
     FormsModule,
     HomeRoutingModule,
-    PostModule
-    // PostModule,
+    PostModule,
+    PostCardModule,
     // CommentAreaModule,
   ]
 })

@@ -42,12 +42,14 @@ export class PostCardDetailComponent implements OnInit {
   }
 
   async createModal(pid:number){
-        
+        // console.log(this.postCardDetail);
     const modal = await this.modalController.create({
       component:PostComponent,
       cssClass:"fullscreen-class",
       componentProps:{
-        'pid': pid,
+        'post': this.postCardDetail,
+        'userCard': this.userCard,
+        'detailMode':true
       },
     });
     return await modal.present();

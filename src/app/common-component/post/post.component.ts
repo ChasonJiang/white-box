@@ -40,6 +40,7 @@ export class PostComponent implements OnInit,AfterViewInit {
     userLevel:0,
     userName:''
   };
+  @Input() detailMode:boolean = false;
   private reqFailed: boolean=false;
 
   constructor(
@@ -53,9 +54,12 @@ export class PostComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(){
-    if(!this.previewMode){
+    if(!this.previewMode && !this.detailMode){
       this.loadPost();
-    }else{
+    }else if(this.detailMode){
+      this.renderPost(this.post);
+    }
+    else{
       this.userCard=getCurrentUserCard();
       this.renderPost(this.post);
     }

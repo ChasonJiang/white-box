@@ -67,10 +67,10 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
     }
 
     this.PostCardDetailService.requestPostCardDetail(req)
-      .subscribe({next:postCardDetailResponse=>{
+      .subscribe({next:res=>{
         console.log("GetPostCardDetailList");
         // console.log(postCardDetailResponse.postCardsDetail);
-        this.renderCardList(postCardDetailResponse.postCardsDetail);
+        this.renderCardList(res.data);
         this.counter++;
       },
       error:() => {
@@ -80,13 +80,14 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
   }
 
-  renderCardList(postCardsDetail:PostCardDetail[]):void{
-    for (let postCardDetail of postCardsDetail)
+  renderCardList(data:{postCardsDetail:PostCardDetail,userCard:UserCard}[]):void{
+    for (let item of data)
     {
       const postCardComponentFactory=this.componentFactoryResolver
         .resolveComponentFactory(PostCardDetailComponent);
       const postCardComponentRef=this.viewContainerRef.createComponent(postCardComponentFactory);
-      postCardComponentRef.instance.postCardDetail=postCardDetail;
+      postCardComponentRef.instance.postCardDetail=item.postCardsDetail;
+      postCardComponentRef.instance.userCard=item.userCard;
     }
   }
 
@@ -115,6 +116,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
           this.viewContainerRef.clear();
 
           this.lazyLoad(this.postCardsDetailIndexList);
+          
         },
         error:()=>{
           this.reqFailed=true;

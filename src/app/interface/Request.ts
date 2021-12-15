@@ -83,6 +83,7 @@ export interface UploadCommentRequestParams{
     pid:number;
     cid?:number;
     sub_cid?:number;
+    reply_to?:number;
     content:string;
 }
 

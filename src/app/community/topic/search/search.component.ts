@@ -50,12 +50,13 @@ export class SearchComponent implements OnInit, AfterViewInit{
     });
   }
 
-  renderCardList(postCardsDetail:PostCardDetail[]){
-    for (let postCardDetail of postCardsDetail)
+  renderCardList(data:{postCardsDetail:PostCardDetail,userCard:UserCard}[]){
+    for (let item of data)
     {
       const ComponentFactory=this.componentFactoryResolver.resolveComponentFactory(PostCardDetailComponent);
       const ComponentRef=this.searchResultContainer.createComponent(ComponentFactory);
-      ComponentRef.instance.postCardDetail=postCardDetail;
+      ComponentRef.instance.postCardDetail=item.postCardsDetail;
+      ComponentRef.instance.userCard=item.userCard;
     }
   }
   lazyLoad(searchResults:number[]):void{
@@ -78,10 +79,10 @@ export class SearchComponent implements OnInit, AfterViewInit{
     }
 
     this.PostCardDetailService.requestPostCardDetail(req)
-      .subscribe({next:postCardDetailResponse=>{
+      .subscribe({next:res=>{
         // console.log("GetPostCardDetailList");
         // console.log(postCardDetailResponse.postCardsDetail);
-        this.renderCardList(postCardDetailResponse.postCardsDetail);
+        this.renderCardList(res.data);
         this.counter++;
       },
       error:() => {
