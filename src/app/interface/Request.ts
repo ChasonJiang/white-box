@@ -87,7 +87,6 @@ export interface UploadCommentRequestParams{
     content:string;
 }
 
-<<<<<<< HEAD
 
 
 
@@ -124,7 +123,7 @@ export interface adddetailedgameRequestParams{
 
 export interface buygameRequestParams{
     gameid:number;
-=======
+}
 export interface FollowRequestParams{
     // follower_uid:number;
     follow_uid:number;
@@ -133,5 +132,4 @@ export interface FollowRequestParams{
 
 export interface LoginRequestParams{
     pwd:string;
->>>>>>> c1a7d78be7ef78241328893ecf414ca201d29694
 }
