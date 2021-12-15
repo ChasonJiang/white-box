@@ -19,5 +19,9 @@
         loadingText="Loading...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
+    <div *ngIf="reqFailed" (click)="doRefresh($event);" style="position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">
+      <ion-text >获取失败,点击重试</ion-text>
+      <!-- <ion-text></ion-text> -->
+    </div>
   <!-- </div> -->
 </ion-content>

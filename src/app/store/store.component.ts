@@ -48,13 +48,14 @@ storeShowImg?:string[];
 
 
 
+
 updategamelongcard(){
   let simpleGamelist:simplegame[];
    this.gameserviceService.getSimpleGame({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}}).subscribe(_SimpleGamelist=>{
     simpleGamelist=_SimpleGamelist;
   })
-  this.simpleGamelist4=simpleGamelist;
-  return simpleGamelist;
+  this.simpleGamelist4=simpleGamelist.slice(0,4);
+  return simpleGamelist.slice(0,4);
 }
 
 lazyLoadgamelongcard(gamelongcard:simplegame[]){
@@ -113,11 +114,11 @@ async showModeladdDetailedGame(){
   })
   return await modal.present();
 }
-async showModelgamesearch(){
+async showModelgamesearch(operation:string){
   const modal=await this.modalController.create({
     component:GamesearchComponent,
     cssClass: 'fullscreen-class',//modal的css
-  //  componentProps:{"gameId":gameId}//传入title
+   componentProps:{"operation":operation}//传入title
   })
   return await modal.present();
 }

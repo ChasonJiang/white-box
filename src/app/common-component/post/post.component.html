@@ -20,17 +20,22 @@
       <ion-title style="padding: 0;" >{{post.title}}</ion-title>
     </div>
 
-    <div class="author-bar" >
-      <app-user-card [userCard]="post.userCard" [releaseTime]="post.releaseTime"></app-user-card>
+    <div class="author-bar" *ngIf="userCard">
+      <app-user-card [userCard]="userCard" [releaseTime]="post.releaseTime"></app-user-card>
     </div>
 
     <div class="post-content">
       <div #postContainer></div>
     </div>
     <!-- <app-comment-card></app-comment-card> -->
-    <app-comment-area [pid]="post.pid" *ngIf="!previewMode"></app-comment-area>
+    <app-comment-area [pid]="post.pid" *ngIf="!previewMode  && !reqFailed"></app-comment-area>
+
 
   </div>
+  <div *ngIf="reqFailed" (click)="loadPost();" style="z-index:9999; position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">
+    <ion-text >获取失败,点击重试</ion-text>
+    <!-- <ion-text></ion-text> -->
+  </div>
 </ion-content>
+<app-comment-footer [numberOfComments]="post.numberOfComments" *ngIf="!previewMode && !reqFailed"></app-comment-footer>
 
-<app-comment-footer [numberOfComments]="post.numberOfComments" *ngIf="!previewMode"></app-comment-footer>

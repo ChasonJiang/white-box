@@ -35,10 +35,12 @@
     </span>
   </ion-item>
   <ion-item>
-    <div *ngIf="hasimgUrl">
+    <div >
+     
       <img [src]="detailedgame.imgUrl" alt="">
     </div>
   </ion-item>
+
 
 
 
@@ -50,11 +52,13 @@
     <ion-icon class="addicon" name="add-outline" (click)="insertImgshow()"></ion-icon>
   </ion-item>
   <ion-item>
-    <div class="imgshow" role="textbox" contenteditable #Container>
-      <img [src]="item" alt="" *ngFor="let item of detailedgame.imgshow; let i=index">
+    <div  role="textbox" contenteditable #Container >
+      <div class="imgshow" *ngFor="let item of detailedgame.imgshow; let i=index">
+      <img [src]="item" alt="" >
+      <ion-icon class="p" name="close-outline" (click)="deleteshowimg(item)"></ion-icon>
+    </div>
     </div>
   </ion-item>
-
 
 
 
@@ -75,8 +79,9 @@
 </ion-item>
 
   <ion-item *ngIf="detailedgame.gameLable.length!==0">
-    
+    <div>
     <ion-badge *ngFor="let item of detailedgame.gameLable">{{item}}</ion-badge>
+  </div>
   </ion-item>
 
   <ion-item>
@@ -113,7 +118,9 @@
   </ion-item>
  
   <ion-item *ngIf="detailedgame.gameType.length!==0">
+    <div>
     <ion-badge *ngFor="let item of detailedgame.gameType" (click)="gameType=item">{{item}}</ion-badge>
+  </div>
   </ion-item>
 
 

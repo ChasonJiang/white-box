@@ -1,0 +1,12 @@
+{
+    "/api": {    
+      "target": "http://106.52.148.60:3500/api",
+      "logLevel": "debug", 
+      "changeOrigin": true,
+      "secure": false,
+      "pathRewrite": {
+          "^/api": ""  
+      }
+    }
+  
+  }

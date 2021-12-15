@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { Post } from 'src/app/interface/Post';
@@ -8,6 +8,10 @@ import { getCurrentUserCard } from 'src/app/util/util';
 import { AlertController } from '@ionic/angular';
 import { Topic } from 'src/app/interface/Topic';
 import { TopicListComponent } from './topic-list/topic-list.component';
+import {NgxImageCompressService} from 'ngx-image-compress';
+import { CameraResultType } from '@capacitor/camera';
+import { PostService } from 'src/app/services/post.service';
+import { Requester, UploadPostRequestParams } from 'src/app/interface/Request';
 
 @Component({
   selector: 'app-post-editer',
@@ -21,8 +25,10 @@ export class PostEditerComponent implements OnInit {
   private coverUrl:string;
   private currentEditerType: string;
   private isShowtitle:boolean = false;
+  private imgCounter:number = 0;
+  private showSpinner:boolean = false;
   @Input() paperMode:boolean = false;
-  @Input() topic:Topic=null;
+  @Input() topics:Topic[]=[];
 
   private TypeDict={
     'post':"帖子/动态",
@@ -33,6 +39,10 @@ export class PostEditerComponent implements OnInit {
     private modalController: ModalController,
     private photoService:PhotoService,
     private alertController:AlertController,
+    private postService:PostService,
+    private imageCompress:NgxImageCompressService,
+    private elementRef: ElementRef,
+    private renderer:Renderer2
   ) { }
 
   ngOnInit() {
@@ -62,7 +72,10 @@ export class PostEditerComponent implements OnInit {
       component:TopicListComponent,
       cssClass:"fullscreen-class",
     });
-    return await modal.present();
+    await modal.present();
+    const {data}=await modal.onWillDismiss();
+    this.topics.push(data.topic);
+    return 
   }
 
   
@@ -107,6 +120,10 @@ export class PostEditerComponent implements OnInit {
       this.alert("请输入正文！");
       return false;
     }
+    if(this.topics.length==0){
+      this.alert("请添加话题！");
+      return false;
+    }
     return true;
   }
 
@@ -122,17 +139,12 @@ export class PostEditerComponent implements OnInit {
       uid:_userCard.uid, // fake uid
       pid:-1, // fake pid
       userCard:_userCard,
-      postContent:{
-        content:main_textarea.innerHTML
-      },
+      content:main_textarea.innerHTML,
       numberOfComments:0,
       numberOfApproval:0,
       isPaper:this.paperMode?true:false,
       releaseTime:new Date().getTime().toString(),
-      topic:{
-        tid:0,
-        name:"test domain",
-    },
+      topic:this.topics,
     }
     if(this.isShowtitle || this.paperMode){
       post['title']=title.innerText;
@@ -145,7 +157,34 @@ export class PostEditerComponent implements OnInit {
 
   sendPost(){
     if(!this.checkPost()){return}
+    this.showSpinner=true;
+    let post:Post = this.packUpPost();
+    let req:Requester<UploadPostRequestParams>={
+      head:{
+        uid:getCurrentUserCard().uid,
+        type:'UploadPost'
+      },
+      body:{
+        post:post
+      }
+    }
+    this.postService.uploadPost(req).subscribe({
+      next:res =>{
+        this.showSpinner=false;
+        if(res.success){
+          this.alert("发表成功！");
+        }else{
+          this.alert("失败提示:\n"+res.message);
+        }
+      },
+      error:()=>{
+        this.showSpinner=false;
+        this.alert("发表失败！");
+      }
+    });
+
   }
+
 
   saveDraft(){
     let post:Post = this.packUpPost();
@@ -156,14 +195,25 @@ export class PostEditerComponent implements OnInit {
 
   }
 
+
   insertImg(){
     // let title = this.viewContainerRef.ele ment.nativeElement.querySelector('title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
     console.log(main_textarea.innerText);
-    from(this.photoService.takePicture()).subscribe(
+    let image:string;
+    from(this.photoService.takePicture({
+      quality:100,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl
+    })).subscribe(
       url=>{
-        main_textarea.innerHTML+="<img src=" + url +` (click)="showImg();" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
+        this.imageCompress.compressFile(url, -2, 50, 30).then(img => {
+          main_textarea.innerHTML+="<img src=" + img +` class="images" (click)="showImg($event);" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
+
+        });
+
       });
+      
 
     // console.log(main_textarea.innerText);
 
@@ -179,6 +229,9 @@ export class PostEditerComponent implements OnInit {
         }
       }
       );
+  }
+  deleteTopic(topic:Topic){
+    this.topics.splice(this.topics.indexOf(topic),1);
   }
   
 }

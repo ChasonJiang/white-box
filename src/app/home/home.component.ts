@@ -3,6 +3,11 @@ import { PostCard } from "../interface/Post"
 import { PostCardService } from 'src/app/services/PostCard.service';
 
 import { PostCardComponent } from '../common-component/post-card/post-card.component';
+import { getCurrentUserCard } from '../util/util';
+import { PostCardRequestParams, Requester } from '../interface/Request';
+import { UserCard } from '../interface/User';
+import { IonInfiniteScroll } from '@ionic/angular';
+import { PostCardIndexResponse } from '../interface/Response';
 
 
 @Component({
@@ -13,7 +18,14 @@ import { PostCardComponent } from '../common-component/post-card/post-card.compo
 export class HomeComponent implements AfterViewInit,OnInit {
   @ViewChild('postCardContainer',{read: ViewContainerRef }) postCardContainerViewContainerRef:ViewContainerRef;
   // @ViewChild('ion-content',{read: ElementRef}) ionContentRef:ElementRef;
-  postCards?: PostCard[];
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  // private postCards?: PostCard[];
+  private postCardsIndexList:number[];
+  private userCard: UserCard=getCurrentUserCard();
+  private card_size:number=15;
+  private counter:number=0;
+  private isEnd:boolean=false;
+  private reqFailed:boolean=false;
   // private postCardCompts:any[];
 
 
@@ -26,53 +38,127 @@ export class HomeComponent implements AfterViewInit,OnInit {
    }
 
   ngOnInit() {
-    console.log(JSON.parse(localStorage.getItem('userInfo')).uid);
+
   }
   ngAfterViewInit(){
-    this.lazyLoadPostCard(this.updatePostCard());
+    try{
+      // this.toggleInfiniteScroll();
+      this.refresh();
+    }catch(e){
+      this.reqFailed=true;
+      console.log(e);
+    }
+
   }
 
-  updatePostCard(){
-    
-    this.postCardService.requestPostCard({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}})
-      .subscribe(postCards=>{
-        this.postCards=postCards;
-      });
-      return this.postCards;
+
+  lazyLoad(postCardsIndex:number[]):void{
+    this.reqFailed=false;
+    let index_strat=this.counter*this.card_size;
+    let index_end=this.counter*this.card_size+this.card_size;
+    if(index_strat>postCardsIndex.length){
+      throw new Error("postCards is empty");
+    }else if(index_end>postCardsIndex.length){
+      index_end=postCardsIndex.length;
+    }
+    let req:Requester<PostCardRequestParams>={
+      head:{
+        uid:this.userCard.uid,
+        type:"GetPostCardList"
+      },
+      body:{
+        pid:postCardsIndex.slice(index_strat,index_end),
+      }
+    }
+
+    this.postCardService.requestPostCard(req)
+      .subscribe({next:postCardResponse=>{
+        console.log("GetPostCardList");
+        // console.log(postCardResponse.postCards);
+        this.renderPostCardList(postCardResponse.postCards);
+        this.counter++;
+      },
+      error:() => {
+        this.reqFailed=true;
+      }
+    });
+
   }
 
-  lazyLoadPostCard(postCards:PostCard[]){
+  renderPostCardList(postCards:PostCard[]):void{
     for (let postCard of postCards)
     {
       const postCardComponentFactory=this.componentFactoryResolver
         .resolveComponentFactory(PostCardComponent);
       const postCardComponentRef=this.postCardContainerViewContainerRef.createComponent(postCardComponentFactory);
       postCardComponentRef.instance.postCard=postCard;
-  
     }
   }
-  doRefresh(event) {
-    // console.log('Begin async operation');
-      console.log('Async operation has ended');
-      this.postCardContainerViewContainerRef.clear();
-      this.lazyLoadPostCard(this.updatePostCard());
-      event.target.complete();
+
+  refresh(){
+    this.reqFailed=false;
+    let req:Requester<void>={
+      head:{
+        uid:this.userCard.uid,
+        type:"GetPostCardIndexList"
+      },
     }
 
-  loadData(event) {
-    this.lazyLoadPostCard(this.updatePostCard());
-    event.target.complete();
-              // event.target.disabled = true;
-    // setTimeout(() => {
-    //   console.log('Done');
-    //   event.target.complete();
+    try{
+      console.log("GetPostCardIndexList");
+      let isError:boolean = false;
+      this.postCardService.requestPostCardIndex(req)
+        .subscribe({
+          next:res =>{
+          console.log("GetPostCardIndexList");
+          this.postCardsIndexList=res.pid;
+          console.log(res);
+        },
+        complete:()=>{
+          this.counter=0;
+          this.postCardContainerViewContainerRef.clear();
 
-    //   // App logic to determine if all data is loaded
-    //   // and disable the infinite scroll
-    //   if (data.length == 1000) {
-    //     event.target.disabled = true;
-    //   }
-    // }, 500);
+          this.lazyLoad(this.postCardsIndexList);
+        },
+        error:()=>{
+          this.reqFailed=true;
+        }
+      });
+
+    }catch(err){
+      console.log("do refresh");
+      // console.log(err.message);
+
+    }finally{
+      
+    }
+  }
+
+  doRefresh(event) {
+    this.refresh();
+
+    this.infiniteScroll.disabled = false;
+    this.isEnd=false;
+    
+    event.target.complete();
+
+  }
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+    this.isEnd!=this.isEnd;
+  }
+
+  loadPostCard(event) {
+    try{
+      this.lazyLoad(this.postCardsIndexList);
+    }catch(err){
+      console.log(err.message);
+      this.infiniteScroll.disabled = true;
+      // this.reqFailed=true;
+    }finally{
+      event.target.complete();
+    }
   }
 
 

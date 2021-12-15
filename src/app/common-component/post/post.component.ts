@@ -4,6 +4,8 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../interface/Post';
 import { UserCard } from 'src/app/interface/User';
 import { DynamicTemplateRendererService } from"../../services/dynamic-template-renderer.service";
+import { getCurrentUserCard } from 'src/app/util/util';
+import { PostRequestParams, Requester } from 'src/app/interface/Request';
 
 
 
@@ -17,8 +19,28 @@ export class PostComponent implements OnInit,AfterViewInit {
   @Input() pid?: number;
   @Input() previewMode: boolean= false;
   private componentRef: ComponentRef<{}>;
-  @Input() post?: Post;
-  userCard?: UserCard;
+  @Input() post: Post={
+    uid:-1,
+    pid:-1,
+    title: '',
+    content: '',
+    coverUrl:'',
+    numberOfApproval:0,
+    numberOfComments:0,
+    isPaper:false,
+    releaseTime:'',
+    topic:[{
+      tid:-1,
+      name:'',
+    }],
+  };
+  @Input() userCard: UserCard={
+    uid:-1,
+    avatarUrl:'',
+    userLevel:0,
+    userName:''
+  };
+  private reqFailed: boolean=false;
 
   constructor(
     public modalController:ModalController,
@@ -26,27 +48,55 @@ export class PostComponent implements OnInit,AfterViewInit {
     private dynamicTemplateRendererService:DynamicTemplateRendererService,
   ) { }
 
-   ngOnInit() {
-    // this.getPost();
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit(){
     if(!this.previewMode){
-      this.getPost();
+      this.loadPost();
+    }else{
+      this.userCard=getCurrentUserCard();
+      this.renderPost(this.post);
+    }
+  }
+
+  loadPost(){
+    this.reqFailed=false;
+    let req:Requester<PostRequestParams>={
+      head:{
+        uid:getCurrentUserCard().uid,
+        type:'GetPost'
+      },
+      body:{
+        pid:this.pid,
+      }
+    };
+    try{
+      this.postService.requestPost(req)
+      .subscribe({
+        next:res => {
+        this.post=res.post;
+        this.userCard=res.userCard;
+      },
+      complete:() => {
+        console.log(this.post);
+        this.renderPost(this.post);
+
+      },
+      error:() => {
+        console.log("resquest post error")
+        this.reqFailed=true;
+
+      }
+    });
+    }catch(e){
+      console.log(e);
+    }finally{
+
     }
 
-
-    // console.log("ok")
-
-  }
-  ngAfterViewInit(){
-
-    this.renderPost();
-  }
-
-  async getPost(){
-    await this.postService.requestPost({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}})
-      .subscribe(post => {
-        this.post=post;
-      });
-    return this.post;
+    // return this.post;
   }
 
   modalDismiss() {
@@ -59,7 +109,7 @@ export class PostComponent implements OnInit,AfterViewInit {
 
 
 
-  async renderPost(){
+  renderPost(post:Post){
     if(this.componentRef){
       this.componentRef.destroy();
       this.componentRef=null;
@@ -68,14 +118,14 @@ export class PostComponent implements OnInit,AfterViewInit {
     this.componentRef=this.dynamicTemplateRendererService.compileTemplate(
       { 
         selector: "app-post-content", 
-        template: this.post.postContent.content ,
+        template: post.content ,
         styles:["ion-img{padding-top:10px;padding-bottom:10px;}"],
       }, 
       this.postContainer,
       class DynamicTemplateComponent{
         constructor(){}
-        showImg(){
-          console.log('img click ok!');
+        showImg(e){
+          console.log(e.target.id);
         }
       }
       );
