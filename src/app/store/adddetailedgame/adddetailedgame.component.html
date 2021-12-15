@@ -9,7 +9,7 @@
     <ion-button slot="end" (click)="showlongcardModel(detailedgame);" >
       <ion-icon name="eye-outline"></ion-icon>
     </ion-button>
-    <ion-button slot="end" (click)="sendPost();">
+    <ion-button slot="end" (click)="addgame();">
       <ion-icon name="paper-plane-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
@@ -19,8 +19,8 @@
   
 
   <ion-item>
-    <span>gid</span>
-    <input type="text" [(ngModel)]="detailedgame.gid" name='gid' placeholder='不能为空'>
+    <span>gid : {{detailedgame.gid}}</span>
+    
   </ion-item>
   <ion-item>
     <span>gameName</span>

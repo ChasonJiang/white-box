@@ -37,6 +37,18 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'currency',
+    loadChildren: () => import('./currency/currency.module').then( m => m.CurrencyPageModule)
+  },
+  {
+    path: 'currencyset',
+    loadChildren: () => import('./currencyset/currencyset.module').then( m => m.CurrencysetPageModule)
+  },
+  {
+    path: 'ppolicy',
+    loadChildren: () => import('./ppolicy/ppolicy.module').then( m => m.PpolicyPageModule)
   }
 
 

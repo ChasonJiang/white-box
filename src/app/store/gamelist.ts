@@ -1,4 +1,4 @@
-import { detailedgame, simplegame ,storeshowimg} from "./game";
+import { detailedgame, simplegame } from "./game";
 
 
 
@@ -117,11 +117,10 @@ gameType: ['杀戮', '英雄'],
 ]
 
 
-export const storeShowImg: storeshowimg ={
-    storeimg:['https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto',
+export const storeShowImg: string[] =
+    ['https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto',
     'https://img1.baidu.com/it/u=3309502357,1081703439&fm=26&fmt=auto', 
     'https://img0.baidu.com/it/u=2396924154,1662350068&fm=26&fmt=auto',
     'https://img0.baidu.com/it/u=3086421222,3763642393&fm=26&fmt=auto',
     'https://img1.baidu.com/it/u=3309502357,1081703439&fm=26&fmt=auto', 
     'https://img0.baidu.com/it/u=2396924154,1662350068&fm=26&fmt=auto']
-}

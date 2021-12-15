@@ -1,30 +1,31 @@
-
-
 <ion-content>
   <ion-card>
       <ion-card-header>
-        <div class="userheadpic" style="background-color: black;"></div>
-        <div class="usermes" style="background-color: blue;" [routerLink]="['login']">
-          <p class="username" [routerLink]="[ 'login']">{{username}}</p>
-          <p class="usersign" [routerLink]="[ 'login']">{{usersign}}</p>
+        <div class="usertop">
+          <div class="userheadpic" style="background-color: aqua;"></div>
+          <div class="usermes">
+            <p class="username" [routerLink]="[ 'login']">{{user.userName}}</p>
+            <p class="usersign" [routerLink]="[ 'login']">{{user.usersign}}</p>
+          </div>
         </div>
+        
       </ion-card-header>
 
       <ion-card-content>
           <ion-toolbar>
               <div class="grid-container">
                   <div class="grid-item">
-                    {{attentionnumber}}
+                    {{user.attentionnumber}}
                     <br>
                     关注
                   </div>
                   <div class="grid-item">
-                    {{fansnumber}}
+                    {{user.fansnumber}}
                     <br>
                     粉丝
                   </div>
                   <div class="grid-item">
-                    {{collectionnumber}}
+                    {{user.collectionnumber}}
                     <br>
                     收藏
                   </div>   

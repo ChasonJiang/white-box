@@ -1,4 +1,5 @@
 import { HttpHeaders } from "@angular/common/http";
+import { detailedgame } from "../store/game";
 import { Post } from "./Post";
 
 export interface Requester<T>{
@@ -87,6 +88,43 @@ export interface UploadCommentRequestParams{
     content:string;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//store
+export interface searchSimpleGameRequestParams{
+    content:string;
+}
+
+
+export interface SimpleGameRequestParams{
+    type:string;
+    index:number;
+}
+
+export interface getdetailedgameRequestParams{
+    gameid:number;
+}
+
+export interface adddetailedgameRequestParams{
+    detailedgame:detailedgame;
+}
+
+export interface buygameRequestParams{
+    gameid:number;
+}
 export interface FollowRequestParams{
     // follower_uid:number;
     follow_uid:number;

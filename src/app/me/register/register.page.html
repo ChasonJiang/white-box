@@ -10,16 +10,16 @@
 <ion-content>
   <div class="logintop">
     
-    <input type="text" userme="user" id="user" placeholder="请输入账号" />
+    <input type="text" userme="user" id="uid" placeholder="请输入账号" />
     
     <br>
     
-    <input type="password" userme="pass" id="pass" placeholder="请输入密码" />
+    <input type="password" userme="pass" id="psw" placeholder="请输入密码" />
    
     
     <br>
     
-    <input type="button" userme="sub" id="sub" value="立即注册" onclick="checkreg()" />
+    <input type="button" userme="sub" id="sub" value="立即注册" (click)="register()" />
 
     <br>
 

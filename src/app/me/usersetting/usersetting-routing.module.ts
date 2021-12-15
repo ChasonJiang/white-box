@@ -15,6 +15,14 @@ const routes: Routes = [
   {
     path: 'test',
     loadChildren: () => import('../test/test.module').then( m => m.TestPageModule)
+  },
+  {
+    path: 'currencyset',
+    loadChildren: () => import('../currencyset/currencyset.module').then( m => m.CurrencysetPageModule)
+  },
+  {
+    path: 'ppolicy',
+    loadChildren: () => import('../ppolicy/ppolicy.module').then( m => m.PpolicyPageModule)
   }
 ];
 
