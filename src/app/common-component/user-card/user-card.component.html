@@ -1,9 +1,8 @@
 <div class="user-card">
-  <div class="user-avatar">
+  <div class="user-avatar" *ngIf="userCard">
     <ion-avatar>
       <ion-img [src]="userCard.avatarUrl"></ion-img>
     </ion-avatar>
-
   </div>
   <div class="user-name">
     <ion-label>{{userCard.userName}}</ion-label>
@@ -11,7 +10,7 @@
   <div class="user-releaseTime" *ngIf="true">
     <ion-note>{{releaseTime| date:"yyyy-MM-dd HH:mm"}}</ion-note>
   </div>
-  <div class="follow-button">
+  <div class="follow-button" (click)="followingToggle();">
     <div class="following-label" *ngIf="isFollow">已关注</div>
     <div class="follow-label" *ngIf="!isFollow">关注</div>
   </div>

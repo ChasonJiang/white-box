@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Comment } from '../interface/comment'
-import { COMMENT } from '../comment'
 import { CommentCardIndexRequestParams, CommentCardRequestParams, httpOptions, Requester, SubCommentRequestParams, UploadCommentRequestParams } from '../interface/Request';
 import { CommentIndexResponse, CommentResponse, SubCommentResponse, UploadCommentResponse } from '../interface/Response';
 import { Observable } from 'rxjs';

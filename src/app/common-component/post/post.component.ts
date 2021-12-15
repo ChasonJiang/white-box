@@ -29,10 +29,10 @@ export class PostComponent implements OnInit,AfterViewInit {
     numberOfComments:0,
     isPaper:false,
     releaseTime:'',
-    topic:{
+    topic:[{
       tid:-1,
       name:'',
-    },
+    }],
   };
   @Input() userCard: UserCard={
     uid:-1,

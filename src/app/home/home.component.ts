@@ -112,7 +112,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
           next:res =>{
           console.log("GetPostCardIndexList");
           this.postCardsIndexList=res.pid;
-          // console.log(postCardsIndexRes);
+          console.log(res);
         },
         complete:()=>{
           this.counter=0;

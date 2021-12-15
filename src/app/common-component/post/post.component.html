@@ -20,7 +20,7 @@
       <ion-title style="padding: 0;" >{{post.title}}</ion-title>
     </div>
 
-    <div class="author-bar" >
+    <div class="author-bar" *ngIf="userCard">
       <app-user-card [userCard]="userCard" [releaseTime]="post.releaseTime"></app-user-card>
     </div>
 

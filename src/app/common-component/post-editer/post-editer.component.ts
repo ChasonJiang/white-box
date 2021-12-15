@@ -28,7 +28,7 @@ export class PostEditerComponent implements OnInit {
   private imgCounter:number = 0;
   private showSpinner:boolean = false;
   @Input() paperMode:boolean = false;
-  @Input() topic:Topic=null;
+  @Input() topics:Topic[]=[];
 
   private TypeDict={
     'post':"帖子/动态",
@@ -72,7 +72,10 @@ export class PostEditerComponent implements OnInit {
       component:TopicListComponent,
       cssClass:"fullscreen-class",
     });
-    return await modal.present();
+    await modal.present();
+    const {data}=await modal.onWillDismiss();
+    this.topics.push(data.topic);
+    return 
   }
 
   
@@ -117,6 +120,10 @@ export class PostEditerComponent implements OnInit {
       this.alert("请输入正文！");
       return false;
     }
+    if(this.topics.length==0){
+      this.alert("请添加话题！");
+      return false;
+    }
     return true;
   }
 
@@ -137,10 +144,7 @@ export class PostEditerComponent implements OnInit {
       numberOfApproval:0,
       isPaper:this.paperMode?true:false,
       releaseTime:new Date().getTime().toString(),
-      topic:{
-        tid:0,
-        name:"test domain",
-    },
+      topic:this.topics,
     }
     if(this.isShowtitle || this.paperMode){
       post['title']=title.innerText;
@@ -178,26 +182,9 @@ export class PostEditerComponent implements OnInit {
         this.alert("发表失败！");
       }
     });
-  //   let div=this.renderer.createElement('div');
-  //   div.innerHTML=post.content;
-  //   let imgs=div.querySelectorAll('.images');
-  //   let imgUrl:string[]=[];
-  //   let imgCounter=0;
-  //   for(let img of imgs){
-  //     this.imageCompress.compressFile(img.src, -2, 50, 30).then(result => {
-  //       imgUrl.push(img.src);
-  //       img.src = result;
-  //       img.setAttribute('id',imgCounter++);
-  //     });
-  //   }
-  //  console.log(div.innerHTML);
+
   }
 
-  // async imgCompress(img:string){
-  //   return await this.imageCompress.compressFile(img, -2, 50, 30).then(result => {
-      
-  //   });
-  // }
 
   saveDraft(){
     let post:Post = this.packUpPost();
@@ -208,11 +195,6 @@ export class PostEditerComponent implements OnInit {
 
   }
 
-  // peelOffImgUrl(html:string){
-
-  
-  //   return imgUrl;
-  // }
 
   insertImg(){
     // let title = this.viewContainerRef.ele ment.nativeElement.querySelector('title');
@@ -247,6 +229,9 @@ export class PostEditerComponent implements OnInit {
         }
       }
       );
+  }
+  deleteTopic(topic:Topic){
+    this.topics.splice(this.topics.indexOf(topic),1);
   }
   
 }

@@ -1,9 +1,12 @@
-import { SubComment } from "./comment";
 import { Post, PostCard, PostCardDetail } from "./Post";
 import { TopicCard } from "./Topic";
 import { UserCard, UserInfo } from "./User";
+<<<<<<< HEAD
 import { Comment } from "./Comment";
 import { detailedgame, simplegame } from "../store/game";
+=======
+import { Comment,SubComment } from "./Comment";
+>>>>>>> c1a7d78be7ef78241328893ecf414ca201d29694
 export interface PostResponse{
     post: Post;
     userCard: UserCard;
@@ -65,6 +68,7 @@ export interface UploadCommentResponse{
     success: boolean;
     message?: string;
 }
+<<<<<<< HEAD
 
 // store
 //查询
@@ -96,4 +100,14 @@ export interface addresultResponse{
 export interface buygameresultResponse{
     success: boolean;
     message?: string;
+=======
+export interface FollowResponse{
+    success: boolean;
+    message?: string;
+}
+export interface LoginResponse{
+    success: boolean;
+    message?: string;
+    userInfo?:UserInfo;
+>>>>>>> c1a7d78be7ef78241328893ecf414ca201d29694
 }

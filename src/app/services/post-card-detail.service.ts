@@ -5,7 +5,7 @@ import { ApiUrl } from '../Config';
 import { PostCardDetail } from '../interface/Post';
 import { httpOptions, PostCardDetailIndexRequestParams, PostCardDetailRequestParams, Requester } from '../interface/Request';
 import { PostCardDetailIndexResponse, PostCardDetailResponse } from '../interface/Response';
-import { POST } from '../post';
+
 @Injectable({
   providedIn: 'root'
 })

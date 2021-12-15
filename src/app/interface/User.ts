@@ -10,5 +10,5 @@ export interface UserCard extends UserBaseInfo{
 }
 
 export interface UserInfo extends UserCard{
-    
+
 }

@@ -9,8 +9,8 @@ export function checkLoginStatus():boolean{
 
 export function getUserInfo():UserInfo|null{
   if(checkLoginStatus()){
-    let userCard:UserCard=JSON.parse(localStorage.getItem('userInfo'));
-    return userCard;
+    let userInfo:UserInfo=JSON.parse(localStorage.getItem('userInfo'));
+    return userInfo;
   }
   return null;
 }
