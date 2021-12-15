@@ -70,4 +70,5 @@ export interface FollowResponse{
 export interface LoginResponse{
     success: boolean;
     message?: string;
+    userInfo?:UserInfo;
 }

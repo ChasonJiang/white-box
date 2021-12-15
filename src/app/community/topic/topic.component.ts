@@ -38,7 +38,7 @@ export class TopicComponent implements OnInit {
       cssClass: 'fullscreen-class',
       componentProps:{
         'paperMode' : paperMode,
-        'topic':this.topicCard,
+        'topics':[this.topicCard],
       }
     });
 

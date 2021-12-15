@@ -53,6 +53,14 @@
   </div>
 </div>
 
+<div class="topic-list" *ngIf="topics.length!=0">
+  <div class="topic-label">
+    话题:
+  </div>
+  <div class="topic" (click)="deleteTopic(topic);" *ngFor="let topic of topics" >
+    {{topic.name}}
+  </div>
+</div>
 <div class="edit-toolbar">
   <div class="toolbar-tool" (click)="insertImg();">
     <ion-icon name="image-outline" style="font-size: 25px;"></ion-icon>
