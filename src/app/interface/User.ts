@@ -12,3 +12,13 @@ export interface UserCard extends UserBaseInfo{
 export interface UserInfo extends UserCard{
     
 }
+
+export interface Usermes{
+    uid:number;
+    username:string;
+    userpsw:string;
+    usersign:string;
+    attentionnumber: number;
+    fansnumber: number;
+    collectionnumber: number;
+}

@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 @Component({
   selector: 'app-mefirstpage',
   templateUrl: './mefirstpage.component.html',
-  styleUrls: ['./mefirstpage.component.css'],
+  styleUrls: ['./mefirstpage.component.scss'],
 })
 export class MefirstpageComponent implements OnInit {
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AlertController } from '@ionic/angular';
+import { USERS } from '../mock-user';
 @Component({
   selector: 'app-personalset',
   templateUrl: './personalset.page.html',
@@ -8,9 +8,23 @@ import { AlertController } from '@ionic/angular';
 })
 export class PersonalsetPage implements OnInit {
 
+
+  public peopleinfo:any={
+    username:'',
+    usersign:'',
+    usersex:'m',
+    usermail:'',
+  }
+
+  user = USERS;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  dosubmit(){
+    console.log(this.peopleinfo);
   }
 
 }
