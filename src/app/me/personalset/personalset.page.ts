@@ -8,6 +8,7 @@ import { USERS } from '../mock-user';
 })
 export class PersonalsetPage implements OnInit {
 
+  testusername = '123';
 
   public peopleinfo:any={
     username:'',

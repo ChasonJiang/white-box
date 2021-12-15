@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLinkDelegate } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+  login(){
+    
+  }
 
   constructor() { }
 

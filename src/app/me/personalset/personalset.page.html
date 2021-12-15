@@ -7,7 +7,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-button slot="end" color="light" (click)="dosubmit" style="padding-right: 5%;">
+    <ion-button slot="end" color="light" style="padding-right: 5%;" expand="block">
 
       <ion-icon name="checkmark-outline">
       </ion-icon>
@@ -21,14 +21,14 @@
   <ion-list>
 
     <ion-item>
-      <div class="left">头像设置</div>
+      <div class="left"  [routerLink]="[ 'test']">头像设置</div>
       <div class="mid"></div>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
     <ion-item>
       <div class="left">昵称设置</div>
-      <ion-input class="mid" id="username">{{user.username}}</ion-input>
+      <ion-input class="mid" id="username">{{testusername}}</ion-input>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
@@ -67,3 +67,19 @@
     </pre>
   </ion-list>
 </ion-content>
+
+
+<script>
+  const button = document.querySelector('ion-button');
+  button.addEventListener('click', handleButtonClick);
+
+  async function handleButtonClick() {
+    const alert = await alertController.create({
+      header: 'Use this lightsaber?',
+      message: 'Do you agree to use this lightsaber to do good across the galaxy?',
+      buttons: ['Disagree', 'Agree'],
+    });
+
+    await alert.present();
+  }
+</script>
