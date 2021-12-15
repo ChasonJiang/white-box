@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { PostCard } from "../interface/Post";
-import { POST_CARD } from "../postcard";
 import { httpOptions, PostCardRequestParams, Requester } from '../interface/Request';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiUrl } from '../Config';

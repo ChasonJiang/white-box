@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, View
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from "../../interface/Comment";
 import { CommentCardComponent } from '../comment-card/comment-card.component';
-import { COMMENT } from '../../comment';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { CommentCardIndexRequestParams, CommentCardRequestParams, Requester } from 'src/app/interface/Request';
 import { getCurrentUserCard } from 'src/app/util/util';

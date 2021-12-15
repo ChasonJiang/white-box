@@ -5,7 +5,7 @@ import { ApiUrl } from '../Config';
 import { FollowRequestParams, httpOptions, LoginRequestParams, Requester } from '../interface/Request';
 import { FollowResponse, LoginResponse, UserDetailsResponse } from '../interface/Response';
 import { UserCard, UserInfo }from"../interface/User";
-import { USER_CARD_INFO } from '../user';
+// import { USER_CARD_INFO } from '../user';
 
 @Injectable({
   providedIn: 'root'
@@ -54,8 +54,8 @@ export class UserService {
     return false;
   }
 
-  requestUserCardInfo(uid: number):UserCard{
-    console.log("request user card info");
-    return USER_CARD_INFO;
-  }
+  // requestUserCardInfo(uid: number):UserCard{
+  //   console.log("request user card info");
+  //   return USER_CARD_INFO;
+  // }
 }

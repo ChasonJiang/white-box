@@ -5,7 +5,6 @@ import { ApiUrl } from '../Config';
 import { Post } from '../interface/Post';
 import { httpOptions, PostRequestParams, Requester, UploadPostRequestParams } from '../interface/Request';
 import { PostResponse, UploadPostResponse } from '../interface/Response';
-import { POST } from '../post'
 
 @Injectable({
   providedIn: 'root'

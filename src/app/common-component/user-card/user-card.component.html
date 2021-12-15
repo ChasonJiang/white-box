@@ -1,9 +1,8 @@
 <div class="user-card">
-  <div class="user-avatar">
+  <div class="user-avatar" *ngIf="userCard">
     <ion-avatar>
       <ion-img [src]="userCard.avatarUrl"></ion-img>
     </ion-avatar>
-
   </div>
   <div class="user-name">
     <ion-label>{{userCard.userName}}</ion-label>

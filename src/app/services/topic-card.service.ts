@@ -5,7 +5,7 @@ import { ApiUrl } from '../Config';
 import { httpOptions, Requester, TopicCardRequestParams } from '../interface/Request';
 import { TopicCardIndexResponse, TopicCardResponse } from '../interface/Response';
 import { TopicCard } from '../interface/Topic';
-import { TOPIC_CARD } from '../TopicCard';
+
 
 @Injectable({
   providedIn: 'root'
