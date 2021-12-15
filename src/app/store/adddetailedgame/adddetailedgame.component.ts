@@ -7,6 +7,8 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { GameserviceService } from 'src/app/services/gameservice.service';
 import { GamelistComponent } from '../gamelist/gamelist.component';
 import { ShowlongcardComponent } from '../showlongcard/showlongcard.component';
+import { adddetailedgameRequestParams, getdetailedgameRequestParams, Requester } from 'src/app/interface/Request';
+import { getCurrentUserCard } from 'src/app/util/util';
 @Component({
   selector: 'app-adddetailedgame',
   templateUrl: './adddetailedgame.component.html',
@@ -22,6 +24,7 @@ export class AdddetailedgameComponent implements OnInit {
   gameTypeerror: string = '';
   gameLable: string = '';
   gameLableerror: string = '';
+  reqFailed: boolean;
 
 
 
@@ -34,14 +37,78 @@ export class AdddetailedgameComponent implements OnInit {
     this.getdetailedgame();
   }
 
+
+  addgame(){
+    let req: Requester<adddetailedgameRequestParams> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'addgame'
+      },
+      body: {
+        detailedgame:this.detailedgame
+      } as adddetailedgameRequestParams
+    }
+    try {
+      this.gameserviceService.addgame(req)
+        .subscribe({
+          next: res => {
+          console.log("addgame")
+          this.dismiss()
+  
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
+
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+     
+    }
+  }
+
+
 getdetailedgame(){
   if(this.gameId!==undefined){
-    this.detailedgame =this.gameserviceService.find(this.gameId);
-  }
+    let req: Requester<getdetailedgameRequestParams> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'getdetailedgame'
+      },
+      body: {
+        gameid:this.gameId
+      } as getdetailedgameRequestParams
+    }
+    try {
+      this.gameserviceService.getdetailedgame(req).subscribe({
+          next: res => {
+            console.log("getdetailedgame");
+            this.detailedgame = res.detailedgame;
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
+    
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+    }
+    // this.gameserviceService.getdetailedgame(this.gameId)
+    }
+  
   else{
     this.detailedgame = this.gameserviceService.initdetailedgame();
   }
 }
+
+
+
+
+
 
   async showlongcardModel(detailedgame) {
     const modal = await this.modalController.create({
@@ -79,7 +146,11 @@ getdetailedgame(){
 
   }
   deleteshowimg(imgurl){
-    this.detailedgame.imgshow.splice(imgurl, 1)
+    let index = this.detailedgame.imgshow.indexOf(imgurl);
+if (index > -1) {
+  this.detailedgame.imgshow.splice(index, 1);
+}
+   
   }
 
   insertImgshow() {

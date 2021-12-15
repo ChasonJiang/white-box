@@ -3,6 +3,7 @@ import { Post, PostCard, PostCardDetail } from "./Post";
 import { TopicCard } from "./Topic";
 import { UserCard, UserInfo } from "./User";
 import { Comment } from "./Comment";
+import { detailedgame, simplegame } from "../store/game";
 export interface PostResponse{
     post: Post;
     userCard: UserCard;
@@ -61,6 +62,38 @@ export interface UploadPostResponse{
     message?: string;
 }
 export interface UploadCommentResponse{
+    success: boolean;
+    message?: string;
+}
+
+// store
+//查询
+export interface searchsimplegamelistResponse{
+    success: boolean;
+    simplegamelist?:simplegame[];
+}
+//store三个模块
+export interface simplegamelistResponse{
+    success: boolean;
+    simplegamelist?:simplegame[];
+}
+//store的展示游戏图片
+export interface storeShowImgResponse{
+    success: boolean;
+    storeShowImg?:string[];
+}
+
+export interface getdetailedgameResponse{
+    success: boolean;
+    detailedgame:detailedgame;
+}
+
+export interface addresultResponse{
+    success: boolean;
+    message?: string;
+}
+
+export interface buygameresultResponse{
     success: boolean;
     message?: string;
 }

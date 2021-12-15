@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation ,ViewChild, ViewContainerRef, Comp
 
 
 import { GameserviceService } from '../services/gameservice.service';
-import { simplegame ,storeshowimg} from './game';
+import { simplegame } from './game';
 import { GamelistComponent } from './gamelist/gamelist.component';
 import { ModalController ,ActionSheetController} from '@ionic/angular';
 import { DetailedGameComponent } from './detailedgame/detailedgame.component';
@@ -13,6 +13,8 @@ import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swi
 import { GamelongcardComponent } from './gamelongcard/gamelongcard.component';
 import { AdddetailedgameComponent } from './adddetailedgame/adddetailedgame.component';
 import { GamesearchComponent } from './gamesearch/gamesearch.component';
+import { Requester, SimpleGameRequestParams } from '../interface/Request';
+import { getCurrentUserCard } from '../util/util';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
@@ -32,6 +34,8 @@ export class StoreComponent implements OnInit {
 storeShowImg?:string[];
 
 @ViewChild('gamelongcardContainer',{read: ViewContainerRef }) gamelongcardContainerViewContainerRef:ViewContainerRef;
+  reqFailed: boolean;
+  index: number=0;
   
 
   constructor(private gameService:GameserviceService,
@@ -40,26 +44,125 @@ storeShowImg?:string[];
     private gameserviceService:GameserviceService) { }
 
   ngOnInit() {
-    this.simpleGamelist1=this.updategamelongcard();
-    this.simpleGamelist2=this.updategamelongcard();
-    this.simpleGamelist3=this.updategamelongcard();
-    this.storeShowImg=this.gameService.getstoreShowImg();
+    this.getsimplegamelist(1,'tuijian');
+    this.getsimplegamelist(2,'tuijian');
+    this.getsimplegamelist(3,'tuijian');
+    this.getstoreShowImg();
+    
+  }
+
+
+  getstoreShowImg(){
+    let req: Requester<null> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'getstoreShowImg'
+      },
+      body: {
+        
+      } as null
+    }
+    try {
+      this.gameserviceService.getstoreShowImg(req).subscribe({
+          next: res => {
+            console.log("getstoreShowImg");
+            this.storeShowImg = res.storeShowImg;
+           
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
+
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+    }
   }
 
 
 
+  updategamelongcard(){
+    let simpleGamelist:simplegame[];
+    let req: Requester<SimpleGameRequestParams> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'getSimpleGame'
+      },
+      body: {
+        type: '推荐',
+        index:this.index
+      } as SimpleGameRequestParams
+    }
+    try {
+      this.gameserviceService.getsimplegamelist(req)
+        .subscribe({
+          next: res => {
+            console.log("getSimpleGame");
+            this.lazyLoadgamelongcard(res.simplegamelist)
+            this.index++;
+            simpleGamelist=res.simplegamelist
+            console.log(this.index)
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
 
-updategamelongcard(){
-  let simpleGamelist:simplegame[];
-   this.gameserviceService.getSimpleGame({head:{uid:JSON.parse(localStorage.getItem('userInfo')).uid,type:''}}).subscribe(_SimpleGamelist=>{
-    simpleGamelist=_SimpleGamelist;
-  })
-  this.simpleGamelist4=simpleGamelist.slice(0,4);
-  return simpleGamelist.slice(0,4);
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+      return simpleGamelist;
+    }
+  }
+
+
+
+getsimplegamelist(number: number,type:string){
+
+
+ 
+    let req: Requester<SimpleGameRequestParams> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'getSimpleGame'
+      },
+      body: {
+        type: type,
+        index:0,
+      } as SimpleGameRequestParams
+    }
+    try {
+      this.gameserviceService.getsimplegamelist(req)
+        .subscribe({
+          next: res => {
+            console.log("getSimpleGame");
+            if(number==1)
+            this.simpleGamelist1 = res.simplegamelist.slice(0,4);
+            if(number==2)
+           this.simpleGamelist2 = res.simplegamelist.slice(0,4);
+           if(number==3)
+           this.simpleGamelist3 = res.simplegamelist.slice(0,4);
+          
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
+
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+      
+    }
+  // return simpleGamelist.slice(0,4);
 }
 
 lazyLoadgamelongcard(gamelongcard:simplegame[]){
-  for (let item of this.simpleGamelist4)
+  for (let item of gamelongcard)
   {
     
     const gamelongcardComponentFactory=this.componentFactoryResolver
@@ -73,12 +176,12 @@ doRefresh(event) {
   // console.log('Begin async operation');
     console.log('Async operation has ended');
     this.gamelongcardContainerViewContainerRef.clear();
-    this.lazyLoadgamelongcard(this.updategamelongcard());
+    this.updategamelongcard();
     event.target.complete();
   }
 
   loadData(event) {
-    this.lazyLoadgamelongcard(this.updategamelongcard());
+    this.updategamelongcard();
     event.target.complete();
 }
 

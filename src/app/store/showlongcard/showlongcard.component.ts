@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { adddetailedgameRequestParams, Requester } from 'src/app/interface/Request';
+import { GameserviceService } from 'src/app/services/gameservice.service';
+import { getCurrentUserCard } from 'src/app/util/util';
 import { DetailedGameComponent } from '../detailedgame/detailedgame.component';
 import { detailedgame, simplegame } from '../game';
 
@@ -10,9 +13,22 @@ import { detailedgame, simplegame } from '../game';
 })
 export class ShowlongcardComponent implements OnInit {
   @Input() detailedgame:detailedgame;
-  constructor(public modalController:ModalController) { }
+  reqFailed: boolean;
+  constructor(public modalController:ModalController,private gameService:GameserviceService,) { }
 
   ngOnInit() {}
+
+
+
+
+
+
+
+
+
+
+
+
 
   async showModelDetailed(gameId:number,detailedgame){
     const modal=await this.modalController.create({
