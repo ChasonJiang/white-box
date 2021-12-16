@@ -11,13 +11,12 @@ import { SearchComponent } from './search/search.component';
 })
 export class TopicComponent implements OnInit {
   @Input() topicCard:TopicCard;
-  isFollow: boolean;
+  isFollow: boolean=false;
   constructor(
     private modalController: ModalController,
   ) { }
 
   ngOnInit() {
-    this.isFollow=this.topicCard.follow;
   }
 
   goBack(){
