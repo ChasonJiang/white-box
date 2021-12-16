@@ -49,6 +49,10 @@ const routes: Routes = [
   {
     path: 'ppolicy',
     loadChildren: () => import('./ppolicy/ppolicy.module').then( m => m.PpolicyPageModule)
+  },
+  {
+    path: 'others',
+    loadChildren: () => import('./others/others.module').then( m => m.OthersPageModule)
   }
 
 

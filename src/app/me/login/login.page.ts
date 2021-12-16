@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLinkDelegate } from '@ionic/angular';
+import { NavController, RouterLinkDelegate } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +8,17 @@ import { RouterLinkDelegate } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
+  uid:any;
+
+  psw:any;
+
+  errorMessage:any;
+
   login(){
-    
+    if (this.psw=="test"&&this.psw=="test") {
+      console.log("123");
+      location.href='index.html';
+    }
   }
 
   constructor() { }
