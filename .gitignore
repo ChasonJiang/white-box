@@ -33,3 +33,4 @@ npm-debug.log*
 /angular.json
 /package-lock.json
 /package.json
+/src/app/interface
