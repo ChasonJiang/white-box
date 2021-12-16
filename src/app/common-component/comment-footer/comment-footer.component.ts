@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { sha256 } from 'src/app/util/util';
 import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
 
 @Component({
@@ -10,7 +11,7 @@ import { CommentEditerComponent } from '../comment-editer/comment-editer.compone
 export class CommentFooterComponent implements OnInit {
 
   @Input() numberOfComments?: number;
-
+  @Input() pid: string;
   // enableBackdropDismiss = false;
   // showBackdrop = false;
   // shouldPropagate = false;
@@ -23,10 +24,17 @@ export class CommentFooterComponent implements OnInit {
   ngOnInit() {}
 
   async createCommentEditerModal(){
+    let time:string=new Date().getTime().toString();
+    let comment_info={
+      pid:this.pid,
+      cid:sha256(this.pid+time)
+    };
+
     const modal = await this.modalController.create({
       component:CommentEditerComponent,
       cssClass:"transparent-class",
       componentProps:{
+        comment_info:comment_info,
       }
     });
     

@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Requester, SubCommentRequestParams } from 'src/app/interface/Request';
-import { UserCard } from 'src/app/interface/User';
+import { UserBaseInfo, UserCard } from 'src/app/interface/User';
 import { CommentService } from 'src/app/services/comment.service';
-import { getCurrentUserCard } from 'src/app/util/util';
+import { getCurrentUserCard, sha256 } from 'src/app/util/util';
 import { Comment, SubComment } from "../../interface/Comment";
 import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
 @Component({
@@ -14,6 +14,7 @@ import { CommentEditerComponent } from '../comment-editer/comment-editer.compone
 export class CommentCardComponent implements OnInit,AfterViewInit {
   @Input() comment?:Comment;
   @Input() userCard?:UserCard;
+  @Input() pid: string;
   private reply:SubComment[];
   private reqFailed: boolean=false;
 
@@ -28,13 +29,20 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
     this.getSubComment();
   }
 
-  async createCommentEditerModal(reply_to:number,sub_cid?:number){
-    let comment_info={
-      pid:this.comment.pid,
-      cid:this.comment.cid,
-      reply_to:reply_to,
-      sub_cid:sub_cid
+  async createCommentEditerModal(reply_to:UserBaseInfo){
+    let nowDate = new Date().getTime().toString();
+    let _reply_to:UserBaseInfo = {
+      uid:reply_to.uid,
+      userName:reply_to.userName
     };
+    let comment_info={
+      pid:this.pid,
+      cid:this.comment.cid,
+      reply_to:_reply_to,
+      sub_cid:sha256(this.comment.cid+nowDate)
+    };
+
+    // console.log(comment_info);
 
 
     const modal = await this.modalController.create({
@@ -49,6 +57,8 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
   }
 
   getSubComment(){
+    if(this.comment.sub_cid.length==0 || this.comment.sub_cid==null || this.comment.sub_cid == undefined){return}
+    console.log("getSubComment sub_cid: "+this.comment.sub_cid);
     this.reqFailed=false;
     let req:Requester<SubCommentRequestParams>={
       head:{
@@ -56,8 +66,8 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
         type:"GetSubCommentList",
       },
       body:{
-        pid:this.comment.pid,
-        cid:this.comment.cid,
+        // pid:this.pid,
+        // cid:this.comment.cid,
         sub_cid:this.comment.sub_cid
       }
     };

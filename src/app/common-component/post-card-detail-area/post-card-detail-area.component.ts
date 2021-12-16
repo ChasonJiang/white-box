@@ -18,7 +18,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   @Input() tid:number;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   postCardsDetail:PostCardDetail[];
-  private postCardsDetailIndexList:number[];
+  private postCardsDetailIndexList:string[];
   private userCard: UserCard=getCurrentUserCard();
   private reqFailed: boolean=false;
   private counter: number = 0;
@@ -47,7 +47,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   }
 
 
-  lazyLoad(postCardsDetailIndex:number[]):void{
+  lazyLoad(postCardsDetailIndex:string[]):void{
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;

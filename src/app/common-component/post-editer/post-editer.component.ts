@@ -4,7 +4,7 @@ import { from } from 'rxjs';
 import { Post } from 'src/app/interface/Post';
 import { PhotoService } from 'src/app/services/photo.service';
 import { PostComponent } from '../post/post.component';
-import { getCurrentUserCard } from 'src/app/util/util';
+import { getCurrentUserCard, sha256 } from 'src/app/util/util';
 import { AlertController } from '@ionic/angular';
 import { Topic } from 'src/app/interface/Topic';
 import { TopicListComponent } from './topic-list/topic-list.component';
@@ -12,6 +12,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 import { CameraResultType } from '@capacitor/camera';
 import { PostService } from 'src/app/services/post.service';
 import { Requester, UploadPostRequestParams } from 'src/app/interface/Request';
+
 
 @Component({
   selector: 'app-post-editer',
@@ -28,7 +29,7 @@ export class PostEditerComponent implements OnInit {
   private imgCounter:number = 0;
   private showSpinner:boolean = false;
   @Input() paperMode:boolean = false;
-  @Input() topics:Topic[]=[];
+  @Input() topics:Topic[]=[{tid:0,name:"test"}];
 
   private TypeDict={
     'post':"帖子/动态",
@@ -120,7 +121,7 @@ export class PostEditerComponent implements OnInit {
       this.alert("请输入正文！");
       return false;
     }
-    if(this.topics.length==0){
+    if(this.topics.length==0 || this.topics===undefined){
       this.alert("请添加话题！");
       return false;
     }
@@ -129,21 +130,24 @@ export class PostEditerComponent implements OnInit {
 
   //将编辑好的帖子打包成Post对象
   private packUpPost():Post{
-    
+
+    let _userCard=getCurrentUserCard();
     let cover = this.viewContainerRef.element.nativeElement.querySelector('#cover');
     let title = this.viewContainerRef.element.nativeElement.querySelector('.title');
     let main_textarea = this.viewContainerRef.element.nativeElement.querySelector('.main-textarea');
-
-    let _userCard=getCurrentUserCard();
+    let releaseTime=new Date().getTime().toString();
+    let pid:string = sha256(String(_userCard.uid)+releaseTime);
+    console.log(pid);
+    console.log(this.topics)
     let post={
       uid:_userCard.uid, // fake uid
-      pid:-1, // fake pid
+      pid:pid, // fake pid
       userCard:_userCard,
       content:main_textarea.innerHTML,
       numberOfComments:0,
       numberOfApproval:0,
       isPaper:this.paperMode?true:false,
-      releaseTime:new Date().getTime().toString(),
+      releaseTime:releaseTime,
       topic:this.topics,
     }
     if(this.isShowtitle || this.paperMode){

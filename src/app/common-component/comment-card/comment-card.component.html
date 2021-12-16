@@ -2,16 +2,16 @@
   <div class="comment-area-user-card">
       <app-user-card [userCard]="comment.userCard" [releaseTime]="comment.commentTime"></app-user-card>
   </div>
-  <div class="comment-content" (click)="createCommentEditerModal(comment.uid)">
+  <div class="comment-content" (click)="createCommentEditerModal(comment.userCard)">
     <ion-label>{{comment.commentContent}}</ion-label>
   </div>
   <div class="reply-area" *ngIf="reply" >
     <div *ngFor="let reply_item of reply">
-      <div class="reply-content" (click)="createCommentEditerModal(reply_item.uid,reply_item.sub_cid);">
+      <div class="reply-content" (click)="createCommentEditerModal(reply_item.userInfo);">
         <ion-label>
           <ion-label style="color: #3880ff;">{{reply_item.userInfo.userName}}</ion-label><ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
         </ion-label> 
-        <ion-note id="commentTime">{{reply_item.commentTime}}</ion-note>
+        <ion-note id="commentTime">{{reply_item.commentTime | date:"yyyy-MM-dd HH:mm"}}</ion-note>
       </div>
     </div>
   </div>

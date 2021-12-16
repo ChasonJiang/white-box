@@ -5,7 +5,7 @@ export interface PostInfo{
     // user id
     uid:number;
     // post id
-    pid:number;
+    pid:string;
     releaseTime:string;
     topic:Topic[];
 }
