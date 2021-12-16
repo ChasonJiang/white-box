@@ -23,13 +23,14 @@ export class BuygameComponent implements OnInit {
 
 
 buygame(){
+  
   let req: Requester<buygameRequestParams> = {
     head: {
       uid: getCurrentUserCard().uid,
       type: 'buygame'
     },
     body: {
-      
+      gameid:this.detailedgame.gid
     } as buygameRequestParams
   }
   try {
@@ -50,6 +51,7 @@ buygame(){
   } finally {
   }
 }
+
 
 
 

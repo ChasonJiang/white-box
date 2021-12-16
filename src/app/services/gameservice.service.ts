@@ -60,6 +60,11 @@ export class GameserviceService {
     return this.httpClient.post<addresultResponse>(ApiUrl, req, httpOptions)
 
   }
+  updategame(req: Requester<adddetailedgameRequestParams>): Observable<addresultResponse> {
+
+    return this.httpClient.post<addresultResponse>(ApiUrl, req, httpOptions)
+
+  }
 
   buygame(req: Requester<buygameRequestParams>): Observable<buygameresultResponse> {
 
@@ -89,7 +94,7 @@ export class GameserviceService {
       onlineTime: null,
 
 
-      dlc: [],
+     
       briefintroduction: {
         text: null,
         Issuedate: null,

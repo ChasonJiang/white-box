@@ -76,7 +76,7 @@ gameType: ['杀戮', '英雄'],
         onlineTime: 400,
 
 
-        dlc: [{ name: 'string', price: 120 }, { name: 'string', price: 103 }],
+       
         briefintroduction: {
             text:'《猎人：荒野的召唤》将为你带来前所未有的狩猎体验。让自己投身一望无际的广袤世界，与各类生机勃勃的动植物为伴：从栩栩如生、威风凛凛的飞禽走兽到枝繁叶茂、遮天蔽日的参天大树，游戏里应有尽有。你大可孤身一人开启冒险之旅，也可与朋友结伴踏上征程。你并非这个世界中的匆匆过客，你的一呼一吸、一举一动都与这里息息相关，请将这一点牢记在心。当你在经过长途跋涉后，终于透过灌木丛第一次得见赤鹿的雄伟身姿，在那一瞬间，你一定会感到血脉偾张。',
             Issuedate: 'asd',
@@ -104,7 +104,7 @@ gameType: ['杀戮', '英雄'],
         onlineTime: 400,
 
 
-        dlc: [{ name: 'string', price: 120 }, { name: 'string', price: 103 }],
+     
         briefintroduction: {
             text:'asd',
             Issuedate: 'asd',

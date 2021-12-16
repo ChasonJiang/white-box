@@ -17,9 +17,9 @@ import { getCurrentUserCard } from 'src/app/util/util';
 export class AdddetailedgameComponent implements OnInit {
   @ViewChild('Container', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
   @Input() gameId: number;
-  detailedgame?: detailedgame
+  detailedgame: detailedgame
   hasimgUrl: boolean = false;
-
+  direction:string = '';
   gameType: string = '';
   gameTypeerror: string = '';
   gameLable: string = '';
@@ -39,6 +39,7 @@ export class AdddetailedgameComponent implements OnInit {
 
 
   addgame(){
+   
     let req: Requester<adddetailedgameRequestParams> = {
       head: {
         uid: getCurrentUserCard().uid,
@@ -48,6 +49,7 @@ export class AdddetailedgameComponent implements OnInit {
         detailedgame:this.detailedgame
       } as adddetailedgameRequestParams
     }
+
     try {
       this.gameserviceService.addgame(req)
         .subscribe({
@@ -68,10 +70,41 @@ export class AdddetailedgameComponent implements OnInit {
      
     }
   }
+  updategame(){
+    let req: Requester<adddetailedgameRequestParams> = {
+      head: {
+        uid: getCurrentUserCard().uid,
+        type: 'updategame'
+      },
+      body: {
+        detailedgame:this.detailedgame
+      } as adddetailedgameRequestParams
+    }
 
+    try {
+      this.gameserviceService.updategame(req)
+        .subscribe({
+          next: res => {
+          console.log("updategame")
+          this.dismiss()
+  
+          },
+          error: () => {
+            this.reqFailed = true;
+          }
+        });
+
+    } catch (err) {
+      // console.log("do refresh");
+      console.log(err.message);
+    } finally {
+     
+    }
+  }
 
 getdetailedgame(){
   if(this.gameId!==undefined){
+    this.direction="uptate"
     let req: Requester<getdetailedgameRequestParams> = {
       head: {
         uid: getCurrentUserCard().uid,
@@ -101,11 +134,22 @@ getdetailedgame(){
     }
   
   else{
+    this.direction="add"
     this.detailedgame = this.gameserviceService.initdetailedgame();
   }
 }
 
-
+select(){
+  
+  if(this.direction=="add"){
+    
+    this.addgame()
+  }
+  else{
+    
+    this.updategame()
+  }
+}
 
 
 

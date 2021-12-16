@@ -1,8 +1,9 @@
 import { Post, PostCard, PostCardDetail } from "./Post";
 import { TopicCard } from "./Topic";
 import { UserCard, UserInfo } from "./User";
+import { Comment, SubComment } from "./Comment";
 import { detailedgame, simplegame } from "../store/game";
-import { Comment,SubComment } from "./Comment";
+
 export interface PostResponse{
     post: Post;
     userCard: UserCard;
@@ -23,10 +24,7 @@ export interface PostCardDetailIndexResponse{
     pid: number[];
 }
 export interface PostCardDetailResponse{
-    data:{
-        postCardsDetail: PostCardDetail,
-        userCard: UserCard
-    }[];
+    postCardsDetail: PostCardDetail[];
 }
 
 export interface UserDetailsResponse{
@@ -99,6 +97,19 @@ export interface buygameresultResponse{
     success: boolean;
     message?: string;
 }
+
+export interface getstateResponse{
+    success:boolean;
+    state:boolean;
+}
+
+
+
+
+
+
+
+
 export interface FollowResponse{
     success: boolean;
     message?: string;

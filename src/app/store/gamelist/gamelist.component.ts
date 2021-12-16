@@ -63,6 +63,7 @@ simpleGamelists?:simplegame[];
         .subscribe({
           next: res => {
             console.log("getSimpleGame");
+            console.log(this.index+"list")
             this.lazyLoadgamelongcard(res.simplegamelist)
             this.index++;
             simpleGamelist=res.simplegamelist

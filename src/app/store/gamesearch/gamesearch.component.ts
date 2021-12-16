@@ -24,7 +24,9 @@ export class GamesearchComponent implements OnInit {
   ngOnInit() { }
 
   getsearchmsg(content: string) {
-
+if(content==''){
+  return
+}
     let req: Requester<searchSimpleGameRequestParams> = {
       head: {
         uid: getCurrentUserCard().uid,

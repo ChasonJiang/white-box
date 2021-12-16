@@ -34,12 +34,13 @@ export interface detailedgame extends simplegame {//详细的游戏数据
     Developers:string,
     publisher:string,
     }
-      
-    
-    
 
-      dlc?:{name:string,price:number}[]
+     
 }
-
+// let test1:test={\
+// }
+// {
+//     briefintroduction:test1
+// }
 
 
