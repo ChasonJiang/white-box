@@ -10,7 +10,7 @@
   <div class="user-releaseTime" *ngIf="true">
     <ion-note>{{releaseTime| date:"yyyy-MM-dd HH:mm"}}</ion-note>
   </div>
-  <div class="follow-button" (click)="followingToggle();">
+  <div class="follow-button" (click)="followingToggle();" *ngIf="postMode">
     <div class="following-label" *ngIf="isFollow">已关注</div>
     <div class="follow-label" *ngIf="!isFollow">关注</div>
   </div>

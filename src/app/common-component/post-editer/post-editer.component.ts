@@ -29,7 +29,7 @@ export class PostEditerComponent implements OnInit {
   private imgCounter:number = 0;
   private showSpinner:boolean = false;
   @Input() paperMode:boolean = false;
-  @Input() topics:Topic[]=[{tid:0,name:"test"}];
+  @Input() topics:Topic[]=[];
 
   private TypeDict={
     'post':"帖子/动态",
@@ -177,9 +177,14 @@ export class PostEditerComponent implements OnInit {
         this.showSpinner=false;
         if(res.success){
           this.alert("发表成功！");
+          this.modalDismiss();
+          
         }else{
           this.alert("失败提示:\n"+res.message);
         }
+      },
+      complete:()=>{
+        
       },
       error:()=>{
         this.showSpinner=false;

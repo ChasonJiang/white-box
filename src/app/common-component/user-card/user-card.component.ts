@@ -13,6 +13,7 @@ export class UserCardComponent implements OnInit {
   // @Input() uid?:number;
   @Input() releaseTime:string;
   @Input() userCard?: UserCard;
+  @Input() postMode:boolean = false;
   private isFollow:boolean = false;
   constructor(
     private userService:UserService,

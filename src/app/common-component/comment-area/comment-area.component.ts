@@ -55,11 +55,17 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
       this.commentService.requestCommentIndex(req)
       .subscribe({
         next:res=>{
-          this.commentIndexList=res.cid;
+          if(res.success){
+            this.commentIndexList=res.cid;
+            console.log('GetCommentIndexList');
+            this.lazyLoad(this.commentIndexList);
+          }else{
+            this.infiniteScroll.disabled = false;
+            this.isEnd=false;
+          }
       },
       complete:()=>{
-        console.log('GetCommentIndexList -> '+this.commentIndexList);
-        this.lazyLoad(this.commentIndexList);
+
       },
       error:() => {
         console.log('GetCommentIndexList error')
@@ -81,7 +87,8 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
     if(index_strat>commentIndexList.length){
       this.infiniteScroll.disabled = false;
       this.isEnd=false;
-      throw new Error("commentIndexList is empty");
+      return;
+      // throw new Error("commentIndexList is empty");
     }else if(index_end>commentIndexList.length){
       index_end=commentIndexList.length;
     }

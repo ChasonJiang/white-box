@@ -152,14 +152,19 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
         .subscribe({
           next:res =>{
           console.log("GetTopicCardIndexList");
-          this.topicCardIndexList=res.tid;
+          if(res.success){
+            this.topicCardIndexList=res.tid;
+            this.counter=0;
+            this.TopicCardContainer.clear();
+            this.lazyLoad(this.topicCardIndexList);
+          }else{
+            console.log(res.message);
+          }
+
           // console.log(postCardsIndexRes);
         },
         complete:()=>{
-          this.counter=0;
-          this.TopicCardContainer.clear();
 
-          this.lazyLoad(this.topicCardIndexList);
         },
         error:()=>{
           this.reqFailed=true;
