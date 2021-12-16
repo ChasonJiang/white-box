@@ -12,11 +12,11 @@ import { getCurrentUserCard } from 'src/app/util/util';
 })
 export class CommentAreaComponent implements AfterViewInit,OnInit {
 
-  @Input() pid?:number;
+  @Input() pid?:string;
   @ViewChild("CommentsContainer",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   comments?:Comment[];
-  private commentIndexList:number[];
+  private commentIndexList:string[];
   private reqFailed: boolean=false;
   private counter: number = 0;
   private card_size: number=10;
@@ -58,7 +58,7 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
           this.commentIndexList=res.cid;
       },
       complete:()=>{
-        console.log('GetCommentIndexList');
+        console.log('GetCommentIndexList -> '+this.commentIndexList);
         this.lazyLoad(this.commentIndexList);
       },
       error:() => {
@@ -74,7 +74,7 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
 
   }
 
-  lazyLoad(commentIndexList:number[]):void{
+  lazyLoad(commentIndexList:string[]):void{
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
@@ -92,7 +92,7 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
         type:"GetCommentList"
       },
       body:{
-        pid:this.pid,
+        // pid:this.pid,
         cid:commentIndexList.slice(index_strat,index_end),
       }as CommentCardRequestParams
     }
@@ -117,6 +117,7 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
       const ComponentFactory=this.componentFactoryResolver.resolveComponentFactory(CommentCardComponent);
       const ComponentRef=this.viewContainerRef.createComponent(ComponentFactory);
       ComponentRef.instance.comment=comment;
+      ComponentRef.instance.pid=this.pid;
     }
   }
   loadComments(event){

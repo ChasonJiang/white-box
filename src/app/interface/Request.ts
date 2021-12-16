@@ -1,6 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 import { detailedgame } from "../store/game";
 import { Post } from "./Post";
+import { UserBaseInfo } from "./User";
 
 export interface Requester<T>{
     head:RequestHead;
@@ -26,14 +27,14 @@ export const httpOptions = {
 
 
 export interface PostRequestParams{
-    pid: number;
+    pid: string;
 
 }
 export interface UploadPostRequestParams{
     post:Post;
 }
 export interface PostCardRequestParams{
-    pid: number[];
+    pid: string[];
 }
 
 export interface PostCardDetailIndexRequestParams{
@@ -41,7 +42,7 @@ export interface PostCardDetailIndexRequestParams{
 }
 
 export interface PostCardDetailRequestParams{
-    pid: number[];
+    pid: string[];
 }
 // export interface TopicCardIndexRequestParams{
 
@@ -52,17 +53,17 @@ export interface TopicCardRequestParams{
 }
 
 export interface CommentCardIndexRequestParams{
-    pid: number;
+    pid: string;
 }
 export interface CommentCardRequestParams{
-    pid: number;
-    cid:number[];
+    // pid: string;
+    cid:string[];
 }
 
 export interface SubCommentRequestParams{
-    pid: number;
-    cid:number;
-    sub_cid:number[];
+    // pid: string;
+    // cid:string;
+    sub_cid:string[];
 }
 
 export interface PostSearchRequestParams{
@@ -81,11 +82,13 @@ export interface SearchRequestParams{
 }
 
 export interface UploadCommentRequestParams{
-    pid:number;
-    cid?:number;
-    sub_cid?:number;
-    reply_to?:number;
+    userInfo:UserBaseInfo;
+    pid:string;
+    cid?:string;
+    sub_cid?:string;
+    reply_to?:UserBaseInfo;
     content:string;
+    releaseTime:string;
 }
 
 

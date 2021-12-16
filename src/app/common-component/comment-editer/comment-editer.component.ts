@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Requester, UploadCommentRequestParams, UploadPostRequestParams } from 'src/app/interface/Request';
+import { UserBaseInfo, UserCard } from 'src/app/interface/User';
 import { CommentService } from 'src/app/services/comment.service';
 import { getCurrentUserCard } from 'src/app/util/util';
 
@@ -11,7 +12,7 @@ import { getCurrentUserCard } from 'src/app/util/util';
 })
 export class CommentEditerComponent implements OnInit {
    content:string=null;
-  @Input() comment_info:{pid:number, reply_to:number, cid?:number,sub_cid?:number,};
+  @Input() comment_info:{pid:string, reply_to:UserBaseInfo, cid?:string,sub_cid?:string,};
 
   constructor(
     private modalController: ModalController,
@@ -29,14 +30,23 @@ export class CommentEditerComponent implements OnInit {
   }
 
   sendComment(content: string) {
+    let user_card:UserCard=getCurrentUserCard()
+    let userInfo:UserBaseInfo={
+      uid:user_card.uid,
+      userName:user_card.userName
+    }
+
     let body:UploadCommentRequestParams={
+      userInfo:userInfo,
       pid:this.comment_info.pid,
       reply_to:this.comment_info.reply_to,
-      content:content
+      content:content,
+      releaseTime:new Date().getTime().toString()
     }
     if(this.comment_info.cid!=undefined){
       body.cid=this.comment_info.cid;
-    }else if(this.comment_info.sub_cid!=undefined){
+    }
+    if(this.comment_info.sub_cid!=undefined){
       body.sub_cid=this.comment_info.sub_cid;
     }
     console.log(body);

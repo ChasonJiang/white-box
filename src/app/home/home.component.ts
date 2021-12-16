@@ -20,7 +20,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
   // @ViewChild('ion-content',{read: ElementRef}) ionContentRef:ElementRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   // private postCards?: PostCard[];
-  private postCardsIndexList:number[];
+  private postCardsIndexList:string[];
   private userCard: UserCard=getCurrentUserCard();
   private card_size:number=15;
   private counter:number=0;
@@ -52,7 +52,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
   }
 
 
-  lazyLoad(postCardsIndex:number[]):void{
+  lazyLoad(postCardsIndex:string[]):void{
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;

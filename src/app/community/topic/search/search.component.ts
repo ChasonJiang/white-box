@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
   @ViewChild("SearchResultContainer",{read: ViewContainerRef}) searchResultContainer:ViewContainerRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   private searchContent:string = "";
-  private searchResults:number[];
+  private searchResults:string[];
   // private postCardsDetail:PostCardDetail[];
   private userCard: UserCard=getCurrentUserCard();
   private counter: number = 0;
@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
       ComponentRef.instance.userCard=item.userCard;
     }
   }
-  lazyLoad(searchResults:number[]):void{
+  lazyLoad(searchResults:string[]):void{
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;

@@ -28,7 +28,7 @@
       <div #postContainer></div>
     </div>
     <!-- <app-comment-card></app-comment-card> -->
-    <app-comment-area [pid]="post.pid" *ngIf="!previewMode  && !reqFailed"></app-comment-area>
+    <app-comment-area [pid]="pid" *ngIf="!previewMode  && !reqFailed"></app-comment-area>
 
 
   </div>
@@ -37,5 +37,5 @@
     <!-- <ion-text></ion-text> -->
   </div>
 </ion-content>
-<app-comment-footer [numberOfComments]="post.numberOfComments" *ngIf="!previewMode && !reqFailed"></app-comment-footer>
+<app-comment-footer [numberOfComments]="post.numberOfComments" [pid]="pid" *ngIf="!previewMode && !reqFailed"></app-comment-footer>
 

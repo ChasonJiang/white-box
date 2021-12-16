@@ -16,12 +16,12 @@ import { PostRequestParams, Requester } from 'src/app/interface/Request';
 })
 export class PostComponent implements OnInit,AfterViewInit {
   @ViewChild("postContainer", {read: ViewContainerRef}) postContainer: ViewContainerRef;
-  @Input() pid?: number;
+  @Input() pid?: string;
   @Input() previewMode: boolean= false;
   private componentRef: ComponentRef<{}>;
   @Input() post: Post={
     uid:-1,
-    pid:-1,
+    pid:'',
     title: '',
     content: '',
     coverUrl:'',
@@ -50,7 +50,7 @@ export class PostComponent implements OnInit,AfterViewInit {
   ) { }
 
   ngOnInit() {
-
+    console.log(this.post.pid);
   }
 
   ngAfterViewInit(){
@@ -84,12 +84,12 @@ export class PostComponent implements OnInit,AfterViewInit {
         this.userCard=res.userCard;
       },
       complete:() => {
-        console.log(this.post);
+        // console.log(this.post);
         this.renderPost(this.post);
 
       },
       error:() => {
-        console.log("resquest post error")
+        console.log("resquest post error");
         this.reqFailed=true;
 
       }

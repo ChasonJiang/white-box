@@ -10,7 +10,7 @@ export interface PostResponse{
 }
 
 export interface PostCardIndexResponse{
-    pid: number[];
+    pid: string[];
 }
 
 export interface PostCardResponse{
@@ -18,10 +18,10 @@ export interface PostCardResponse{
 }
 
 export interface PostCardIndexResponse{
-    pid: number[];
+    pid: string[];
 }
 export interface PostCardDetailIndexResponse{
-    pid: number[];
+    pid: string[];
 }
 export interface PostCardDetailResponse{
     postCardsDetail: PostCardDetail[];
@@ -36,7 +36,7 @@ export interface UserDetailsResponse{
 export interface PostSearchResponse{
     success: boolean;
     message?: string;
-    pid?: number[];
+    pid?: string[];
 }
 
 export interface TopicCardIndexResponse{
@@ -48,7 +48,7 @@ export interface TopicCardResponse{
 }
 
 export interface CommentIndexResponse{
-    cid:number[];
+    cid:string[];
 }
 
 export interface CommentResponse{
