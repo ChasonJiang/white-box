@@ -24,7 +24,10 @@ export interface PostCardDetailIndexResponse{
     pid: string[];
 }
 export interface PostCardDetailResponse{
-    postCardsDetail: PostCardDetail[];
+    data:{
+        postCardsDetail: PostCardDetail,
+        userCard: UserCard
+    }[];
 }
 
 export interface UserDetailsResponse{
