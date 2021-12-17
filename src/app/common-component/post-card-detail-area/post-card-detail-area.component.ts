@@ -107,15 +107,20 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
       this.PostCardDetailService.requestPostCardDetailIndex(req)
         .subscribe({
           next:res =>{
-          console.log("GetPostCardsDetailIndexList");
-          this.postCardsDetailIndexList=res.pid;
+            if(res.success){
+              console.log("GetPostCardsDetailIndexList");
+              this.postCardsDetailIndexList=res.pid;
+              this.counter=0;
+              this.viewContainerRef.clear();
+    
+              this.lazyLoad(this.postCardsDetailIndexList);
+            }else{
+              console.log(res.message);
+            }
           // console.log(postCardsIndexRes);
         },
         complete:()=>{
-          this.counter=0;
-          this.viewContainerRef.clear();
 
-          this.lazyLoad(this.postCardsDetailIndexList);
           
         },
         error:()=>{

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, RouterLinkDelegate } from '@ionic/angular';
+import { LoginRequestParams, Requester } from 'src/app/interface/Request';
+import { UserService } from 'src/app/services/user.service';
+import { sha256 } from 'src/app/util/util';
 
 @Component({
   selector: 'app-login',
@@ -8,22 +11,40 @@ import { NavController, RouterLinkDelegate } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  uid:any;
+  private uid:string;
 
-  psw:any;
+  private pwd:string;
 
   errorMessage:any;
 
-  login(){
-    if (this.uid=="test"&&this.psw=="test") {
-      console.log("123");
-      location.href='index.html';
-    }
-  }
-
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    ) { }
 
   ngOnInit() {
   }
 
+  login(){
+    let req: Requester<LoginRequestParams>={
+      head: {
+        type:"LogIn",
+        // uid:this.uid,
+      },
+      body:{
+        uid:this.uid,
+        pwd:sha256(this.pwd),
+      }
+    };
+    console.log(req);
+    this.userService.requestLoginValidation(req).subscribe({next:res=>{
+      if(res.success){
+        localStorage.setItem('userInfo', JSON.stringify(res.userInfo));
+        localStorage.setItem('token', res.token);
+        console.log("登录成功！");
+      }else{
+        console.log(res.message);
+      }
+    }});
+
+  }
 }

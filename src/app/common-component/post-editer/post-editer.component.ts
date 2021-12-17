@@ -140,7 +140,7 @@ export class PostEditerComponent implements OnInit {
     console.log(pid);
     console.log(this.topics)
     let post={
-      uid:_userCard.uid, // fake uid
+      uid:_userCard.uid as string, // fake uid
       pid:pid, // fake pid
       userCard:_userCard,
       content:main_textarea.innerHTML,

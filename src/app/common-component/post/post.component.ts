@@ -20,7 +20,7 @@ export class PostComponent implements OnInit,AfterViewInit {
   @Input() previewMode: boolean= false;
   private componentRef: ComponentRef<{}>;
   @Input() post: Post={
-    uid:-1,
+    uid:'',
     pid:'',
     title: '',
     content: '',
@@ -35,7 +35,7 @@ export class PostComponent implements OnInit,AfterViewInit {
     }],
   };
   @Input() userCard: UserCard={
-    uid:-1,
+    uid:'',
     avatarUrl:'',
     userLevel:0,
     userName:''
@@ -50,7 +50,6 @@ export class PostComponent implements OnInit,AfterViewInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.post.pid);
   }
 
   ngAfterViewInit(){
