@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
   errorMessage:any;
 
   login(){
-    if (this.psw=="test"&&this.psw=="test") {
+    if (this.uid=="test"&&this.psw=="test") {
       console.log("123");
       location.href='index.html';
     }

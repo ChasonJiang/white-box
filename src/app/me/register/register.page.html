@@ -3,31 +3,31 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>注册</ion-title>
+    <ion-title>登录</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <div class="logintop">
-    
-    <input type="text" userme="user" id="uid" placeholder="请输入账号" />
-    
-    <br>
-    
-    <input type="password" userme="pass" id="psw" placeholder="请输入密码" />
-   
-    
-    <br>
-    
-    <input type="button" userme="sub" id="sub" value="立即注册" (click)="register()" />
-
-    <br>
-
-  </div>
-  <div class="loginbottom" style="text-align: center;">
-
-    <input type="checkbox" name="vehicle" value="Car" class="bot">
-    《已同意大白盒服务及隐私条款》
-  </div>
   
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>账号</ion-label>
+      <ion-input type="text" [(ngModel)]="uid"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>密码</ion-label>
+      <ion-input type="password" [(ngModel)]="psw"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <div padding>
+    <ion-button color="primary" (click)="register()" expand="block" fill="clear" shape="round">
+      立即注册
+    </ion-button>
+  </div>
+
 </ion-content>
