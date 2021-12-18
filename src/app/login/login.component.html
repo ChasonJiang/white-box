@@ -10,3 +10,11 @@
     <p class="forgetting" (forgetting)="toForgetting();">找回密码</p>
   </div>
 </div>
+
+<div class="spinner-container" *ngIf="loginLock">
+  <div class="spinner-background"></div>
+  <div class="spinner">
+    <ion-spinner></ion-spinner>
+    <div class="spinner-text">请稍等...</div>
+  </div>
+</div>

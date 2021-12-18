@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { LoginRequestParams, Requester } from '../interface/Request';
 import { UserService } from '../services/user.service';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 import { sha256 } from '../util/util';
 
 @Component({
@@ -13,21 +14,29 @@ import { sha256 } from '../util/util';
 export class LoginComponent implements OnInit {
   private uid:string=null;
   private pwd:string=null;
-  private redirectUrl?:string;
+  @Input() redirectUrl?:string;
   private loginLock:boolean=false;
-  
+  private showSpinner:boolean=false;
+
   constructor(
     private activatedRoute:ActivatedRoute,
     private router:Router,
     private userService: UserService,
     private alertController:AlertController,
+    public modalController:ModalController,
+
 
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(params =>{
-      this.redirectUrl = params.redirectUrl;
-    });
+    // this.activatedRoute.queryParams.subscribe({
+    //   next:params =>{
+    //       this.redirectUrl = params.redirectUrl;
+    //   },
+    //   error:() => {
+    //       this.redirectUrl='/';
+    //   }
+    // });
   }
 
   async alert(msg: string){
@@ -73,7 +82,19 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userInfo', JSON.stringify(res.userInfo));
         localStorage.setItem('token', res.token);
         console.log("登录成功！");
-        this.router.navigate([this.redirectUrl]);
+        // this.router.navigate(['/navigation']);
+        if(this.redirectUrl!=undefined){
+          this.router.navigate([this.redirectUrl]);
+        }else{
+          this.activatedRoute.queryParams.subscribe({
+            next:params =>{
+              this.router.navigate([params.redirectUrl]);
+            },
+            error:() => {
+              this.router.navigate(['/navigation']);
+            }
+          });
+        }
       }else{
         this.alert(res.message);
         console.log(res.message);
@@ -86,9 +107,18 @@ export class LoginComponent implements OnInit {
   });
 
   }
-  toSignUp(){
-
+  async toSignUp(){
+    const modal = await this.modalController.create({
+      component:SignUpComponent,
+      cssClass:"fullscreen-class",
+      // componentProps:{
+      //   'pid': pid,
+      // },
+    });
+    return await modal.present();
+    // this.router.navigate(['/signup']);
   }
+
   toForgetting(){
 
   }
