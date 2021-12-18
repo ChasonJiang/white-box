@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { IonRefresher, ModalController } from '@ionic/angular';
 import { PostEditerComponent } from 'src/app/common-component/post-editer/post-editer.component';
 import { TopicCard } from 'src/app/interface/Topic';
 import { SearchComponent } from './search/search.component';
@@ -11,6 +11,7 @@ import { SearchComponent } from './search/search.component';
 })
 export class TopicComponent implements OnInit {
   @Input() topicCard:TopicCard;
+  @ViewChild(IonRefresher) ionRefresher:IonRefresher;
   isFollow: boolean=false;
   constructor(
     private modalController: ModalController,
@@ -52,5 +53,9 @@ export class TopicComponent implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  doRefresh(event) {
+    
   }
 }

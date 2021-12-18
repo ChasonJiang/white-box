@@ -9,10 +9,12 @@
         <app-search-bar (onSubmit)="searchSubmit($event);" (onChange)="searchChange($event);"></app-search-bar>
       </div>
     </div>
-  
+  <div class="search-results-container">
     <div class="search-results" #SearchResultContainer>
       
     </div>
+  </div>
+
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"

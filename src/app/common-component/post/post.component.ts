@@ -56,6 +56,7 @@ export class PostComponent implements OnInit,AfterViewInit {
     if(!this.previewMode && !this.detailMode){
       this.loadPost();
     }else if(this.detailMode){
+      // this.pid=this.post.pid;
       this.renderPost(this.post);
     }
     else{
