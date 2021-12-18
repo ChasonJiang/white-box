@@ -1,0 +1,107 @@
+.login{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.login-form{
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    height: 280px;
+    // background-color: rgb(0, 0, 0);
+    padding:0px 40px;
+}
+.login-form-title{
+    font-size: 30px;
+    font-weight:inherit;
+    margin-bottom:30px ;
+    font-family:"Times New Roman";
+}
+.input{
+    // background-color: #000;
+    scrollbar-width: none; /* firefox */
+    white-space:nowrap;
+    overflow: auto;
+    margin-top: 20px;
+    width: 100%;
+    height:44px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+    font-size: 20px;
+    scrollbar-width: 0px;
+}
+.input:empty::before{
+    padding: 0px 0px;
+    margin: 0px 0px;
+    font-size:20px;
+
+    color: rgba(0, 0, 0, 0.5);
+    content: attr(placeholder);
+}
+
+.input::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}
+
+.login-button{
+    background-color: rgb(84, 153, 231);
+    margin-top: 40px;
+    height: 46px;
+    width: 100%;
+    border-radius:4px;
+    border: 0px;
+    font-weight: lighter;
+    font-family:"Times New Roman";
+    // content:"登录";
+    // z-index: -1;
+    font-size:22px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+.login-button:active{
+    background-color: rgb(74, 135, 206);
+}
+
+.footer{
+    display: grid;
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    padding: 0px 40px;
+    height: 20px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+}
+.sign-up{
+    display: inline;
+    font-weight:600;
+    font-family:"Times New Roman";
+    // content:"登录";
+    // z-index: -1;
+    margin: 0 0;
+    font-size:14px;
+}
+.sign-up:active{
+    color:rgba(0, 0, 0, 0.5);
+}
+.forgetting{
+    display: inline;
+    font-weight: 600;
+    font-family:"Times New Roman";
+    // content:"登录";
+    // z-index: -1;
+    margin: 0 0;
+    font-size:14px;
+}
+.forgetting:active{
+    color:rgba(0, 0, 0, 0.5);
+}

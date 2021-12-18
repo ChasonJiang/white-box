@@ -13,7 +13,8 @@ export class AppComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    // localStorage.clear();
+    localStorage.clear();
+    // localStorage.setItem('token','1');
     // if(this.userService.loginStatusCheck()){
     //   console.log('已登录');
     // }else{

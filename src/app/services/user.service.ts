@@ -28,11 +28,12 @@ export class UserService {
     return this.httpClient.post<LoginResponse>(ApiUrl,req,httpOptions);
   }
 
-  loginStatusCheck(){
-    if(localStorage.getItem('userInfo')!=null){
+  loginStatusCheck():boolean{
+    if(localStorage.getItem('token')!=null || localStorage.getItem('token')!=undefined){
       return true;
+    }else{
+      return false;
     }
-    return false;
   }
 
 }
