@@ -75,7 +75,9 @@ export class PostEditerComponent implements OnInit {
     });
     await modal.present();
     const {data}=await modal.onWillDismiss();
-    this.topics.push(data.topic);
+    if(data.topic!=undefined){
+      this.topics.push(data.topic);
+    }
     return 
   }
 
@@ -177,7 +179,7 @@ export class PostEditerComponent implements OnInit {
         this.showSpinner=false;
         if(res.success){
           this.alert("发表成功！");
-          this.modalDismiss();
+          // this.modalDismiss();
           
         }else{
           this.alert("失败提示:\n"+res.message);

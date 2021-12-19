@@ -3,7 +3,7 @@
     <app-user-card [userCard]="userCard" [releaseTime]="postCardDetail.releaseTime"></app-user-card>
   </div>
   <div class="post-card-detail-content" (click)="createModal(postCardDetail.pid);">
-    <ion-title *ngIf="true">{{postCardDetail.title}}</ion-title>
+    <p class="title" *ngIf="true">{{postCardDetail.title}}</p>
     <ion-text *ngIf="postContent">{{postContent}}</ion-text>
   </div>
   <!-- <div class="post-card-detail-img"  *ngIf="postCardDetail.imgUrl">
@@ -16,9 +16,10 @@
       <img class="post-card-img" *ngIf="postCardDetail.imgUrl.length>=3" [src]="postCardDetail.imgUrl[2]">
     </div>
   </div> -->
-  <div class="post-card-detail-img"  *ngIf="imgUrl">
-    <img class="post-card-img" *ngIf="imgUrl.length>=1" [src]="imgUrl[0]">
-    <img class="post-card-img" *ngIf="imgUrl.length>=2" [src]="imgUrl[1]">
+  <div class="post-card-detail-img"  *ngIf="imgUrl" (click)="createModal(postCardDetail.pid);">
+    <!-- <img class="post-card-img" *ngIf="imgUrl.length>=1" [src]="imgUrl[i]" *ngFor="let i of img_range"> -->
+    <img class="post-card-img" *ngIf="imgUrl.length>=1" [src]="imgUrl[0]" >
+    <img class="post-card-img" *ngIf="imgUrl.length>=2" [src]="imgUrl[1]" >
     <div style="width: 100%; height: 100%; " >
       <div class="numOfImg" *ngIf="imgUrl.length>3">
         共{{imgUrl.length}}张

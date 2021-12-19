@@ -4,6 +4,12 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+
+.title{
+    padding: 0;
+    margin: 0;
+    text-overflow:ellipsis;overflow:hidden;
+}
 .item-comment-class{
     display: flex;
     flex-direction: row;

@@ -26,6 +26,8 @@ export class SearchComponent implements OnInit, AfterViewInit{
   private reqFailed: boolean =false;
   private card_size: number=10;
   private isEnd:boolean=false;
+  private searchLock:boolean = false;
+  private lazyLoadLock:boolean = false;
 
   constructor(
     private modalController: ModalController,
@@ -60,6 +62,11 @@ export class SearchComponent implements OnInit, AfterViewInit{
     }
   }
   lazyLoad(searchResults:string[]):void{
+    if(this.lazyLoadLock){
+      console.log("lazyLoad is locked");
+      return;
+    }
+    this.lazyLoadLock=true;
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
@@ -85,13 +92,30 @@ export class SearchComponent implements OnInit, AfterViewInit{
         this.renderCardList(res.data);
         this.counter++;
       },
+      complete:() => {
+        this.lazyLoadLock=false;
+        this.searchLock=false;
+      },
       error:() => {
+        this.searchLock=false;
+        this.lazyLoadLock=false;
         this.reqFailed=true;
       }
     });
 
   }
   searchSubmit(content: string){
+
+    this.search(content);
+
+  }
+
+  search(content: string){
+    if(this.searchLock){
+      console.log("SearchPostCardDetail is locked");
+      return;
+    }
+    this.searchLock=true;
     this.searchContent=content;
     this.reqFailed=false;
     let req:Requester<PostSearchRequestParams>={
@@ -108,17 +132,22 @@ export class SearchComponent implements OnInit, AfterViewInit{
       this.searchService.search(req)
         .subscribe({
           next:res =>{
-          this.searchResults=res.pid;
+            if(res.success){
+              this.searchResults=res.pid;
+              this.counter=0;
+              this.searchResultContainer.clear();
+              this.lazyLoad(this.searchResults);
+            }else{
+              console.log(res.message);
+            }
+
           // console.log(postCardsIndexRes);
         },
         complete:()=>{
-          this.counter=0;
-          this.searchResultContainer.clear();
-          // console.log("SearchPostCardDetail");
-          // console.log(this.searchResults)
-          this.lazyLoad(this.searchResults);
+          // this.searchLock=false;
         },
         error:()=>{
+          this.searchLock=false;
           this.reqFailed=true;
           console.log("SearchPostCardDetail error");
 
@@ -132,7 +161,6 @@ export class SearchComponent implements OnInit, AfterViewInit{
     }finally{
       
     }
-
   }
 
   doRefresh(event) {

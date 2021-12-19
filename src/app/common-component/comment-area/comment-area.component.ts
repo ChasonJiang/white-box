@@ -21,6 +21,7 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
   private counter: number = 0;
   private card_size: number=10;
   private isEnd: boolean =false;
+  private lazyLoadLock:boolean=false;
 
   constructor(
     private commentService: CommentService,
@@ -81,15 +82,17 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
   }
 
   lazyLoad(commentIndexList:string[]):void{
+    this.lazyLoadLock=true;
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
-    if(index_strat>commentIndexList.length){
+    if(index_strat>=commentIndexList.length){
       this.infiniteScroll.disabled = false;
       this.isEnd=false;
+      this.lazyLoadLock=false;
       return;
       // throw new Error("commentIndexList is empty");
-    }else if(index_end>commentIndexList.length){
+    }else if(index_end>=commentIndexList.length){
       index_end=commentIndexList.length;
     }
     
@@ -111,7 +114,11 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
         this.renderCardList(res.comments);
         this.counter++;
       },
+      complete:() => {
+        this.lazyLoadLock=false;
+      },
       error:() => {
+        this.lazyLoadLock=false;
         this.reqFailed=true;
       }
     });
@@ -128,7 +135,15 @@ export class CommentAreaComponent implements AfterViewInit,OnInit {
     }
   }
   loadComments(event){
-    this.lazyLoad(this.commentIndexList);
+    try{
+      if(!this.lazyLoadLock){
+        this.lazyLoad(this.commentIndexList);
+      }else{
+        console.log("lazyLoad is locked");
+      }
+    }catch(e){
+      console.log(e);
+    }
     console.log("loading comments");
     event.target.complete();
 

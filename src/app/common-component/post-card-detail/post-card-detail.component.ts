@@ -15,6 +15,8 @@ export class PostCardDetailComponent implements OnInit {
   @Input() postCardDetail?:PostCardDetail
   private imgUrl:string[]=[];
   private lengthLimit:number = 180;
+  private img_range:number[] = [];
+
   constructor(
     public modalController:ModalController,
     private renderer:Renderer2
@@ -22,7 +24,7 @@ export class PostCardDetailComponent implements OnInit {
 
   ngOnInit() {
     this.shellPost(this.postCardDetail.content);
-    // console.log(this.postCardDetail.postContent)
+    // console.log(this.postCardDetail.content)
     
   }
 
@@ -30,23 +32,31 @@ export class PostCardDetailComponent implements OnInit {
     let div=this.renderer.createElement('div');
     div.innerHTML=content;
     let _content:string=div.innerText;
-    if(_content.length>this.lengthLimit){
+    if(_content.length>=this.lengthLimit){
       this.postContent=_content.slice(0,this.lengthLimit)+"...";
+    }else{
+      this.postContent=_content
     }
+    console.log(_content)
 
 
     let imgs=div.querySelectorAll('.images');
     for(let img of imgs){
         this.imgUrl.push(img.src);
     }
+    this.img_range=Array.from(Array(this.imgUrl.length).keys());
+    this.img_range.pop();
+
   }
 
   async createModal(pid:number){
+        // console.log(this.postCardDetail);
         // console.log(this.postCardDetail);
     const modal = await this.modalController.create({
       component:PostComponent,
       cssClass:"fullscreen-class",
       componentProps:{
+        'pid':this.postCardDetail.pid,
         'post': this.postCardDetail,
         'userCard': this.userCard,
         'detailMode':true

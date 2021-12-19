@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiUrl } from '../Config';
 import { PostCardDetail } from '../interface/Post';
-import { httpOptions, PostCardDetailIndexRequestParams, PostCardDetailRequestParams, Requester } from '../interface/Request';
-import { PostCardDetailIndexResponse, PostCardDetailResponse } from '../interface/Response';
+import { httpOptions, PostCardDetailIndexRequestParams, PostCardDetailRequestParams, PostSearchRequestParams, Requester } from '../interface/Request';
+import { PostCardDetailIndexResponse, PostCardDetailResponse, PostSearchResponse } from '../interface/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +30,8 @@ export class PostCardDetailService {
   //   const postCardsDetail=of([POST,POST,POST,POST,POST,POST,POST,POST,POST,POST,POST,POST,POST,POST,POST]);
   //   return postCardsDetail;
   // }
+
+  search(req: Requester<PostSearchRequestParams>):Observable<PostSearchResponse>{
+    return this.httpClient.post<PostSearchResponse>(ApiUrl,req,httpOptions);
+  }
 }

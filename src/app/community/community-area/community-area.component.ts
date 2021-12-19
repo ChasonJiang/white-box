@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, IonRefresher } from '@ionic/angular';
 import { Requester, SearchRequestParams, TopicCardRequestParams, } from 'src/app/interface/Request';
 import { TopicCardIndexResponse } from 'src/app/interface/Response';
 import { TopicCard } from 'src/app/interface/Topic';
@@ -16,6 +16,7 @@ import { CommunityCardComponent } from './community-card/community-card.componen
 export class CommunityAreaComponent implements OnInit, AfterViewInit {
   @ViewChild('TopicCardContainer',{read: ViewContainerRef}) TopicCardContainer:ViewContainerRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonRefresher) ionRefresher:IonRefresher;
   private topicCards: TopicCard[];
   private topicCardIndexList: number[];
 
@@ -24,6 +25,7 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
   private counter: number = 0;
   private card_size: number=10;
   private isEnd: boolean =false;
+  private lazyLoadLock:boolean=false;
   
   constructor(
     private topicCardService: TopicCardService,
@@ -44,12 +46,14 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
   }
 
   lazyLoad(topicCardIndexList:number[]):void{
+    this.lazyLoadLock=true;
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
-    if(index_strat>topicCardIndexList.length){
+    if(index_strat>=topicCardIndexList.length){
+      this.lazyLoadLock=false;
       throw new Error("topicCardIndexList is empty");
-    }else if(index_end>topicCardIndexList.length){
+    }else if(index_end>=topicCardIndexList.length){
       index_end=topicCardIndexList.length;
     }
     let req:Requester<TopicCardRequestParams>={
@@ -68,7 +72,13 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
         this.renderCardList(res.topicCards);
         this.counter++;
       },
+      complete:() => {
+        this.infiniteScroll.complete();
+        this.lazyLoadLock=false;
+      },
       error:() => {
+        this.infiniteScroll.complete();
+        this.lazyLoadLock=false;
         this.reqFailed=true;
       }
     });
@@ -127,13 +137,14 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
 
   loadData(event) {
     try{
-      this.lazyLoad(this.topicCardIndexList);
-
+      if(!this.lazyLoadLock){
+        this.lazyLoad(this.topicCardIndexList);
+      }else{
+        console.log("lazyLoad is locked");
+      }
     }catch(err){
       console.log(err.message);
       this.infiniteScroll.disabled = true;
-    }finally{
-      event.target.complete();
     }
   }
 
@@ -164,9 +175,10 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
           // console.log(postCardsIndexRes);
         },
         complete:()=>{
-
+          this.ionRefresher.complete();
         },
         error:()=>{
+          this.ionRefresher.complete();
           this.reqFailed=true;
         }
       });
@@ -185,7 +197,7 @@ export class CommunityAreaComponent implements OnInit, AfterViewInit {
       this.infiniteScroll.disabled = false;
       this.isEnd=false;
       
-      event.target.complete();
+      // event.target.complete();
     }
 
 

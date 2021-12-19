@@ -5,7 +5,7 @@ import { PostCardDetailService } from '../../services/post-card-detail.service';
 import { UserCard } from 'src/app/interface/User';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { PostCardDetailIndexRequestParams, PostCardDetailRequestParams, Requester } from 'src/app/interface/Request';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, IonRefresher } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-card-detail-area',
@@ -17,6 +17,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   @ViewChild("Container",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
   @Input() tid:number;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonRefresher) ionRefresher:IonRefresher;
   postCardsDetail:PostCardDetail[];
   private postCardsDetailIndexList:string[];
   private userCard: UserCard=getCurrentUserCard();
@@ -24,7 +25,7 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
   private counter: number = 0;
   private card_size: number=10;
   private isEnd: boolean =false;
-
+  private lazyLoadLock:boolean=false;
   
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -48,12 +49,15 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
 
   lazyLoad(postCardsDetailIndex:string[]):void{
+    this.lazyLoadLock=true;
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
-    if(index_strat>postCardsDetailIndex.length){
+    console.log("start:"+index_strat+",end:"+index_end+",length:"+postCardsDetailIndex.length);
+    if(index_strat>=postCardsDetailIndex.length){
+      this.lazyLoadLock=false;
       throw new Error("postCardsDetailIndex is empty");
-    }else if(index_end>postCardsDetailIndex.length){
+    }else if(index_end>=postCardsDetailIndex.length){
       index_end=postCardsDetailIndex.length;
     }
     let req:Requester<PostCardDetailRequestParams>={
@@ -73,7 +77,13 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
         this.renderCardList(res.data);
         this.counter++;
       },
+      complete:() => {
+        this.lazyLoadLock=false;
+        this.infiniteScroll.complete();
+      },
       error:() => {
+        this.infiniteScroll.complete();
+        this.lazyLoadLock=false;
         this.reqFailed=true;
       }
     });
@@ -120,10 +130,11 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
           // console.log(postCardsIndexRes);
         },
         complete:()=>{
-
+          this.ionRefresher.complete();
           
         },
         error:()=>{
+          this.ionRefresher.complete();
           this.reqFailed=true;
         }
       });
@@ -142,21 +153,24 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
     this.infiniteScroll.disabled = false;
     this.isEnd=false;
-    
-    event.target.complete();
 
   }
 
 
   loadData(event) {
     try{
-      this.lazyLoad(this.postCardsDetailIndexList);
+      if(!this.lazyLoadLock){
+        this.lazyLoad(this.postCardsDetailIndexList);
+      }else{
+        console.log("lazyLoad is locked");
+      }
+
     }catch(err){
       console.log(err.message);
       this.infiniteScroll.disabled = true;
       // this.reqFailed=true;
     }finally{
-      event.target.complete();
+      
     }
   }
 

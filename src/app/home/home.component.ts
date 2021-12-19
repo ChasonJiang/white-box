@@ -6,7 +6,7 @@ import { PostCardComponent } from '../common-component/post-card/post-card.compo
 import { getCurrentUserCard } from '../util/util';
 import { PostCardRequestParams, Requester } from '../interface/Request';
 import { UserCard } from '../interface/User';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, IonRefresher } from '@ionic/angular';
 import { PostCardIndexResponse } from '../interface/Response';
 
 
@@ -19,13 +19,16 @@ export class HomeComponent implements AfterViewInit,OnInit {
   @ViewChild('postCardContainer',{read: ViewContainerRef }) postCardContainerViewContainerRef:ViewContainerRef;
   // @ViewChild('ion-content',{read: ElementRef}) ionContentRef:ElementRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonRefresher) ionRefresher:IonRefresher;
   // private postCards?: PostCard[];
   private postCardsIndexList:string[];
-  private userCard: UserCard;
+  private userCard: UserCard=getCurrentUserCard();
   private card_size:number=15;
   private counter:number=0;
   private isEnd:boolean=false;
   private reqFailed:boolean=false;
+  private lazyLoadLock:boolean=false;
+  private refreshLock:boolean=false;
   // private postCardCompts:any[];
 
 
@@ -41,7 +44,6 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
   }
   ngAfterViewInit(){
-    this.userCard=getCurrentUserCard();
     try{
       // this.toggleInfiniteScroll();
       this.refresh();
@@ -55,12 +57,15 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
 
   lazyLoad(postCardsIndex:string[]):void{
+    this.lazyLoadLock=true;
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
-    if(index_strat>postCardsIndex.length){
+    console.log("start:"+index_strat+",end:"+index_end+",length:"+postCardsIndex.length);
+    if(index_strat>=postCardsIndex.length){
+      this.lazyLoadLock=false;
       throw new Error("postCards is empty");
-    }else if(index_end>postCardsIndex.length){
+    }else if(index_end>=postCardsIndex.length){
       index_end=postCardsIndex.length;
     }
     let req:Requester<PostCardRequestParams>={
@@ -80,7 +85,13 @@ export class HomeComponent implements AfterViewInit,OnInit {
         this.renderPostCardList(postCardResponse.postCards);
         this.counter++;
       },
+      complete:()=>{
+        this.infiniteScroll.complete();
+        this.lazyLoadLock=false;
+      },
       error:() => {
+        this.infiniteScroll.complete();
+        this.lazyLoadLock=false;
         this.reqFailed=true;
       }
     });
@@ -98,6 +109,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
   }
 
   refresh(){
+    this.refreshLock=true;
     this.reqFailed=false;
     let req:Requester<void>={
       head:{
@@ -125,9 +137,12 @@ export class HomeComponent implements AfterViewInit,OnInit {
           // console.log(res);
         },
         complete:()=>{
-
+          this.ionRefresher.complete();
+          this.refreshLock=false;
         },
         error:()=>{
+          this.ionRefresher.complete();
+          this.refreshLock=false;
           this.reqFailed=true;
         }
       });
@@ -142,12 +157,16 @@ export class HomeComponent implements AfterViewInit,OnInit {
   }
 
   doRefresh(event) {
-    this.refresh();
+    if(!this.refreshLock){
+      this.refresh();
+    }else{
+      console.log("refresh id locked");
+    }
 
     this.infiniteScroll.disabled = false;
     this.isEnd=false;
     
-    event.target.complete();
+    // event.target.complete();
 
   }
 
@@ -157,14 +176,19 @@ export class HomeComponent implements AfterViewInit,OnInit {
   }
 
   loadPostCard(event) {
+    
     try{
-      this.lazyLoad(this.postCardsIndexList);
+      if(!this.lazyLoadLock){
+        this.lazyLoad(this.postCardsIndexList);
+      }else{
+        console.log("lazyLoad is locked");
+      }
     }catch(err){
       console.log(err.message);
       this.infiniteScroll.disabled = true;
       // this.reqFailed=true;
     }finally{
-      event.target.complete();
+      // event.target.complete();
     }
   }
 
