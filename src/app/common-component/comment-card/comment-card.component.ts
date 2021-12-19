@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AnimationController, ModalController } from '@ionic/angular';
 import { Requester, SubCommentRequestParams } from 'src/app/interface/Request';
 import { UserBaseInfo, UserCard } from 'src/app/interface/User';
 import { CommentService } from 'src/app/services/comment.service';
+import { CommentEditerAnimation } from 'src/app/util/animation';
 import { getCurrentUserCard, sha256 } from 'src/app/util/util';
 import { Comment, SubComment } from "../../interface/Comment";
 import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
@@ -21,6 +22,8 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
   constructor(
     private modalController: ModalController,
     private commentService: CommentService,
+    public animationCtrl: AnimationController
+
   ) { }
 
   ngOnInit() {}
@@ -30,6 +33,7 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
   }
 
   async createCommentEditerModal(reply_to:UserBaseInfo){
+    let animation=CommentEditerAnimation(this.animationCtrl);
     let nowDate = new Date().getTime().toString();
     let _reply_to:UserBaseInfo = {
       uid:reply_to.uid,
@@ -50,7 +54,9 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
       cssClass:"transparent-class",
       componentProps:{
         comment_info:comment_info
-      }
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
     });
     
     return await modal.present();

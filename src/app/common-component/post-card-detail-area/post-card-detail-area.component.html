@@ -7,7 +7,7 @@
 <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
-      loadingText="Loading...">
+      loadingText="正在加载...">
     </ion-infinite-scroll-content>
 </ion-infinite-scroll>
 <div *ngIf="reqFailed" (click)="doRefresh($event);" style="position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">

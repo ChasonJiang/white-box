@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AnimationController, ModalController } from '@ionic/angular';
 import { PostCardDetail } from 'src/app/interface/Post';
 import { UserCard } from 'src/app/interface/User';
+import { MyAnimation } from 'src/app/util/animation';
 import { PostComponent } from '../post/post.component';
 
 @Component({
@@ -19,7 +20,9 @@ export class PostCardDetailComponent implements OnInit {
 
   constructor(
     public modalController:ModalController,
-    private renderer:Renderer2
+    private renderer:Renderer2,
+    public animationCtrl: AnimationController
+
   ) { }
 
   ngOnInit() {
@@ -50,6 +53,7 @@ export class PostCardDetailComponent implements OnInit {
   }
 
   async createModal(pid:number){
+    let animation=MyAnimation(this.animationCtrl);
         // console.log(this.postCardDetail);
         // console.log(this.postCardDetail);
     const modal = await this.modalController.create({
@@ -61,6 +65,8 @@ export class PostCardDetailComponent implements OnInit {
         'userCard': this.userCard,
         'detailMode':true
       },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
     });
     return await modal.present();
   }
