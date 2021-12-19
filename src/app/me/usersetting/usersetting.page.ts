@@ -12,4 +12,8 @@ export class UsersettingPage implements OnInit {
   ngOnInit() {
   }
 
+  loginout(){
+    console.log('123');
+  }
+
 }

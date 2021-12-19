@@ -53,6 +53,10 @@ const routes: Routes = [
   {
     path: 'others',
     loadChildren: () => import('./others/others.module').then( m => m.OthersPageModule)
+  },
+  {
+    path: 'beforelogin',
+    loadChildren: () => import('./beforelogin/beforelogin.module').then( m => m.BeforeloginPageModule)
   }
 
 

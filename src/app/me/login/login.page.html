@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>登录</ion-title>
-    <ion-button slot="end" color="light" (click)="onClick()">
+    <ion-button slot="end" color="light" (click)="back()">
       x
     </ion-button>
   </ion-toolbar>
@@ -16,13 +16,13 @@
   <ion-list>
 
     <ion-item>
-      <ion-label stacked>账号</ion-label>
-      <ion-input type="text" [(ngModel)]="uid"></ion-input>
+      
+      <ion-input type="text" [(ngModel)]="uid" placeholder="请输入账号"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>密码</ion-label>
-      <ion-input type="password" [(ngModel)]="psw"></ion-input>
+      
+      <ion-input type="password" [(ngModel)]="pwd" placeholder="请输入密码"></ion-input>
     </ion-item>
 
   </ion-list>

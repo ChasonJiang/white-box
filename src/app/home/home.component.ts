@@ -21,7 +21,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   // private postCards?: PostCard[];
   private postCardsIndexList:string[];
-  private userCard: UserCard=getCurrentUserCard();
+  private userCard: UserCard;
   private card_size:number=15;
   private counter:number=0;
   private isEnd:boolean=false;
@@ -41,6 +41,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
 
   }
   ngAfterViewInit(){
+    this.userCard=getCurrentUserCard();
     try{
       // this.toggleInfiniteScroll();
       this.refresh();
@@ -48,6 +49,7 @@ export class HomeComponent implements AfterViewInit,OnInit {
       this.reqFailed=true;
       console.log(e);
     }
+    
 
   }
 
@@ -110,15 +112,20 @@ export class HomeComponent implements AfterViewInit,OnInit {
       this.postCardService.requestPostCardIndex(req)
         .subscribe({
           next:res =>{
-          console.log("GetPostCardIndexList");
-          this.postCardsIndexList=res.pid;
-          console.log(res);
+            if(res.success){
+              console.log("GetPostCardIndexList");
+              this.postCardsIndexList=res.pid;
+              this.counter=0;
+              this.postCardContainerViewContainerRef.clear();
+    
+              this.lazyLoad(this.postCardsIndexList);
+            }else{
+              console.log(res.message);
+            }
+          // console.log(res);
         },
         complete:()=>{
-          this.counter=0;
-          this.postCardContainerViewContainerRef.clear();
 
-          this.lazyLoad(this.postCardsIndexList);
         },
         error:()=>{
           this.reqFailed=true;

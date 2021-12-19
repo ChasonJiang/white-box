@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: RegisterPage
+  },
+  {
+    path: 'beforelogin',
+    loadChildren: () => import('../beforelogin/beforelogin.module').then( m => m.BeforeloginPageModule)
   }
 ];
 

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>登录</ion-title>
+    <ion-title>注册</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,13 +13,18 @@
   <ion-list>
 
     <ion-item>
-      <ion-label stacked>账号</ion-label>
-      <ion-input type="text" [(ngModel)]="uid"></ion-input>
+      
+      <ion-input type="text" [(ngModel)]="phone" placeholder="请输入账号"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>密码</ion-label>
-      <ion-input type="password" [(ngModel)]="psw"></ion-input>
+      
+      <ion-input type="password" [(ngModel)]="pwd" placeholder="请输入密码"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      
+      <ion-input type="password" [(ngModel)]="pwd1" placeholder="请确认密码"></ion-input>
     </ion-item>
 
   </ion-list>
