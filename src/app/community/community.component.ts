@@ -2,10 +2,15 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild, ViewContainerRef, V
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation} from 'swiper';
-import { IonSlides, ModalController } from '@ionic/angular';
+import { AlertController, IonSlides, ModalController } from '@ionic/angular';
 import { SwiperComponent } from 'swiper/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { PostEditerComponent } from '../common-component/post-editer/post-editer.component';
+import { getCurrentUserCard } from '../util/util';
+import { LoginValidationRequestParams, Requester } from '../interface/Request';
+import { UserCard } from '../interface/User';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
 
 @Component({
@@ -21,6 +26,9 @@ export class CommunityComponent implements OnInit, AfterViewInit {
   // isShow:boolean=false;
   constructor(
     private modalController: ModalController,
+    private userService: UserService,
+    private router: Router,
+    private alertController:AlertController,
   ) { }
 
   ngOnInit() {}
@@ -32,17 +40,58 @@ export class CommunityComponent implements OnInit, AfterViewInit {
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
-
-  async createPostEditerModal(paperMode){
-    const modal = await this.modalController.create({
-      component:PostEditerComponent,
-      cssClass: 'fullscreen-class',
-      componentProps:{
-        'paperMode' : paperMode
-      }
+  async alert(msg: string){
+    const alert = await this.alertController.create({
+      header:'提示',
+      message: msg,
+      buttons:['确认'],
     });
 
-    return await modal.present();
+    await alert.present();
+  }
+
+
+  async createPostEditerModal(paperMode){
+    let userCard:UserCard=getCurrentUserCard();
+    let token:string=localStorage.getItem('token');
+    if(token!=null ){
+      let req: Requester<LoginValidationRequestParams>={
+        head:{
+          type:"LoginValidation"
+        },
+        body:{
+          uid:userCard.uid,
+          token:token
+        }        
+      }
+      console.log(token);
+      this.userService.requestLoginValidat(req).subscribe({
+        next: async res => {
+          if(res.success){
+            // console.log(res.message);
+            const modal = await this.modalController.create({
+              component:PostEditerComponent,
+              cssClass: 'fullscreen-class',
+              componentProps:{
+                'paperMode' : paperMode
+              }
+            });
+            return await modal.present();
+
+          }else{
+            console.log(this.router.url)
+            this.router.navigate(['/login'],{queryParams:{redirectUrl:this.router.url}});
+            this.alert(res.message);
+          }
+        },
+        error: () => {
+          this.router.navigate(['/login'],{queryParams:{redirectUrl:this.router.url}});
+          this.alert("token验证失败！");
+        }
+      });
+  
+    }
+
   }
 
 }
