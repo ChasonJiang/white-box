@@ -13,8 +13,9 @@ import { PpolicyPage } from './ppolicy.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PpolicyPageRoutingModule
+    // PpolicyPageRoutingModule
   ],
-  declarations: [PpolicyPage]
+  declarations: [PpolicyPage],
+  exports: [PpolicyPage]
 })
 export class PpolicyPageModule {}
