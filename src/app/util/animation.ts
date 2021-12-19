@@ -75,11 +75,14 @@ export function CommentEditerAnimation(animationCtrl:AnimationController){
                 {offset: 1, opacity:1,transform: 'translateY(-20%)'},
                 {offset: 1,transform: 'translateY(-20%)'},
             ])
-            .beforeStyles({
-                'width': '100%',
-                'height': '100%',
-                'opacity': 1,
-            });
+            .afterStyles({
+                background: 'rgba(0, 255, 0, 0.5)'
+              })
+            // .beforeStyles({
+            //     'width': '100%',
+            //     'height': '100%',
+            //     'opacity': 1,
+            // });
   
         const wrapperAnimation = animationCtrl.create()
           .addElement(baseEl.querySelector('.modal-wrapper')!)

@@ -145,7 +145,7 @@ async goload() {
   async showModelgameintroduce(detailedgame:detailedgame){
     const modal=await this.modalController.create({
       component:GameintroduceComponent,
-      cssClass: 'my-custom-class',//modal的css
+      cssClass: 'fullscreen-class',//modal的css
       componentProps:{"detailedgame":detailedgame}//传入title
     })
     return await modal.present();
