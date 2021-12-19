@@ -21,7 +21,7 @@ export class GamelongcardComponent implements OnInit {
   async showModelDetailed(gameId:number){
     const modal=await this.modalController.create({
       component:DetailedGameComponent,
-      cssClass: 'my-custom-class',//modal的css
+      cssClass: 'fullscreen-class',//modal的css
       componentProps:{"gameId":gameId}//传入title
     })
     return await modal.present();
@@ -29,7 +29,7 @@ export class GamelongcardComponent implements OnInit {
   async showModelmodify(gameId:number){
     const modal=await this.modalController.create({
       component:AdddetailedgameComponent,
-      cssClass: 'my-custom-class',//modal的css
+      cssClass: 'fullscreen-class',//modal的css
       componentProps:{"gameId":gameId}//传入title
     })
     return await modal.present();

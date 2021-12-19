@@ -101,7 +101,8 @@ simpleGamelists?:simplegame[];
       this.index=0;
       this.s=true;
       this.gamelongcardContainerViewContainerRef.clear();
-      this.updategamelongcard();
+      this.loadData(event)
+      // this.updategamelongcard();
       event.target.complete();
     }
 
@@ -123,7 +124,7 @@ simpleGamelists?:simplegame[];
 async showModelDetailed(gameId:number){
   const modal=await this.modalController.create({
     component:DetailedGameComponent,
-    cssClass: 'my-custom-class',//modal的css
+    cssClass: 'fullscreen-class',//modal的css
     componentProps:{"gameId":gameId}//传入title
   })
   return await modal.present();
