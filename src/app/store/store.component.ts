@@ -32,6 +32,7 @@ export class StoreComponent implements OnInit {
   simpleGamelist4?:simplegame[];
 
 storeShowImg?:string[];
+s:boolean=true;
 
 @ViewChild('gamelongcardContainer',{read: ViewContainerRef }) gamelongcardContainerViewContainerRef:ViewContainerRef;
   reqFailed: boolean;
@@ -44,8 +45,8 @@ storeShowImg?:string[];
     private gameserviceService:GameserviceService) { }
 
   ngOnInit() {
-    this.getsimplegamelist(1,'tuijian');
-    this.getsimplegamelist(2,'tuijian');
+    this.getsimplegamelist(1,'最新游戏');
+    this.getsimplegamelist(2,'为您推荐');
     this.getsimplegamelist(3,'tuijian');
     this.getstoreShowImg();
     
@@ -99,12 +100,15 @@ storeShowImg?:string[];
       this.gameserviceService.getsimplegamelist(req)
         .subscribe({
           next: res => {
+            
             console.log("getSimpleGame");
             this.lazyLoadgamelongcard(res.simplegamelist)
             this.index++;
             simpleGamelist=res.simplegamelist
             console.log(this.index)
+            this.s=true
           },
+          // complete:() =>{this.s=true},
           error: () => {
             this.reqFailed = true;
           }
@@ -176,13 +180,27 @@ doRefresh(event) {
   // console.log('Begin async operation');
     console.log('Async operation has ended');
     this.gamelongcardContainerViewContainerRef.clear();
-    this.updategamelongcard();
+
+    
+    this.getsimplegamelist(1,'最新游戏');
+    this.getsimplegamelist(2,'为您推荐');
+    this.getsimplegamelist(3,'tuijian');
+    this.getstoreShowImg();
+this.index=0;
+this.s=true;
+    // this.updategamelongcard();
     event.target.complete();
   }
 
   loadData(event) {
+    if(this.s){
+      this.s=false;
     this.updategamelongcard();
     event.target.complete();
+    }
+    else{
+      return
+    }
 }
 
 

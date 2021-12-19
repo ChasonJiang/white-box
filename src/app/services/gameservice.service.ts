@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { simpleGame, detailedGame, storeShowImg } from '../store/gamelist';
 import { simplegame, detailedgame } from '../store/game';
 import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs';
-import { adddetailedgameRequestParams, buygameRequestParams, getdetailedgameRequestParams, httpOptions, Requester, searchSimpleGameRequestParams, SimpleGameRequestParams } from '../interface/Request';
+import { adddetailedgameRequestParams, buygameRequestParams, getdetailedgameRequestParams, getstateRequestParams, httpOptions, Requester, searchSimpleGameRequestParams, SimpleGameRequestParams } from '../interface/Request';
 import { HttpClient } from '@angular/common/http';
 import { ApiUrl } from '../Config';
-import { addresultResponse, buygameresultResponse, getdetailedgameResponse, searchsimplegamelistResponse, simplegamelistResponse, storeShowImgResponse } from '../interface/Response';
+import { addresultResponse, buygameresultResponse, getdetailedgameResponse, getstateResponse, searchsimplegamelistResponse, simplegamelistResponse, storeShowImgResponse } from '../interface/Response';
 
 
 @Injectable({
@@ -34,7 +33,16 @@ export class GameserviceService {
   }
 
 
+  getgamefollowstate(req: Requester<getstateRequestParams>): Observable<getstateResponse> {
+    
+    return this.httpClient.post<getstateResponse>(ApiUrl, req, httpOptions)
 
+  }
+  getgamebuystate(req: Requester<getstateRequestParams>): Observable<getstateResponse> {
+    
+    return this.httpClient.post<getstateResponse>(ApiUrl, req, httpOptions)
+
+  }
   // getsearchsimplegamelist(req:Requester<void>): simplegame[]{
   //   let simpleGamelist:simplegame[];
   //       of(simpleGame).subscribe(_SimpleGamelist=>{

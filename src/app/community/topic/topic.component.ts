@@ -1,7 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IonRefresher, ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController, IonRefresher, ModalController } from '@ionic/angular';
 import { PostEditerComponent } from 'src/app/common-component/post-editer/post-editer.component';
+import { LoginValidationRequestParams, Requester } from 'src/app/interface/Request';
 import { TopicCard } from 'src/app/interface/Topic';
+import { UserCard } from 'src/app/interface/User';
+import { UserService } from 'src/app/services/user.service';
+import { getCurrentUserCard } from 'src/app/util/util';
 import { SearchComponent } from './search/search.component';
 
 @Component({
@@ -15,6 +20,9 @@ export class TopicComponent implements OnInit {
   isFollow: boolean=false;
   constructor(
     private modalController: ModalController,
+    private userService: UserService,
+    private router: Router,
+    private alertController:AlertController,
   ) { }
 
   ngOnInit() {
@@ -32,18 +40,76 @@ export class TopicComponent implements OnInit {
     console.log(this.isFollow);
   }
 
-  async createPostEditerModal(paperMode){
-    const modal = await this.modalController.create({
-      component:PostEditerComponent,
-      cssClass: 'fullscreen-class',
-      componentProps:{
-        'paperMode' : paperMode,
-        'topics':[this.topicCard],
-      }
+  async alert(msg: string){
+    const alert = await this.alertController.create({
+      header:'提示',
+      message: msg,
+      buttons:['确认'],
     });
 
-    return await modal.present();
+    await alert.present();
   }
+
+
+  async createPostEditerModal(paperMode){
+    let userCard:UserCard=getCurrentUserCard();
+    let token:string=localStorage.getItem('token');
+    if(token!=null ){
+      let req: Requester<LoginValidationRequestParams>={
+        head:{
+          type:"LoginValidation"
+        },
+        body:{
+          uid:userCard.uid,
+          token:token
+        }        
+      }
+      console.log(token);
+      this.userService.requestLoginValidat(req).subscribe({
+        next: async res => {
+          if(res.success){
+            // console.log(res.message);
+            const modal = await this.modalController.create({
+              component:PostEditerComponent,
+              cssClass: 'fullscreen-class',
+              componentProps:{
+                'paperMode' : paperMode,
+                'topics':[this.topicCard],
+              }
+            });
+        
+            return await modal.present();
+
+          }else{
+            this.goBack();
+            // console.log(this.router.url)
+            this.router.navigate(['/login'],{queryParams:{redirectUrl:this.router.url}});
+            this.alert(res.message);
+          }
+        },
+        error: () => {
+          this.goBack();
+          this.router.navigate(['/login'],{queryParams:{redirectUrl:this.router.url}});
+          this.alert("token验证失败！");
+        }
+      });
+  
+    }
+
+  }
+
+  // async createPostEditerModal(paperMode){
+  //   const modal = await this.modalController.create({
+  //     component:PostEditerComponent,
+  //     cssClass: 'fullscreen-class',
+  //     componentProps:{
+  //       'paperMode' : paperMode,
+  //       'topics':[this.topicCard],
+  //     }
+  //   });
+
+  //   return await modal.present();
+  // }
 
   async createSearchModal() {
     const modal = await this.modalController.create({

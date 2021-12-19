@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
       }
     };
     console.log(req);
-    this.userService.requestLoginValidation(req).subscribe({next:res=>{
+    this.userService.requestLogin(req).subscribe({next:res=>{
       if(res.success){
         localStorage.setItem('userInfo', JSON.stringify(res.userInfo));
         localStorage.setItem('token', res.token);

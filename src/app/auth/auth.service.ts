@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) { }
 
   loginCheck(url: string){

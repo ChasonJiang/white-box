@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { detailedgame } from '../game';
-import { ActionSheetController, ModalController } from '@ionic/angular';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
+import { Camera, CameraResultType ,ImageOptions} from '@capacitor/camera';
 import { from } from 'rxjs';
 import { PhotoService } from 'src/app/services/photo.service';
 import { GameserviceService } from 'src/app/services/gameservice.service';
@@ -9,6 +9,8 @@ import { GamelistComponent } from '../gamelist/gamelist.component';
 import { ShowlongcardComponent } from '../showlongcard/showlongcard.component';
 import { adddetailedgameRequestParams, getdetailedgameRequestParams, Requester } from 'src/app/interface/Request';
 import { getCurrentUserCard } from 'src/app/util/util';
+import { NgxImageCompressService } from 'ngx-image-compress';
+
 @Component({
   selector: 'app-adddetailedgame',
   templateUrl: './adddetailedgame.component.html',
@@ -31,7 +33,10 @@ export class AdddetailedgameComponent implements OnInit {
 
   constructor(public modalController: ModalController,
     private photoService: PhotoService,
-    private gameserviceService: GameserviceService,) { }
+    private gameserviceService: GameserviceService,
+    private imageCompress:NgxImageCompressService,
+    public toastController: ToastController,
+   ) { }
 
   ngOnInit() {
     this.getdetailedgame();
@@ -54,6 +59,7 @@ export class AdddetailedgameComponent implements OnInit {
       this.gameserviceService.addgame(req)
         .subscribe({
           next: res => {
+            this.addgamepresentToast()
           console.log("addgame")
           this.dismiss()
   
@@ -85,6 +91,7 @@ export class AdddetailedgameComponent implements OnInit {
       this.gameserviceService.updategame(req)
         .subscribe({
           next: res => {
+            this.updategamepresentToast()
           console.log("updategame")
           this.dismiss()
   
@@ -169,7 +176,6 @@ select(){
       'dismissed': true
     });
   };
-
   insertImgUrl() {
 
     // let title = this.viewContainerRef.ele ment.nativeElement.querySelector('title');
@@ -180,11 +186,21 @@ select(){
     // console.log(main_textarea.innerText);
 
 
-    from(this.photoService.takePicture()).subscribe(
+    from(this.photoService.takePicture({quality: 0.1,allowEditing: true,resultType: CameraResultType.DataUrl}as ImageOptions)).subscribe(
       url => {
-        this.detailedgame.imgUrl = url;
-        this.hasimgUrl = true;
+        this.imageCompress.compressFile(url, -2, 50, 30).then(img => {
+          console.log(img);
+          this.detailedgame.imgUrl = img;
+          this.hasimgUrl = true;
+        });
+
       }
+      
+      // {
+      //   console.log(url);
+      //   this.detailedgame.imgUrl = url;
+      //   this.hasimgUrl = true;
+      // }
     );
 
 
@@ -199,15 +215,24 @@ if (index > -1) {
 
   insertImgshow() {
 
-    // let imgshow = this.viewContainerRef.element.nativeElement.querySelector('.imgshow');
-    from(this.photoService.takePicture()).subscribe(
+   
+    from(this.photoService.takePicture({quality: 1,allowEditing: true,resultType: CameraResultType.DataUrl}as ImageOptions)).subscribe(
       url => {
-        console.log(url);
-        this.detailedgame.imgshow.push(url);
-        //  imgshow.innerHTML+="<img src=" + url +` (click)="showImg();" style='border-radius: 4px; margin-top:4px;margin-bottom:4px'><div><br></div>`;
-      });
-  }
+        this.imageCompress.compressFile(url, -2, 50, 30).then(img => {
+          console.log(img);
+        this.detailedgame.imgshow.push(img);
+        });
 
+      }
+      
+      
+      // {
+      //   console.log(url);
+      //   this.detailedgame.imgshow.push(url);
+      // }
+    );
+   
+  }
 
   addgameType() {
     this.gameTypeerror = '';
@@ -219,12 +244,13 @@ if (index > -1) {
       this.gameTypeerror = '已经有该游戏类型';
       return;
     }
-    if (this.gameType.length > 6) {
-      this.gameTypeerror = '游戏类型过长';
-      return;
-    }
+    // if (this.gameType.length > 6) {
+    //   this.gameTypeerror = '游戏类型过长';
+    //   return;
+    // }
 
     this.detailedgame.gameType.push(this.gameType);
+    this.gameType='';
   }
 
 
@@ -238,12 +264,14 @@ if (index > -1) {
       this.gameLableerror = '已经有该游戏标签';
       return;
     }
-    if (this.gameLable.length > 6) {
-      this.gameLableerror = '游戏标签过长';
-      return;
-    }
+    // if (this.gameLable.length > 6) {
+    //   this.gameLableerror = '游戏标签过长';
+    //   return;
+    // }
 
     this.detailedgame.gameLable.push(this.gameLable)
+    this.gameLable = '';
+    
   }
 
 
@@ -265,7 +293,23 @@ if (index > -1) {
 
 
 
+  async addgamepresentToast() {
 
+    const toast = await this.toastController.create({
+      message: '添加游戏成功',
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  async updategamepresentToast() {
+
+    const toast = await this.toastController.create({
+      message: '修改游戏成功',
+      duration: 3000
+    });
+    toast.present();
+  }
 
 }
 

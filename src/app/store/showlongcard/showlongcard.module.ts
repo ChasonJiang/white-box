@@ -6,7 +6,7 @@ import { GamelongcardComponent } from '../gamelongcard/gamelongcard.component';
 
 
 @NgModule({
-  declarations: [ShowlongcardComponent,GamelongcardComponent],
+  declarations: [ShowlongcardComponent],
   imports: [
     CommonModule
   ]
