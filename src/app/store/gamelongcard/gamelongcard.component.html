@@ -6,7 +6,7 @@
       <br>
       <s class='price'>￥{{simplegame.oldPrice}}</s>
       <span class='price'>￥{{simplegame.nowPrice}}</span>
-      <ion-badge class='badge' *ngIf="simplegame.Minimum<simplegame.nowPrice">史低</ion-badge>
+      <ion-badge class='badge' *ngIf="simplegame.Minimum>=simplegame.nowPrice">史低</ion-badge>
     </div>
     </ion-card>
 

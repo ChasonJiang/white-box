@@ -7,14 +7,15 @@ import { DetailedGameComponent } from './detailedgame/detailedgame.component';
 import { SwiperModule } from 'swiper/angular';
 import { GamecardModule } from './gamecard/gamecard.module';
 import { GamelongcardModule } from './gamelongcard/gamelongcard.module';
-import { GamelongcardComponent } from './gamelongcard/gamelongcard.component';
-import { AdddetailedgameComponent } from './adddetailedgame/adddetailedgame.component';
+
+
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from '../common-component/search-bar/search-bar.component';
 import { GamesearchComponent } from './gamesearch/gamesearch.component';
+import { AdddetailedgameModule } from './adddetailedgame/adddetailedgame.module';
 
 @NgModule({
-  declarations: [StoreComponent,GamelistComponent,DetailedGameComponent,GamelongcardComponent,AdddetailedgameComponent,SearchBarComponent,GamesearchComponent],
+  declarations: [StoreComponent,GamelistComponent,DetailedGameComponent,SearchBarComponent,GamesearchComponent],
   imports: [
     CommonModule,
     StoreRoutingModule,
@@ -22,6 +23,7 @@ import { GamesearchComponent } from './gamesearch/gamesearch.component';
     GamecardModule,
     GamelongcardModule,
     FormsModule,
+    AdddetailedgameModule
   ],
   entryComponents:[GamelistComponent]
 })

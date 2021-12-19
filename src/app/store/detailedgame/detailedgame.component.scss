@@ -20,3 +20,7 @@ p {
 	-webkit-line-clamp: 4;
 	overflow: hidden;
 }
+
+.span{
+	width:50%;height: 100%;display :inline-block ;width: 100%;overflow: hidden;textOverflow: ellipsis;whiteSpace: nowrap
+}

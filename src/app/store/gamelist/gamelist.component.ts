@@ -21,6 +21,7 @@ simpleGamelists?:simplegame[];
   @Input() title: string;
   reqFailed: boolean;
   index:number=0;
+  s: boolean=true;
   constructor( private componentFactoryResolver: ComponentFactoryResolver,
      public modalController:ModalController,
      private gameserviceService:GameserviceService) { }
@@ -69,6 +70,7 @@ simpleGamelists?:simplegame[];
             simpleGamelist=res.simplegamelist
             console.log(this.index)
           },
+          complete:() =>{this.s=true},
           error: () => {
             this.reqFailed = true;
           }
@@ -96,14 +98,23 @@ simpleGamelists?:simplegame[];
   doRefresh(event) {
     // console.log('Begin async operation');
       console.log('Async operation has ended');
+      this.index=0;
+      this.s=true;
       this.gamelongcardContainerViewContainerRef.clear();
       this.updategamelongcard();
       event.target.complete();
     }
 
     loadData(event) {
+      if(this.s){
+      this.s=false;
       this.updategamelongcard();
       event.target.complete();
+    }
+    else{
+      return
+    }
+     
 }
 
 

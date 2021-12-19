@@ -53,9 +53,9 @@
       <span class="name">{{item.gameName}}</span>
 
       <br>
-      <span>￥{{item.oldPrice}}</span>
-      <span>￥{{item.nowPrice}}</span>
-      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+      <s style="font-size:18px;height: 18px;" >￥{{item.oldPrice}}</s>
+      <span style="font-size:18px;height: 18px;" >￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum>=item.nowPrice" style="height: 18px;">史低</ion-badge>
     </ion-card>
     <div style='clear: both;'></div>
   </div>
@@ -82,9 +82,9 @@
       <span class="name">{{item.gameName}}</span>
 
       <br>
-      <span>￥{{item.oldPrice}}</span>
-      <span>￥{{item.nowPrice}}</span>
-      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+      <s style="font-size:18px;height: 18px;" >￥{{item.oldPrice}}</s>
+      <span style="font-size:18px;height: 18px;">￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum>=item.nowPrice" style="height: 18px;">史低</ion-badge>
     </ion-card>
     <div style='clear: both;'></div>
   </div>
@@ -109,9 +109,9 @@
       
 
       <br>
-      <span>￥{{item.oldPrice}}</span>
-      <span>￥{{item.nowPrice}}</span>
-      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+      <s style="font-size:18px;height: 18px;" >￥{{item.oldPrice}}</s>
+      <span style="font-size:18px;height: 18px;">￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum==item.nowPrice" style="height: 18px;">史低</ion-badge>
     </ion-card>
     <div style='clear: both;'></div>
   </div>
@@ -164,6 +164,7 @@
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
     
+  
 
       
     <!-- <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" >
