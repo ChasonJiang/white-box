@@ -22,6 +22,7 @@ import { UserdataModule } from '../me-components/userdata/userdata.module';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { MomentModule } from './moment/moment.module';
+import { GamelibraryModule } from './gamelibrary/gamelibrary.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { MomentModule } from './moment/moment.module';
     UsermessageModule,
     UserdataModule,
     MomentModule,
+    GamelibraryModule
   ]
 })
 export class MeModule { }

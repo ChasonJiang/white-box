@@ -1,0 +1,53 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title >游戏库</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  
+  <!-- <ion-header>
+      <ion-toolbar>
+      <ion-title>为您推荐</ion-title>
+      </ion-toolbar>
+      <ion-icon  name="chevron-forward-outline" style="float: right;"></ion-icon>
+    </ion-header> -->
+    <!-- <ion-card class="card"  (click)='showModelDetailed(item.gid)'
+      style="width: 40%;border-radius: 5px;" [ngStyle]="{'float': i%2==0?'left':'right'}" *ngFor="let item of simpleGamelist;let i=index">
+      <img [src]="item.imgUrl" alt="asdasd">
+      {{item.gameName}}
+
+      <br>
+      <span>￥{{item.oldPrice}}</span>
+      <span>￥{{item.nowPrice}}</span>
+      <ion-badge *ngIf="item.Minimum<item.nowPrice">史低</ion-badge>
+    </ion-card>
+    <div style='clear: both;'></div> -->
+    <!-- <app-gamelongcard *ngFor="let item of simpleGamelist;" [simplegame]=item > 
+    </app-gamelongcard> -->
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+        <!-- <ion-button (click)="lazyLoadPostCard(postCards);"></ion-button> -->
+    <ion-list #gamelongcardContainer>
+    </ion-list>
+  
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+
+
+</ion-content>

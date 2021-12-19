@@ -4,7 +4,7 @@ import { Component, OnInit, ViewEncapsulation ,ViewChild, ViewContainerRef, Comp
 import { GameserviceService } from '../services/gameservice.service';
 import { simplegame, storeshow } from './game';
 import { GamelistComponent } from './gamelist/gamelist.component';
-import { ModalController ,ActionSheetController, IonInfiniteScroll} from '@ionic/angular';
+import { ModalController ,ActionSheetController, IonInfiniteScroll, AnimationController} from '@ionic/angular';
 import { DetailedGameComponent } from './detailedgame/detailedgame.component';
 
 
@@ -15,6 +15,7 @@ import { AdddetailedgameComponent } from './adddetailedgame/adddetailedgame.comp
 import { GamesearchComponent } from './gamesearch/gamesearch.component';
 import { Requester, SimpleGameRequestParams } from '../interface/Request';
 import { getCurrentUserCard } from '../util/util';
+import { MyAnimation } from '../util/animation';
 
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom]);
 
@@ -43,7 +44,8 @@ s:boolean=true;
   constructor(private gameService:GameserviceService,
     private componentFactoryResolver: ComponentFactoryResolver,
     public modalController:ModalController,
-    private gameserviceService:GameserviceService) { }
+    private gameserviceService:GameserviceService,
+    public animationCtrl: AnimationController) { }
 
   ngOnInit() {
     this.getsimplegamelist(1,'最新游戏');
@@ -230,25 +232,32 @@ this.loadData(event)
 
 
 async showModel(title:string){
+  let animation=MyAnimation(this.animationCtrl);
   const modal=await this.modalController.create({
     component:GamelistComponent,
     cssClass: 'fullscreen-class',//modal的css
-    componentProps:{"title":title}//传入title
+    componentProps:{"title":title},//传入title,
+    enterAnimation:animation.EnterAnimation,
+    leaveAnimation:animation.LeaveAnimation,
   })
   return await modal.present();
 }
 
 async showModelDetailed(gameId:number){
+  let animation=MyAnimation(this.animationCtrl);
   const modal=await this.modalController.create({
     component:DetailedGameComponent,
     cssClass: 'fullscreen-class',//modal的css
-    componentProps:{"gameId":gameId}//传入title
+    componentProps:{"gameId":gameId},//传入title
+    enterAnimation:animation.EnterAnimation,
+    leaveAnimation:animation.LeaveAnimation,
   })
   return await modal.present();
 }
 
 
 async showModeladdDetailedGame(){
+  let animation=MyAnimation(this.animationCtrl);
   const modal=await this.modalController.create({
     component:AdddetailedgameComponent,
     cssClass: 'fullscreen-class',//modal的css
@@ -257,10 +266,13 @@ async showModeladdDetailedGame(){
   return await modal.present();
 }
 async showModelgamesearch(operation:string){
+  let animation=MyAnimation(this.animationCtrl);
   const modal=await this.modalController.create({
     component:GamesearchComponent,
     cssClass: 'fullscreen-class',//modal的css
-   componentProps:{"operation":operation}//传入title
+   componentProps:{"operation":operation},//传入title
+   enterAnimation:animation.EnterAnimation,
+   leaveAnimation:animation.LeaveAnimation,
   })
   return await modal.present();
 }
