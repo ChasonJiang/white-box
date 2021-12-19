@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation ,ViewChild, ViewContainerRef, Comp
 
 
 import { GameserviceService } from '../services/gameservice.service';
-import { simplegame } from './game';
+import { simplegame, storeshow } from './game';
 import { GamelistComponent } from './gamelist/gamelist.component';
-import { ModalController ,ActionSheetController} from '@ionic/angular';
+import { ModalController ,ActionSheetController, IonInfiniteScroll} from '@ionic/angular';
 import { DetailedGameComponent } from './detailedgame/detailedgame.component';
 
 
@@ -32,8 +32,9 @@ export class StoreComponent implements OnInit {
   simpleGamelist4?:simplegame[];
 
 storeShowImg?:string[];
+storeshowid?:number[];
 s:boolean=true;
-
+@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 @ViewChild('gamelongcardContainer',{read: ViewContainerRef }) gamelongcardContainerViewContainerRef:ViewContainerRef;
   reqFailed: boolean;
   index: number=0;
@@ -68,7 +69,7 @@ s:boolean=true;
           next: res => {
             console.log("getstoreShowImg");
             this.storeShowImg = res.storeShowImg;
-           
+           this.storeshowid=res.gid;
           },
           error: () => {
             this.reqFailed = true;
@@ -84,7 +85,7 @@ s:boolean=true;
 
 
 
-  updategamelongcard(){
+  updategamelongcard(event){
     let simpleGamelist:simplegame[];
     let req: Requester<SimpleGameRequestParams> = {
       head: {
@@ -101,16 +102,29 @@ s:boolean=true;
         .subscribe({
           next: res => {
             
+            
             console.log("getSimpleGame");
             this.lazyLoadgamelongcard(res.simplegamelist)
             this.index++;
             simpleGamelist=res.simplegamelist
             console.log(this.index)
+            
+           
+            if(res.simplegamelist.length<8) {
+              this.infiniteScroll.disabled = false;
+              console.log(this.infiniteScroll.disabled+'==this.infiniteScroll.disabled')
+            }
             this.s=true
+            
+            event.target.complete();
+            this.infiniteScroll.complete();
           },
           // complete:() =>{this.s=true},
           error: () => {
+            this.infiniteScroll.disabled = false;
             this.reqFailed = true;
+            this.infiniteScroll.complete();
+           
           }
         });
 
@@ -118,7 +132,7 @@ s:boolean=true;
       // console.log("do refresh");
       console.log(err.message);
     } finally {
-      return simpleGamelist;
+      
     }
   }
 
@@ -188,19 +202,26 @@ doRefresh(event) {
     this.getstoreShowImg();
 this.index=0;
 this.s=true;
+this.loadData(event)
     // this.updategamelongcard();
     event.target.complete();
   }
 
   loadData(event) {
+    try{
     if(this.s){
       this.s=false;
-    this.updategamelongcard();
-    event.target.complete();
+    this.updategamelongcard(event);
+    // event.target.complete();
     }
     else{
+      console.log("滚动条锁定")
       return
     }
+  }
+  catch(e){
+    this.infiniteScroll.disabled = true;
+  }
 }
 
 

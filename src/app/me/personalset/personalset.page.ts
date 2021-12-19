@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { UserInfo } from 'src/app/interface/User';
 import { getCurrentUserCard, getUserInfo } from 'src/app/util/util';
-import { USERS } from '../mock-user';
+// import { USERS } from '../mock-user';
 @Component({
   selector: 'app-personalset',
   templateUrl: './personalset.page.html',
@@ -25,11 +25,18 @@ export class PersonalsetPage implements OnInit {
 }
 
 
+  // user = USERS;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  dosubmit(){
+    // console.log(this.peopleinfo);
+  }
+  
 
 }
+
+

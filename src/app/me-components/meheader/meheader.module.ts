@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MeheaderComponent } from './meheader.component';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
+import { UsersettingPageModule } from 'src/app/me/usersetting/usersetting.module';
 
-import { RegisterPageRoutingModule } from './register-routing.module';
 
-import { RegisterPage } from './register.page';
 
 @NgModule({
+  declarations: [MeheaderComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegisterPageRoutingModule
+    UsersettingPageModule
   ],
-  declarations: [RegisterPage]
+  exports: [MeheaderComponent]
 })
-export class RegisterPageModule {}
+export class MeheaderModule { }

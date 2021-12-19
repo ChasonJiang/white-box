@@ -13,8 +13,9 @@ import { CurrencysetPage } from './currencyset.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CurrencysetPageRoutingModule
+    // CurrencysetPageRoutingModule
   ],
-  declarations: [CurrencysetPage]
+  declarations: [CurrencysetPage],
+  exports: [CurrencysetPage]
 })
 export class CurrencysetPageModule {}

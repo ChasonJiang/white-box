@@ -13,10 +13,6 @@ const routes: Routes = [
     loadChildren: () => import('../personalset/personalset.module').then( m => m.PersonalsetPageModule)
   },
   {
-    path: 'test',
-    loadChildren: () => import('../test/test.module').then( m => m.TestPageModule)
-  },
-  {
     path: 'currencyset',
     loadChildren: () => import('../currencyset/currencyset.module').then( m => m.CurrencysetPageModule)
   },

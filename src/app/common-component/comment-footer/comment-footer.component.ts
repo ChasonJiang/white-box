@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AnimationController, ModalController } from '@ionic/angular';
+import { CommentEditerAnimation } from 'src/app/util/animation';
 import { sha256 } from 'src/app/util/util';
 import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
 
@@ -19,11 +20,14 @@ export class CommentFooterComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
+    public animationCtrl: AnimationController
+
   ) { }
 
   ngOnInit() {}
 
   async createCommentEditerModal(){
+    let animation=CommentEditerAnimation(this.animationCtrl);
     let time:string=new Date().getTime().toString();
     let comment_info={
       pid:this.pid,
@@ -35,7 +39,9 @@ export class CommentFooterComponent implements OnInit {
       cssClass:"transparent-class",
       componentProps:{
         comment_info:comment_info,
-      }
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
     });
     
     return await modal.present();

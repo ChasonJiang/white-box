@@ -13,8 +13,9 @@ import { PersonalsetPage } from './personalset.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PersonalsetPageRoutingModule
+    // PersonalsetPageRoutingModule
   ],
-  declarations: [PersonalsetPage]
+  declarations: [PersonalsetPage],
+  exports: [PersonalsetPage]
 })
 export class PersonalsetPageModule {}

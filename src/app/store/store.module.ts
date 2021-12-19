@@ -13,11 +13,13 @@ import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from '../common-component/search-bar/search-bar.component';
 import { GamesearchComponent } from './gamesearch/gamesearch.component';
 import { AdddetailedgameModule } from './adddetailedgame/adddetailedgame.module';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [StoreComponent,GamelistComponent,DetailedGameComponent,SearchBarComponent,GamesearchComponent],
   imports: [
     CommonModule,
+    IonicModule,
     StoreRoutingModule,
     SwiperModule,
     GamecardModule,

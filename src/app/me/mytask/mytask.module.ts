@@ -13,8 +13,9 @@ import { MytaskPage } from './mytask.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MytaskPageRoutingModule
+    // MytaskPageRoutingModule
   ],
-  declarations: [MytaskPage]
+  declarations: [MytaskPage],
+  exports: [MytaskPage]
 })
 export class MytaskPageModule {}
