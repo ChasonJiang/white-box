@@ -4,8 +4,8 @@
         <div class="usertop">
           <div class="userheadpic" style="background-color: aqua;"></div>
           <div class="usermes">
-            <p class="username" [routerLink]="[ 'login']">{{user.userName}}</p>
-            <p class="usersign" [routerLink]="[ 'login']">{{user.usersign}}</p>
+            <p class="username">{{user.userName}}</p>
+            <p class="usersign">{{user.signature}}</p>
             
           </div>
         </div>
@@ -16,17 +16,17 @@
           <ion-toolbar>
               <div class="grid-container">
                   <div class="grid-item">
-                    {{user.attentionnumber}}
+                    {{user.numberOfFollow}}
                     <br>
                     关注
                   </div>
                   <div class="grid-item">
-                    {{user.fansnumber}}
+                    {{user.numberOfFans}}
                     <br>
                     粉丝
                   </div>
                   <div class="grid-item">
-                    {{user.collectionnumber}}
+                    {{user.numberOfCollection}}
                     <br>
                     收藏
                   </div>   
