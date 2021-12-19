@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { UserInfo } from 'src/app/interface/User';
+import { getCurrentUserCard, getUserInfo } from 'src/app/util/util';
 // import { USERS } from '../mock-user';
 @Component({
   selector: 'app-personalset',
@@ -8,14 +10,20 @@ import { AlertController } from '@ionic/angular';
 })
 export class PersonalsetPage implements OnInit {
 
-  testusername = '123';
+  user:UserInfo = {
+    uid:getUserInfo().uid,
+    userName:getUserInfo().userName,
+    signature:getUserInfo().signature,
+    numberOfFollow: getUserInfo().numberOfFollow,
+    numberOfFans: getUserInfo().numberOfFans,
+    numberOfCollection: getUserInfo().numberOfCollection,
+    userLevel:getUserInfo().userLevel,
+    avatarUrl:getCurrentUserCard().avatarUrl,
+    sex:getUserInfo().sex,
+    birthDay:getUserInfo().birthDay,
+    email:getUserInfo().email,
+}
 
-  public peopleinfo:any={
-    username:'',
-    usersign:'',
-    usersex:'m',
-    usermail:'',
-  }
 
   // user = USERS;
 
@@ -25,7 +33,7 @@ export class PersonalsetPage implements OnInit {
   }
 
   dosubmit(){
-    console.log(this.peopleinfo);
+    // console.log(this.peopleinfo);
   }
   
 

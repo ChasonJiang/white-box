@@ -28,13 +28,13 @@
 
     <ion-item>
       <div class="left">昵称设置</div>
-      <ion-input class="mid" id="username">{{testusername}}</ion-input>
+      <ion-input class="mid" id="username">{{user.userName}}</ion-input>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
     <ion-item>
       <div class="left">签名设置</div>
-      <ion-input class="mid" id="usersign" [(ngModel)]="peopleinfo.usersign"></ion-input>
+      <ion-input class="mid" id="usersign" [(ngModel)]="peopleinfo.usersign">{{user.signature}}</ion-input>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
