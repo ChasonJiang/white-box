@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border" style="border-bottom:1px solid rgba(65, 65, 65, 0.13);">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="modalDismiss();">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Moments</ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div #Container >
+      <!-- <app-post-card-detail [postCardDetail]=""></app-post-card-detail> -->
+  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="reqFailed" (click)="doRefresh($event);" style="position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">
+    <ion-text >获取失败,点击重试</ion-text>
+    <!-- <ion-text></ion-text> -->
+  </div>
+</ion-content>

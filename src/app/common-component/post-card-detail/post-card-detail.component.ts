@@ -40,7 +40,7 @@ export class PostCardDetailComponent implements OnInit {
     }else{
       this.postContent=_content
     }
-    console.log(_content)
+    // console.log(_content)
 
 
     let imgs=div.querySelectorAll('.images');
