@@ -17,7 +17,7 @@
 
   <swiper [autoplay]="true" [keyboard]="true">
     <ng-template swiperSlide *ngFor="let item of storeShowImg;let i=index">
-      <img [src]="item" alt="">
+      <img [src]="item"  alt=""(click)='showModelDetailed(storeshowid[i])'>
     </ng-template>
 
   </swiper>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation ,ViewChild, ViewContainerRef, Comp
 
 
 import { GameserviceService } from '../services/gameservice.service';
-import { simplegame } from './game';
+import { simplegame, storeshow } from './game';
 import { GamelistComponent } from './gamelist/gamelist.component';
 import { ModalController ,ActionSheetController, IonInfiniteScroll} from '@ionic/angular';
 import { DetailedGameComponent } from './detailedgame/detailedgame.component';
@@ -32,6 +32,7 @@ export class StoreComponent implements OnInit {
   simpleGamelist4?:simplegame[];
 
 storeShowImg?:string[];
+storeshowid?:number[];
 s:boolean=true;
 @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 @ViewChild('gamelongcardContainer',{read: ViewContainerRef }) gamelongcardContainerViewContainerRef:ViewContainerRef;
@@ -68,7 +69,7 @@ s:boolean=true;
           next: res => {
             console.log("getstoreShowImg");
             this.storeShowImg = res.storeShowImg;
-           
+           this.storeshowid=res.gid;
           },
           error: () => {
             this.reqFailed = true;
