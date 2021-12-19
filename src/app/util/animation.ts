@@ -69,21 +69,13 @@ export function CommentEditerAnimation(animationCtrl:AnimationController){
     const enterAnimation = (baseEl: any) => {
         const backdropAnimation = animationCtrl.create()
             .addElement(baseEl.querySelector('ion-backdrop')!)
-        //   .fromTo('opacity', '0.01', 'var(--backdrop-opacity)')
-        //   .beforeStyles({'z-index': 0, 'opacity': 0.3, 'visibility': 'visible'});
             .keyframes([
-                {offset: 1, opacity:1,transform: 'translateY(-20%)'},
-                {offset: 1,transform: 'translateY(-20%)'},
+                {offset: 0, opacity:0,transform: 'translateY(0%)'},
+                {offset: 1, opacity:0.3,transform: 'translateY(0%)'},
             ])
             .afterStyles({
-                background: 'rgba(0, 255, 0, 0.5)'
-              })
-            // .beforeStyles({
-            //     'width': '100%',
-            //     'height': '100%',
-            //     'opacity': 1,
-            // });
-  
+                opacity: 0.3
+              });
         const wrapperAnimation = animationCtrl.create()
           .addElement(baseEl.querySelector('.modal-wrapper')!)
           .keyframes([
@@ -118,7 +110,6 @@ export function CommentEditerAnimation(animationCtrl:AnimationController){
           {offset: 0,opacity:0.3 },
           {offset: 1,opacity:0}
         ])
-        // .beforeStyles({'visibility': 'hidden'});
   
         const wrapperAnimation = animationCtrl.create()
             .addElement(baseEl.querySelector('.modal-wrapper')!)
