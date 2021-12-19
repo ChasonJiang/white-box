@@ -101,7 +101,8 @@ simpleGamelists?:simplegame[];
       this.index=0;
       this.s=true;
       this.gamelongcardContainerViewContainerRef.clear();
-      this.updategamelongcard();
+      this.loadData(event)
+      // this.updategamelongcard();
       event.target.complete();
     }
 
