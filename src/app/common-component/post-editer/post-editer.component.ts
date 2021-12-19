@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AnimationController, ModalController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { Post } from 'src/app/interface/Post';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -12,6 +12,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 import { CameraResultType } from '@capacitor/camera';
 import { PostService } from 'src/app/services/post.service';
 import { Requester, UploadPostRequestParams } from 'src/app/interface/Request';
+import { MyAnimation } from 'src/app/util/animation';
 
 
 @Component({
@@ -43,7 +44,9 @@ export class PostEditerComponent implements OnInit {
     private postService:PostService,
     private imageCompress:NgxImageCompressService,
     private elementRef: ElementRef,
-    private renderer:Renderer2
+    private renderer:Renderer2,
+    public animationCtrl: AnimationController
+
   ) { }
 
   ngOnInit() {
@@ -56,6 +59,7 @@ export class PostEditerComponent implements OnInit {
   }
 
   async createPreviewModal(pid:number){
+    let animation=MyAnimation(this.animationCtrl);
     if(!this.checkPost()){return}
     const modal = await this.modalController.create({
       component:PostComponent,
@@ -64,14 +68,19 @@ export class PostEditerComponent implements OnInit {
         'post': this.packUpPost(),
         'previewMode':true,
       },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
     });
     return await modal.present();
   }
 
   async createTopicListModal(){
+    let animation=MyAnimation(this.animationCtrl);
     const modal = await this.modalController.create({
       component:TopicListComponent,
       cssClass:"fullscreen-class",
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
     });
     await modal.present();
     const {data}=await modal.onWillDismiss();
@@ -179,7 +188,7 @@ export class PostEditerComponent implements OnInit {
         this.showSpinner=false;
         if(res.success){
           this.alert("发表成功！");
-          // this.modalDismiss();
+          this.modalDismiss();
           
         }else{
           this.alert("失败提示:\n"+res.message);

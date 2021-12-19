@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild, ViewContainerRef, V
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation} from 'swiper';
-import { AlertController, IonSlides, ModalController } from '@ionic/angular';
+import { AlertController, AnimationController, IonSlides, ModalController } from '@ionic/angular';
 import { SwiperComponent } from 'swiper/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { PostEditerComponent } from '../common-component/post-editer/post-editer.component';
@@ -11,6 +11,7 @@ import { LoginValidationRequestParams, Requester } from '../interface/Request';
 import { UserCard } from '../interface/User';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { MyAnimation } from '../util/animation';
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom, Navigation]);
 
 @Component({
@@ -29,6 +30,8 @@ export class CommunityComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private router: Router,
     private alertController:AlertController,
+    public animationCtrl: AnimationController
+
   ) { }
 
   ngOnInit() {}
@@ -54,6 +57,7 @@ export class CommunityComponent implements OnInit, AfterViewInit {
   async createPostEditerModal(paperMode){
     let userCard:UserCard=getCurrentUserCard();
     let token:string=localStorage.getItem('token');
+    let animation=MyAnimation(this.animationCtrl);
     if(token!=null ){
       let req: Requester<LoginValidationRequestParams>={
         head:{
@@ -74,7 +78,9 @@ export class CommunityComponent implements OnInit, AfterViewInit {
               cssClass: 'fullscreen-class',
               componentProps:{
                 'paperMode' : paperMode
-              }
+              },
+              enterAnimation:animation.EnterAnimation,
+              leaveAnimation:animation.LeaveAnimation,
             });
             return await modal.present();
 

@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, IonRefresher, ModalController } from '@ionic/angular';
+import { AlertController, AnimationController, IonRefresher, ModalController } from '@ionic/angular';
 import { PostEditerComponent } from 'src/app/common-component/post-editer/post-editer.component';
 import { LoginValidationRequestParams, Requester } from 'src/app/interface/Request';
 import { TopicCard } from 'src/app/interface/Topic';
 import { UserCard } from 'src/app/interface/User';
 import { UserService } from 'src/app/services/user.service';
+import { MyAnimation } from 'src/app/util/animation';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { SearchComponent } from './search/search.component';
 
@@ -23,6 +24,7 @@ export class TopicComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private alertController:AlertController,
+    public animationCtrl: AnimationController
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,7 @@ export class TopicComponent implements OnInit {
 
 
   async createPostEditerModal(paperMode){
+    let animation=MyAnimation(this.animationCtrl);
     let userCard:UserCard=getCurrentUserCard();
     let token:string=localStorage.getItem('token');
     if(token!=null ){
@@ -75,7 +78,9 @@ export class TopicComponent implements OnInit {
               componentProps:{
                 'paperMode' : paperMode,
                 'topics':[this.topicCard],
-              }
+              },
+              enterAnimation:animation.EnterAnimation,
+              leaveAnimation:animation.LeaveAnimation,
             });
         
             return await modal.present();
@@ -112,10 +117,13 @@ export class TopicComponent implements OnInit {
   // }
 
   async createSearchModal() {
+    let animation=MyAnimation(this.animationCtrl);
+
     const modal = await this.modalController.create({
       component:SearchComponent,
       cssClass:'fullscreen-class',
-      
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
     });
 
     return await modal.present();
