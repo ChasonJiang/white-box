@@ -9,7 +9,6 @@ import { UserCard } from '../interface/User';
 import { IonInfiniteScroll, IonRefresher } from '@ionic/angular';
 import { PostCardIndexResponse } from '../interface/Response';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
