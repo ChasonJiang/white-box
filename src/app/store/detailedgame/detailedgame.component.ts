@@ -10,7 +10,7 @@ import SwiperCore, { Autoplay, FreeMode, Keyboard, Navigation, Pagination, Scrol
 import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { GameintroduceComponent } from '../gameintroduce/gameintroduce.component';
 import { BuygameComponent } from '../buygame/buygame.component';
-import { buygameRequestParams, getdetailedgameRequestParams, Requester } from 'src/app/interface/Request';
+import { buygameRequestParams, getdetailedgameRequestParams, getstateRequestParams, Requester } from 'src/app/interface/Request';
 import { getCurrentUserCard } from 'src/app/util/util';
 SwiperCore.use([Autoplay, Keyboard, Pagination, Scrollbar, Zoom,FreeMode, Navigation, Thumbs]);
 
@@ -46,7 +46,8 @@ isfollow:boolean=false;
    // this.detailedgame=this.gameserviceService.find(this.gameId)
    
     this.getdetailedgame()
-    
+   
+ 
     // .filter(element => element.id==this.gameId);
   }
 
@@ -72,7 +73,7 @@ else{
           console.log("getdetailedgame");
           console.log(res.detailedgame);
           this.detailedgame = res.detailedgame;
-         
+          this.getgamefollowstate()
         },
         error: () => {
           this.reqFailed = true;
@@ -105,65 +106,36 @@ else{
       'dismissed': true
     });
   };
-  // async presentActionSheet() {
-  //   const actionSheet = await this.actionSheetController.create({
-  //     header: 'Albums',
-  //     cssClass: 'my-custom-class',
-  //     buttons: [{
-  //       text: '商品类型'+this.gameId,
-  //       role: 'destructive',
-  //        icon: 'trash',
-  //       handler: () => {
-  //         console.log('Delete clicked');
-  //       }
-  //     }, 
-  //    {
-  //       text: 'Share',
-  //       icon: 'share',
-  //       handler: () => {
-  //         console.log('Share clicked');
-  //       }
-  //     }, {
-  //       text: 'Play (open modal)',
-  //       icon: 'caret-forward-circle',
-  //       handler: () => {
-  //         console.log('Play clicked');
-  //       }
-  //     }, {
-  //       text: 'Favorite',
-  //       icon: 'heart',
-  //       handler: () => {
-  //         console.log('Favorite clicked');
-  //       }
-  //     }, {
-  //       text: 'Cancel',
-  //       icon: 'close',
-  //       role: 'cancel',
-  //       handler: () => {
-  //         console.log('Cancel clicked');
-  //       }
-  //     }]
-  //   });
-  //   await actionSheet.present();
-
-  //   const { role } = await actionSheet.onDidDismiss();
-    
-  // };
 
 
+buygame(){
+  if(getCurrentUserCard().uid!==undefined){
+    this.showModelbuygame()
+  }
+  else{
+    this.goload();
+  }
+}
+async goload() {
 
-
+  const toast = await this.toastController.create({
+    message: '对不起您还未登录，请进行登陆后购买',
+    duration: 2000
+  });
+  toast.present();
+}
 
   changefollowstatus(e){
     if(!this.isfollow){
-      e.target.name='heart'
-      e.target.style.color='red'
+      
+      // e.target.name='heart'
+      // e.target.style.color='red'
        this.isfollow=true;
        this.followgame()
     }
     else{
-      e.target.name='heart-outline'
-      e.target.style.color=''
+      // e.target.name='heart-outline'
+      // e.target.style.color=''
        this.isfollow=false;
        this.cancelfollowgame()
     };
@@ -196,6 +168,38 @@ else{
 //   setInterval
 // }
 
+getgamefollowstate(){
+  let req: Requester<getstateRequestParams> = {
+    head: {
+      uid: getCurrentUserCard().uid,
+      type: 'getgamefollowstate'
+    },
+    body: {
+      gameid:this.detailedgame.gid
+    } as getstateRequestParams
+  }
+  
+  try {
+    this.gameserviceService.getgamefollowstate(req).subscribe({
+        next: res => {
+          console.log("getgamefollowstate");
+          console.log(res.success)
+          if(res.state==true){
+            this.isfollow=true;
+          
+          }
+        },
+        error: () => {
+          this.reqFailed = true;
+        }
+      });
+
+  } catch (err) {
+    // console.log("do refresh");
+    console.log(err.message);
+  } finally {
+  }
+}
 
 followgame(){
   
@@ -230,10 +234,8 @@ followgame(){
 
 async followpresentToast() {
 
-
- 
   const toast = await this.toastController.create({
-    message: '关注成功，感谢您对'+this.detailedgame+'的支持',
+    message: '关注成功，感谢您对'+this.detailedgame.gameName+'的支持',
     duration: 3000
   });
   toast.present();
@@ -271,9 +273,6 @@ cancelfollowgame(){
 
 
 async cancelpresentToast() {
-
-
-
   const toast = await this.toastController.create({
     message: '取消关注成功，小白盒会加油的哦！',
     duration: 3000
@@ -281,6 +280,6 @@ async cancelpresentToast() {
   toast.present();
 }
 
-cancel
+
 
 }

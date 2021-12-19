@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { buygameRequestParams, Requester } from 'src/app/interface/Request';
+import { buygameRequestParams, getstateRequestParams, Requester } from 'src/app/interface/Request';
 import { GameserviceService } from 'src/app/services/gameservice.service';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { detailedgame } from '../game';
@@ -13,16 +13,23 @@ import { detailedgame } from '../game';
 export class BuygameComponent implements OnInit {
 @Input() detailedgame:detailedgame;
   reqFailed: boolean;
+  isbuy: boolean=false;
   constructor(public modalController:ModalController,
     public toastController: ToastController,
     private gameserviceService:GameserviceService,) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getgamebuystate()
+  }
 
 
 
 
 buygame(){
+  if(this.isbuy==true){
+    this.buygamepresentToast()
+
+  }
   
   let req: Requester<buygameRequestParams> = {
     head: {
@@ -53,7 +60,38 @@ buygame(){
 }
 
 
+getgamebuystate(){
+  
+  let req: Requester<getstateRequestParams> = {
+    head: {
+      uid: getCurrentUserCard().uid,
+      type: 'getgamebuystate'
+    },
+    body: {
+      gameid:this.detailedgame.gid
+    } as getstateRequestParams
+  }
+  
+  try {
+    this.gameserviceService.getgamebuystate(req).subscribe({
+        next: res => {
+          console.log("getgamebuystate");
+          console.log(res.success)
+          if(res.state==true){
+            this.isbuy=true;
+          }
+        },
+        error: () => {
+          this.reqFailed = true;
+        }
+      });
 
+  } catch (err) {
+    // console.log("do refresh");
+    console.log(err.message);
+  } finally {
+  }
+}
 
 
 
@@ -68,9 +106,6 @@ buygame(){
 
   async presentToast() {
 
-
-
-
     this.dismiss();
     const toast = await this.toastController.create({
       message: '购买成功，感谢您对小白盒的支持',
@@ -78,4 +113,15 @@ buygame(){
     });
     toast.present();
   }
+
+  async buygamepresentToast() {
+
+    const toast = await this.toastController.create({
+      message: '该游戏已经在您的游戏库，感谢您对小白盒的支持',
+      duration: 3000
+    });
+    toast.present();
+  }
+
 }
+
