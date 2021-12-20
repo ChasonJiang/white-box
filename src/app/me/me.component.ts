@@ -4,6 +4,7 @@ import { MyAnimation } from '../util/animation';
 import { getUserInfo } from '../util/util';
 import { gamelibraryComponent } from './gamelibrary/gamelibrary.component';
 import { MomentComponent } from './moment/moment.component';
+import { WishgameComponent } from './wishgame/wishgame.component';
 @Component({
   selector: 'app-me',
   templateUrl: './me.component.html',
@@ -51,4 +52,20 @@ export class MeComponent implements OnInit {
     return await modal.present();
   }
 
+
+  async creategamewishModal(){
+    let animation=MyAnimation(this.animationCtrl);
+        // console.log(this.postCardDetail);
+        // console.log(this.postCardDetail);
+    const modal = await this.modalController.create({
+      component:WishgameComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'uid':getUserInfo().uid
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
 }
