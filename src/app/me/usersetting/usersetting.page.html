@@ -18,7 +18,7 @@
     </ion-item>
   
     <ion-item>
-      <div class="left" [routerLink]="[ 'currencyset']">通用设置</div>
+      <div class="left" (click)="createcurrencysetModal();">通用设置</div>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
@@ -38,7 +38,7 @@
     </ion-item>
 
     <ion-item>
-      <div class="left" [routerLink]="[ 'ppolicy']">用户协议＆隐私政策</div>
+      <div class="left" (click)="createppolicyModal();">用户协议＆隐私政策</div>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 

@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AnimationController, ModalController } from '@ionic/angular';
+import { gamelibraryComponent } from 'src/app/me/gamelibrary/gamelibrary.component';
+import { MomentComponent } from 'src/app/me/moment/moment.component';
+import { UsersettingPage } from 'src/app/me/usersetting/usersetting.page';
+import { WishgameComponent } from 'src/app/me/wishgame/wishgame.component';
+import { MyAnimation } from 'src/app/util/animation';
+import { getUserInfo } from 'src/app/util/util';
 
 @Component({
   selector: 'app-userdata',
@@ -7,9 +14,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserdataComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalController:ModalController,
+    public animationCtrl: AnimationController
+  ) { }
 
   ngOnInit() {}
+
+  setting(){
+    this.createModal();
+  }
+  async createModal(){
+    let animation=MyAnimation(this.animationCtrl);
+    const modal = await this.modalController.create({
+      component:UsersettingPage,
+      cssClass:"fullscreen-class",
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
+
+  async createMomentModal(){
+    let animation=MyAnimation(this.animationCtrl);
+        // console.log(this.postCardDetail);
+        // console.log(this.postCardDetail);
+    const modal = await this.modalController.create({
+      component:MomentComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'uid':getUserInfo().uid
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
+
+  
+
+
+  async creategamelibraryModal(){
+    let animation=MyAnimation(this.animationCtrl);
+        // console.log(this.postCardDetail);
+        // console.log(this.postCardDetail);
+    const modal = await this.modalController.create({
+      component:gamelibraryComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'uid':getUserInfo().uid
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
+
+
+  async creategamewishModal(){
+    let animation=MyAnimation(this.animationCtrl);
+        // console.log(this.postCardDetail);
+        // console.log(this.postCardDetail);
+    const modal = await this.modalController.create({
+      component:WishgameComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'uid':getUserInfo().uid
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
+
+  
 
 }
 

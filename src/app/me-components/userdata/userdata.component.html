@@ -1,4 +1,4 @@
-<head>
+<!-- <head>
   <style>
     /*pager大小、颜色*/
   .swiper-pagination-bullet {
@@ -16,7 +16,7 @@
 
   </style>
 </head>
-<ion-slides pager>
+<ion-slides>
 
   <ion-slide>
     <app-mefirstpage></app-mefirstpage>
@@ -26,5 +26,112 @@
     <app-mesecondpage></app-mesecondpage>
   </ion-slide>
   
-</ion-slides>
+</ion-slides> -->
+
+
+
+
+
+<ion-content>
+  <!-- <ion-list>
+
+    <ion-item>
+      <ion-icon name="cube-outline" class="icons" (click)="setting();"></ion-icon>
+      <div class="left" (click)="createPersonalSetModal();">游戏库</div>
+      
+    </ion-item>
+  
+    <ion-item>
+      <ion-icon name="reader-outline" class="icons" (click)="setting();"></ion-icon>
+      <div class="left" (click)="createcurrencysetModal();">个人动态</div>
+     
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon name="reader-outline" class="icons" (click)="setting();"></ion-icon>
+      <div class="left" (click)="createcurrencysetModal();">关注的话题</div>
+     
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon name="reader-outline" class="icons" (click)="setting();"></ion-icon>
+      <div class="left" (click)="createcurrencysetModal();">通知</div>
+     
+    </ion-item>
+
+
+
+
+
+  
+
+
+
+    
+
+  </ion-list> -->
+
+
+  <div class="box topbox">
+    <div class="top">
+      <ion-icon name="cube-outline" class="icons"></ion-icon>
+    </div>
+    <div class="bot">
+      收藏
+    </div>
+  </div>
+
+  <div class="box topbox" (click)="creategamelibraryModal();">
+    <div class="top">
+      <ion-icon name="game-controller-outline" class="icons"></ion-icon>
+    </div>
+    <div class="bot">
+      游戏库
+    </div>
+  </div>
+
+  <div class="box topbox" (click)="createMomentModal();">
+    <div class="top">
+      <ion-icon name="albums-outline" class="icons"></ion-icon>
+    </div>
+    <div class="bot">
+      动态
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="top">
+      <ion-icon name="chatbox-ellipses-outline" class="icons"></ion-icon>
+    </div>
+    <div class="bot">
+      消息
+    </div>
+  </div>
+
+  <div class="box" (click)="creategamewishModal();">
+    <div class="top">
+      <ion-icon name="infinite-outline" class="icons"></ion-icon>
+    </div>
+    <div class="bot">
+      心愿单
+    </div>
+  </div>
+
+  <div class="box" (click)="setting();">
+    <div class="top">
+      <ion-icon name="settings-outline" class="icons"></ion-icon>
+    </div>
+    <div class="bot">
+      设置
+    </div>
+  </div>
+
+</ion-content>
+
+
+
+
+
 

@@ -4,10 +4,12 @@
     <ion-title>个人设置</ion-title>
 
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-button (click)="modalDismiss();">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
-    <ion-button slot="end" color="light" style="padding-right: 5%;" expand="block">
+    <ion-button slot="end" color="light" style="padding-right: 5%;" expand="block" (click)="save()">
 
       <ion-icon name="checkmark-outline">
       </ion-icon>
@@ -21,7 +23,7 @@
   <ion-list>
 
     <ion-item>
-      <div class="left"  [routerLink]="[ 'test']">头像设置</div>
+      <div class="left">头像设置</div>
       <div class="mid"></div>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
@@ -34,7 +36,7 @@
 
     <ion-item>
       <div class="left">签名设置</div>
-      <ion-input class="mid" id="usersign" [(ngModel)]="peopleinfo.usersign">{{user.signature}}</ion-input>
+      <ion-input class="mid" id="usersign">{{user.signature}}</ion-input>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
@@ -42,9 +44,9 @@
       <div class="left">性别</div>
       <div class="mid" style="padding-left: 50%;">
         
-        <input type="radio" value="m" name="usersex" id="sexm" [(ngModel)]="peopleinfo.usersex"><label for="sexm">男</label>
+        <input type="radio" value="m" name="usersex" id="sexm"><label for="sexm">男</label>
         &nbsp;
-        <input type="radio" value="f" name="usersex" id="sexf" [(ngModel)]="peopleinfo.usersex"><label for="sexf">女</label>
+        <input type="radio" value="f" name="usersex" id="sexf"><label for="sexf">女</label>
 
       </div>
       <div class="right"></div>
@@ -58,28 +60,9 @@
 
     <ion-item>
       <div class="left">邮箱</div>
-      <ion-input class="mid" [(ngModel)]="peopleinfo.usermail"></ion-input>
+      <ion-input class="mid"></ion-input>
       <div class="right"><ion-icon name="chevron-forward-outline" class="icons"></ion-icon></div>
     </ion-item>
 
-    <pre>
-      {{peopleinfo | json}}
-    </pre>
   </ion-list>
 </ion-content>
-
-
-<script>
-  const button = document.querySelector('ion-button');
-  button.addEventListener('click', handleButtonClick);
-
-  async function handleButtonClick() {
-    const alert = await alertController.create({
-      header: 'Use this lightsaber?',
-      message: 'Do you agree to use this lightsaber to do good across the galaxy?',
-      buttons: ['Disagree', 'Agree'],
-    });
-
-    await alert.present();
-  }
-</script>

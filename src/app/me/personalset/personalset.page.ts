@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController ,ModalController } from '@ionic/angular';
 import { UserInfo } from 'src/app/interface/User';
 import { getCurrentUserCard, getUserInfo } from 'src/app/util/util';
 // import { USERS } from '../mock-user';
@@ -27,10 +27,27 @@ export class PersonalsetPage implements OnInit {
 
   // user = USERS;
 
-  constructor() { }
+  constructor(
+    private modalController:ModalController,
+  ) { }
 
   ngOnInit() {
   }
+
+
+  save(){
+    console.log(1)
+
+  }
+
+  modalDismiss() {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
+
 
   dosubmit(){
     // console.log(this.peopleinfo);

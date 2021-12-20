@@ -8,6 +8,8 @@ import { AlertController, AnimationController, ModalController } from '@ionic/an
 import { Router } from '@angular/router';
 import { MyAnimation } from 'src/app/util/animation';
 import { PersonalsetPage } from '../personalset/personalset.page';
+import { CurrencysetPage } from '../currencyset/currencyset.page';
+import { PpolicyPage } from '../ppolicy/ppolicy.page';
 @Component({
   selector: 'app-usersetting',
   templateUrl: './usersetting.page.html',
@@ -57,6 +59,28 @@ export class UsersettingPage implements OnInit {
     let animation=MyAnimation(this.animationCtrl);
     const modal = await this.modalController.create({
       component:PersonalsetPage,
+      cssClass:"fullscreen-class",
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
+
+  async createcurrencysetModal(){
+    let animation=MyAnimation(this.animationCtrl);
+    const modal = await this.modalController.create({
+      component:CurrencysetPage,
+      cssClass:"fullscreen-class",
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
+
+  async createppolicyModal(){
+    let animation=MyAnimation(this.animationCtrl);
+    const modal = await this.modalController.create({
+      component:PpolicyPage,
       cssClass:"fullscreen-class",
       enterAnimation:animation.EnterAnimation,
       leaveAnimation:animation.LeaveAnimation,
