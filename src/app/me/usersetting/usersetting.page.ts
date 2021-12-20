@@ -114,7 +114,9 @@ export class UsersettingPage implements OnInit {
         this.alert("登出失败！");
       },
       complete:()=>{
+        console.log("okoko")
         this.router.navigate(['/login'],{queryParams:{redirectUrl:'/navigation/home'}});
+        this.modalDismiss();
 
       }
 

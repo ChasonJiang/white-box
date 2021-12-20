@@ -1,4 +1,4 @@
-<div class="user-card">
+<div class="user-card" (click)="createMomentModal(userCard.uid)">
   <div class="user-avatar" *ngIf="userCard">
     <ion-avatar>
       <ion-img [src]="userCard.avatarUrl"></ion-img>

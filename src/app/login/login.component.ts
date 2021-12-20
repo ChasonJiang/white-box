@@ -85,13 +85,16 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['/navigation']);
         if(this.redirectUrl!=undefined){
           this.router.navigate([this.redirectUrl]);
+          console.log(this.redirectUrl)
         }else{
           this.activatedRoute.queryParams.subscribe({
             next:params =>{
               this.router.navigate([params.redirectUrl]);
+              console.log(this.redirectUrl)
             },
             error:() => {
               this.router.navigate(['/navigation']);
+              console.log(this.redirectUrl)
             }
           });
         }

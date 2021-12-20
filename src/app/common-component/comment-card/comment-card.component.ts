@@ -2,9 +2,10 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Requester, SubCommentRequestParams } from 'src/app/interface/Request';
 import { UserBaseInfo, UserCard } from 'src/app/interface/User';
+import { MomentComponent } from 'src/app/me/moment/moment.component';
 import { CommentService } from 'src/app/services/comment.service';
-import { CommentEditerAnimation } from 'src/app/util/animation';
-import { getCurrentUserCard, sha256 } from 'src/app/util/util';
+import { CommentEditerAnimation, MyAnimation } from 'src/app/util/animation';
+import { getCurrentUserCard, getUserInfo, sha256 } from 'src/app/util/util';
 import { Comment, SubComment } from "../../interface/Comment";
 import { CommentEditerComponent } from '../comment-editer/comment-editer.component';
 @Component({
@@ -30,6 +31,22 @@ export class CommentCardComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(){
     this.getSubComment();
+  }
+
+  async createMomentModal(uid:string){
+    let animation=MyAnimation(this.animationCtrl);
+        // console.log(this.postCardDetail);
+        // console.log(this.postCardDetail);
+    const modal = await this.modalController.create({
+      component:MomentComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'uid':uid
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
   }
 
   async createCommentEditerModal(reply_to:UserBaseInfo){

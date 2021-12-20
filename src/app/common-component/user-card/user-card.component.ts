@@ -3,6 +3,9 @@ import { UserService } from '../../services/user.service';
 import { UserCard } from 'src/app/interface/User';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { FollowRequestParams, Requester } from 'src/app/interface/Request';
+import { MyAnimation } from 'src/app/util/animation';
+import { MomentComponent } from 'src/app/me/moment/moment.component';
+import { AnimationController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-user-card',
@@ -17,6 +20,10 @@ export class UserCardComponent implements OnInit {
   private isFollow:boolean = false;
   constructor(
     private userService:UserService,
+    public animationCtrl: AnimationController,
+    private modalController: ModalController,
+
+
   ) { }
 
   ngOnInit() {
@@ -44,6 +51,23 @@ export class UserCardComponent implements OnInit {
       console.log(err.message);
     }
 
+  }
+
+  
+  async createMomentModal(uid:string){
+    let animation=MyAnimation(this.animationCtrl);
+        // console.log(this.postCardDetail);
+        // console.log(this.postCardDetail);
+    const modal = await this.modalController.create({
+      component:MomentComponent,
+      cssClass:"fullscreen-class",
+      componentProps:{
+        'uid':uid
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
   }
 
   // getUserCard(){

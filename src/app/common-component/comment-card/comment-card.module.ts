@@ -4,6 +4,7 @@ import { CommentCardComponent } from './comment-card.component';
 import { UserCardModule } from '../user-card/user-card.module';
 import { CommentEditerModule } from '../comment-editer/comment-editer.module';
 import { IonicModule } from '@ionic/angular';
+import { MomentModule } from 'src/app/me/moment/moment.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     IonicModule,
     UserCardModule,
-    CommentEditerModule
+    CommentEditerModule,
+    MomentModule,
   ],
   exports:[
     CommentCardComponent

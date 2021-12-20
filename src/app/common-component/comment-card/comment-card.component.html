@@ -1,5 +1,5 @@
 <div class="comment-area" >
-  <div class="comment-area-user-card">
+  <div class="comment-area-user-card" >
       <app-user-card [userCard]="comment.userCard" [releaseTime]="comment.commentTime"></app-user-card>
   </div>
   <div class="comment-content" (click)="createCommentEditerModal(comment.userCard)">
@@ -7,11 +7,15 @@
   </div>
   <div class="reply-area" *ngIf="reply" >
     <div *ngFor="let reply_item of reply">
-      <div class="reply-content" (click)="createCommentEditerModal(reply_item.userInfo);">
+      <div class="reply-content" >
         <ion-label>
-          <ion-label style="color: #3880ff;">{{reply_item.userInfo.userName}}</ion-label><ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
+          <ion-label style="color: #3880ff;" (click)="createMomentModal(reply_item.userInfo.uid)">{{reply_item.userInfo.userName}}</ion-label>
+          <ion-label (click)="createCommentEditerModal(reply_item.userInfo);">
+            <ion-note> 回复 {{reply_item.replyTo.userName}}: </ion-note>{{reply_item.commentContent}}
+            <ion-note id="commentTime">{{reply_item.commentTime | date:"yyyy-MM-dd HH:mm"}}</ion-note>
+          </ion-label>
         </ion-label> 
-        <ion-note id="commentTime">{{reply_item.commentTime | date:"yyyy-MM-dd HH:mm"}}</ion-note>
+
       </div>
     </div>
   </div>
