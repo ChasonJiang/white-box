@@ -2,10 +2,11 @@ import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, View
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { PostCardDetailComponent } from 'src/app/common-component/post-card-detail/post-card-detail.component';
 import { PostCardDetail } from 'src/app/interface/Post';
-import { PostCardDetailRequestParams, PostSearchRequestParams, Requester, SearchRequestParams, } from 'src/app/interface/Request';
+import { MomentRequestParams, PostCardDetailRequestParams, PostSearchRequestParams, Requester, SearchRequestParams, } from 'src/app/interface/Request';
 import { PostCardDetailIndexResponse, PostSearchResponse } from 'src/app/interface/Response';
-import { UserCard } from 'src/app/interface/User';
+import { UserCard, UserInfo } from 'src/app/interface/User';
 import { SearchService } from 'src/app/services/search.service';
+import { UserService } from 'src/app/services/user.service';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { PostCardDetailService } from '../../../services/post-card-detail.service';
 
@@ -15,25 +16,27 @@ import { PostCardDetailService } from '../../../services/post-card-detail.servic
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, AfterViewInit{
-  @Input() tid:number;
+  @Input() uid:string;
   @ViewChild("SearchResultContainer",{read: ViewContainerRef}) searchResultContainer:ViewContainerRef;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   private searchContent:string = "";
   private searchResults:string[];
   // private postCardsDetail:PostCardDetail[];
-  private userCard: UserCard=getCurrentUserCard();
+  private userCard: UserCard;
   private counter: number = 0;
   private reqFailed: boolean =false;
   private card_size: number=10;
   private isEnd:boolean=false;
   private searchLock:boolean = false;
   private lazyLoadLock:boolean = false;
+  @Input() userInfo: UserInfo;
 
   constructor(
     private modalController: ModalController,
     private searchService: SearchService<PostCardDetailIndexResponse>,
     private PostCardDetailService:PostCardDetailService,
     private componentFactoryResolver: ComponentFactoryResolver,
+    private userService: UserService,
 
   ) { }
 
@@ -52,16 +55,17 @@ export class SearchComponent implements OnInit, AfterViewInit{
     });
   }
 
-  renderCardList(data:{postCardsDetail:PostCardDetail,userCard:UserCard}[]){
-    for (let item of data)
+  renderCardList(userCard:UserCard,postCardsDetail:PostCardDetail[]){
+    for (let item of postCardsDetail)
     {
       const ComponentFactory=this.componentFactoryResolver.resolveComponentFactory(PostCardDetailComponent);
       const ComponentRef=this.searchResultContainer.createComponent(ComponentFactory);
-      ComponentRef.instance.postCardDetail=item.postCardsDetail;
-      ComponentRef.instance.userCard=item.userCard;
+      ComponentRef.instance.postCardDetail=item;
+      ComponentRef.instance.userCard=userCard;
     }
   }
-  lazyLoad(searchResults:string[]):void{
+
+  lazyLoad(pids:string[]):void{
     if(this.lazyLoadLock){
       console.log("lazyLoad is locked");
       return;
@@ -70,36 +74,43 @@ export class SearchComponent implements OnInit, AfterViewInit{
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
     let index_end=this.counter*this.card_size+this.card_size;
-    if(index_strat>searchResults.length){
-      throw new Error("searchResults is empty");
-    }else if(index_end>searchResults.length){
-      index_end=searchResults.length;
+    console.log("start:"+index_strat+",end:"+index_end+",length:"+pids.length);
+    if(index_strat>=pids.length){
+      this.lazyLoadLock=false;
+      throw new Error("momentsIndexList is empty");
+    }else if(index_end>=pids.length){
+      index_end=pids.length;
     }
-    let req:Requester<PostCardDetailRequestParams>={
+    let req:Requester<MomentRequestParams>={
       head:{
-        uid:this.userCard.uid,
-        type:"GetPostCardDetailList"
+        // uid:this.userCard.uid,
+        type:"GetMoments"
       },
       body:{
-        pid:searchResults.slice(index_strat,index_end),
+        uid:this.uid,
+        pid:pids.slice(index_strat,index_end),
       }
     }
-
-    this.PostCardDetailService.requestPostCardDetail(req)
+    console.log(req)
+    this.userService.requestMoments(req)
       .subscribe({next:res=>{
-        // console.log("GetPostCardDetailList");
+        console.log("Search GetMoments");
         // console.log(postCardDetailResponse.postCardsDetail);
-        this.renderCardList(res.data);
+        this.userInfo = res.userInfo;
+        // console.log(res)
+        this.renderCardList(res.userInfo,res.postCardsDetail);
         this.counter++;
       },
       complete:() => {
         this.lazyLoadLock=false;
-        this.searchLock=false;
+        this.infiniteScroll.complete();
+        // console.log("12");
       },
       error:() => {
-        this.searchLock=false;
+        this.infiniteScroll.complete();
         this.lazyLoadLock=false;
         this.reqFailed=true;
+        // console.log("11");
       }
     });
 
@@ -120,11 +131,10 @@ export class SearchComponent implements OnInit, AfterViewInit{
     this.reqFailed=false;
     let req:Requester<PostSearchRequestParams>={
       head:{
-        uid:this.userCard.uid,
+        uid:this.uid,
         type:'SearchPostCardDetail'
       },
       body:{
-        tid:this.tid,
         content:this.searchContent
       }as PostSearchRequestParams
     }
@@ -133,6 +143,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
         .subscribe({
           next:res =>{
             if(res.success){
+              console.log("SearchPostCardDetail");
               this.searchResults=res.pid;
               this.counter=0;
               this.searchResultContainer.clear();

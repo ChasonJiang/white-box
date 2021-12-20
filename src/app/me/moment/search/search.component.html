@@ -1,0 +1,27 @@
+
+<ion-content style="--background:whitesmoke;">
+  <!-- <div class="search"> -->
+    <div class='search-header'>
+      <div class="search-back-button" (click)="goBack();">
+        <ion-icon name="chevron-back-outline" ></ion-icon>
+      </div>
+      <div class="search-bar">
+        <app-search-bar (onSubmit)="searchSubmit($event);" ></app-search-bar>
+      </div>
+    </div>
+  
+    <div class="search-results" #SearchResultContainer>
+      
+    </div>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <div *ngIf="reqFailed" (click)="doRefresh($event);" style="position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">
+      <ion-text >获取失败,点击重试</ion-text>
+      <!-- <ion-text></ion-text> -->
+    </div>
+  <!-- </div> -->
+</ion-content>

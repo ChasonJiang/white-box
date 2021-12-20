@@ -1,0 +1,29 @@
+.search{
+    background-color:whitesmoke;
+}
+.search-header{
+    display: flex;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    background-color: white;
+    z-index: 10;
+}
+.search-back-button{
+    font-size:28px;
+    align-self: center;
+    text-align: center;
+    justify-self: center;
+    width:28px;
+    height:32px;
+    margin: 0;
+    padding: 0;
+}
+.search-bar{
+    width: 100%;
+
+}
+// ion-content{
+//     --background: whitesmoke;
+// }
