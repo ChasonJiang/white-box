@@ -111,8 +111,10 @@ export class MomentComponent implements OnInit {
         console.log("GetMoments");
         // console.log(postCardDetailResponse.postCardsDetail);
         this.userInfo = res.userInfo;
-        this.renderCardList(res.userInfo,res.postCardsDetail);
-        this.counter++;
+        if(res.postCardsDetail!=undefined || res.postCardsDetail!=null) {
+          this.renderCardList(res.userInfo,res.postCardsDetail);
+          this.counter++;
+        }
       },
       complete:() => {
         this.lazyLoadLock=false;
