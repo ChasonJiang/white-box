@@ -16,7 +16,7 @@
       <img class="post-card-img" *ngIf="postCardDetail.imgUrl.length>=3" [src]="postCardDetail.imgUrl[2]">
     </div>
   </div> -->
-  <div class="post-card-detail-img"  *ngIf="imgUrl" (click)="createModal(postCardDetail.pid);">
+  <div class="post-card-detail-img"  *ngIf="imgUrl.length>=1" (click)="createModal(postCardDetail.pid);">
     <!-- <img class="post-card-img" *ngIf="imgUrl.length>=1" [src]="imgUrl[i]" *ngFor="let i of img_range"> -->
     <img class="post-card-img" *ngIf="imgUrl.length>=1" [src]="imgUrl[0]" >
     <img class="post-card-img" *ngIf="imgUrl.length>=2" [src]="imgUrl[1]" >

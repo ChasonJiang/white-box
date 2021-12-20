@@ -103,10 +103,16 @@ export class PostCardDetailAreaComponent implements OnInit,AfterViewInit {
 
   refresh(){
     this.reqFailed=false;
+    let type:string;
+    if(this.tid!=null || this.tid!=undefined){
+      type="GetPostCardDetailIndexListByTid";
+    }else{
+      type="GetPostCardDetailIndexList";
+    }
     let req:Requester<PostCardDetailIndexRequestParams>={
       head:{
         uid:this.userCard.uid,
-        type:"GetPostCardDetailIndexList"
+        type:type
       },
       body:{
         tid:this.tid,
