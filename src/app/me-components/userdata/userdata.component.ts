@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AnimationController, ModalController } from '@ionic/angular';
+import { UsersettingPage } from 'src/app/me/usersetting/usersetting.page';
+import { MyAnimation } from 'src/app/util/animation';
 
 @Component({
   selector: 'app-userdata',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserdataComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalController:ModalController,
+    public animationCtrl: AnimationController
+  ) { }
 
   ngOnInit() {}
+
+  setting(){
+    this.createModal();
+  }
+  async createModal(){
+    let animation=MyAnimation(this.animationCtrl);
+    const modal = await this.modalController.create({
+      component:UsersettingPage,
+      cssClass:"fullscreen-class",
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+    return await modal.present();
+  }
 
 }
 

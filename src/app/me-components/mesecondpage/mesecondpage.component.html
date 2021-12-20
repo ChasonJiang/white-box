@@ -1,28 +1,39 @@
 <ion-header>
-    <ion-toolbar class="toolbar">
-        <div class="usertask">
-            <div class="iocns">
-              <ion-icon name="receipt" style="width: 35px; height: 35px; padding-top: 8.2px; padding-left: 20px;" [routerLink]="[ 'mytask']"></ion-icon>
-            </div>
-            <div class="fonts">
-              <p style="font-family: 黑体; font-weight: bolder; margin: 0; padding-top: 10px;" [routerLink]="[ 'mytask']">创作中心</p>
-              <p style="font-family: 黑体; font-weight: bolder; margin: 0; font-size: 12px;" [routerLink]="[ 'mytask']">已完成</p>
-            </div>
-            <div class="smallfont">
-              <p style="font-family: 黑体;" [routerLink]="[ 'mytask']">></p>
-            </div>
-          </div>
-          <div class="usertask">
-            <div class="iocns">
-              <ion-icon name="newspaper" style="width: 35px; height: 35px; padding-top: 8.2px; padding-left: 20px;"></ion-icon>
-            </div>
-            <div class="fonts">
-              <p style="font-family: 黑体; font-weight: bolder; margin: 0; padding-top: 10px;">草稿箱</p>
-              <p style="font-family: 黑体; font-weight: bolder; margin: 0; font-size: 12px;">未完成</p>
-            </div>
-            <div class="smallfont">
-              <p style="font-family: 黑体;">></p>
-            </div>
+
+  <ion-toolbar class="toolbar">
+
+    <div class="top">
+      <div class="usertask">
+        <div class="iocns">
+          <ion-icon name="reader" style="width: 35px; height: 35px; padding-top: 8.2px; padding-left: 20px;"></ion-icon>
         </div>
-    </ion-toolbar>
-</ion-header>
+        <div class="fonts">
+          <p style="font-family: 黑体; font-weight: bolder; margin: 0; padding-top: 10px;">我的动态</p>
+          <p style="font-family: 黑体; font-weight: bolder; margin: 0; font-size: 12px;">发过啥</p>
+        </div>
+        <div class="smallfont">
+          <p style="font-family: 黑体;" [routerLink]="[ 'mytask']">></p>
+        </div>
+      </div>
+
+      <div class="usertask">
+        <div class="iocns">
+          <ion-icon name="bag-handle" style="width: 35px; height: 35px; padding-top: 8.2px; padding-left: 20px;"></ion-icon>
+        </div>
+        <div class="fonts">
+          <p style="font-family: 黑体; font-weight: bolder; margin: 0; padding-top: 10px;">游戏库</p>
+          <p style="font-family: 黑体; font-weight: bolder; margin: 0; font-size: 12px;">买过啥</p>
+        </div>
+        <div class="smallfont">
+          <p style="font-family: 黑体;">></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mid"></div>
+
+  </ion-toolbar>
+
+</ion-header> 
+
