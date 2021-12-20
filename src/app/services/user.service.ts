@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiUrl } from '../Config';
-import { FollowRequestParams, httpOptions, LoginRequestParams, LoginValidationRequestParams, LogoutRequestParams, RegisterRequestParams, Requester } from '../interface/Request';
-import { FollowResponse, LoginResponse, LoginValidationResponse, LogoutResponse, RegisterResponse, UserDetailsResponse } from '../interface/Response';
+import { FollowRequestParams, httpOptions, LoginRequestParams, LoginValidationRequestParams, LogoutRequestParams, MomentIndexRequestParams, MomentRequestParams, RegisterRequestParams, Requester } from '../interface/Request';
+import { FollowResponse, LoginResponse, LoginValidationResponse, LogoutResponse, MomentIndexResponse, MomentResponse, RegisterResponse, UserDetailsResponse } from '../interface/Response';
 import { UserCard, UserInfo }from"../interface/User";
 // import { USER_CARD_INFO } from '../user';
 
@@ -48,4 +48,10 @@ export class UserService {
     return this.httpClient.post<LoginValidationResponse>(ApiUrl,req,httpOptions);
   }
 
+  requestMomentIndexList(req: Requester<MomentIndexRequestParams>):Observable<MomentIndexResponse>{
+    return this.httpClient.post<MomentIndexResponse>(ApiUrl,req,httpOptions);
+  }
+  requestMoments(req: Requester<MomentRequestParams>):Observable<MomentResponse>{
+    return this.httpClient.post<MomentResponse>(ApiUrl,req,httpOptions);
+  }
 }
