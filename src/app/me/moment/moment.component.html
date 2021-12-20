@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border" style="border-bottom:1px solid rgba(65, 65, 65, 0.13);">
+<!-- <ion-header class="ion-no-border" style="border-bottom:1px solid rgba(65, 65, 65, 0.13);">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="modalDismiss();">
@@ -7,23 +7,78 @@
     </ion-buttons>
     <ion-title>Moments</ion-title>
   </ion-toolbar>
-</ion-header> 
-
+</ion-header>  -->
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <div #Container >
-      <!-- <app-post-card-detail [postCardDetail]=""></app-post-card-detail> -->
+<div class="moment">
+  <div class="moment-header">
+    <div class="moment-back-button" (click)="goBack();">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </div>
+    <div class="moment-search-button" (click)="createSearchModal();">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
   </div>
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="正在加载...">
-      </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-  <div *ngIf="reqFailed" (click)="doRefresh($event);" style="position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">
-    <ion-text >获取失败,点击重试</ion-text>
-    <!-- <ion-text></ion-text> -->
+  <div class="user-info" *ngIf="userInfo">
+    <div class="user-card">
+      <div class="user-card-icon">
+        <img [src]="userInfo.avatarUrl">
+      </div>
+      <div class="user-card-name">
+        <ion-label>{{ userInfo.userName }}</ion-label>
+      </div>
+      <div class="user-card-info">
+        <ion-note style="font-size:12px; color:rgba(255, 255, 255, 0.55);">
+          Lv.{{userInfo.userLevel}}
+        </ion-note>
+        &nbsp;&nbsp;
+        <ion-note style="font-size:12px; color:rgba(255, 255, 255, 0.55);">
+          关注 {{userInfo.numberOfFollow}}
+        </ion-note>
+        &nbsp;&nbsp;
+        <ion-note style="font-size:12px; color:rgba(255, 255, 255, 0.55);">
+          粉丝 {{userInfo.numberOfFans}}
+        </ion-note>
+      </div>
+      <div class="user-card-follow-button" (click)="follow();">
+        <div class="following-label" *ngIf="isFollow">已关注</div>
+        <div class="follow-label" *ngIf="!isFollow">关注</div>
+      </div>
+    </div>
+    <div class="user-signature" *ngIf="userInfo.signature">
+      <div class="signature-content">
+        {{userInfo.signature}}
+      </div>
+    </div>
+    <div class="backgourd-filter">
+      <img  [src]="userInfo.avatarUrl">
+    </div>
   </div>
+  <div class="moment-bar">
+    <div class="moment-bar-title">动态</div>
+  </div>
+
+  <div class="post-card-container">
+
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <div #Container >
+          <!-- <app-post-card-detail [postCardDetail]=""></app-post-card-detail> -->
+      </div>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="正在加载...">
+          </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+      <div *ngIf="reqFailed" (click)="doRefresh($event);" style="position: absolute; top: 50%; left: 50%;margin-top:-10.5px;margin-left: -65.9px;">
+        <ion-text >获取失败,点击重试</ion-text>
+        <!-- <ion-text></ion-text> -->
+      </div>
+
+    <!-- <PostCardDetailAreaModule></PostCardDetailAreaModule> -->
+  </div>
+</div>
 </ion-content>
+
+

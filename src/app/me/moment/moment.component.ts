@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ComponentFactoryResolver, Input, OnInit, Outp
 import { PostCardDetail } from 'src/app/interface/Post';
 import { PostCardDetailComponent } from '../../common-component/post-card-detail/post-card-detail.component';
 import { PostCardDetailService } from '../../services/post-card-detail.service';
-import { UserCard } from 'src/app/interface/User';
+import { UserCard, UserInfo } from 'src/app/interface/User';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { MomentIndexRequestParams, MomentRequestParams, PostCardDetailIndexRequestParams, PostCardDetailRequestParams, Requester } from 'src/app/interface/Request';
 import { IonInfiniteScroll, IonRefresher, ModalController } from '@ionic/angular';
@@ -17,12 +17,12 @@ import { UserService } from 'src/app/services/user.service';
 export class MomentComponent implements OnInit {
 
   @ViewChild("Container",{read: ViewContainerRef}) viewContainerRef:ViewContainerRef;
-  @Input() tid:number;
+  @Input() uid:string;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonRefresher) ionRefresher:IonRefresher;
   postCardsDetail:PostCardDetail[];
   private momentsIndexList:string[];
-  private userCard: UserCard=getCurrentUserCard();
+  @Input() userInfo: UserInfo;
   private reqFailed: boolean=false;
   private counter: number = 0;
   private card_size: number=10;
@@ -50,7 +50,7 @@ export class MomentComponent implements OnInit {
 
   }
 
-  modalDismiss() {
+  goBack() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
@@ -77,7 +77,7 @@ export class MomentComponent implements OnInit {
         type:"GetMoments"
       },
       body:{
-        uid:this.userCard.uid,
+        uid:this.uid,
         pid:pids.slice(index_strat,index_end),
       }
     }
@@ -86,7 +86,8 @@ export class MomentComponent implements OnInit {
       .subscribe({next:res=>{
         console.log("GetMoments");
         // console.log(postCardDetailResponse.postCardsDetail);
-        this.renderCardList(res.postCardsDetail);
+        this.userInfo = res.userInfo;
+        this.renderCardList(res.userInfo,res.postCardsDetail);
         this.counter++;
       },
       complete:() => {
@@ -102,14 +103,14 @@ export class MomentComponent implements OnInit {
 
   }
 
-  renderCardList(postCardsDetail:PostCardDetail[]):void{
+  renderCardList(userInfo:UserInfo,postCardsDetail:PostCardDetail[]):void{
     for (let item of postCardsDetail)
     {
       const postCardComponentFactory=this.componentFactoryResolver
         .resolveComponentFactory(PostCardDetailComponent);
       const postCardComponentRef=this.viewContainerRef.createComponent(postCardComponentFactory);
       postCardComponentRef.instance.postCardDetail=item;
-      postCardComponentRef.instance.userCard=this.userCard;
+      postCardComponentRef.instance.userCard=userInfo;
     }
   }
 
@@ -117,11 +118,11 @@ export class MomentComponent implements OnInit {
     this.reqFailed=false;
     let req:Requester<MomentIndexRequestParams>={
       head:{
-        uid:this.userCard.uid,
+        uid:this.uid,
         type:"GetMomentIndexList"
       },
       body:{
-        uid:this.userCard.uid,
+        uid:this.uid,
       } as MomentIndexRequestParams,
     };
 
