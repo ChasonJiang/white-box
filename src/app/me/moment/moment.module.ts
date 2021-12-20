@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MomentComponent } from './moment.component';
 import { PostCardDetailModule } from 'src/app/common-component/post-card-detail/post-card-detail.module';
 import { IonicModule } from '@ionic/angular';
+import { SearchModule } from './search/search.module';
 
 
 
@@ -12,6 +13,7 @@ import { IonicModule } from '@ionic/angular';
     IonicModule,
     CommonModule,
     PostCardDetailModule,
+    SearchModule
   ],
   exports:[MomentComponent]
 })

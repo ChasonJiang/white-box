@@ -5,8 +5,10 @@ import { PostCardDetailService } from '../../services/post-card-detail.service';
 import { UserCard, UserInfo } from 'src/app/interface/User';
 import { getCurrentUserCard } from 'src/app/util/util';
 import { MomentIndexRequestParams, MomentRequestParams, PostCardDetailIndexRequestParams, PostCardDetailRequestParams, Requester } from 'src/app/interface/Request';
-import { IonInfiniteScroll, IonRefresher, ModalController } from '@ionic/angular';
+import { AnimationController, IonInfiniteScroll, IonRefresher, ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
+import { MyAnimation } from 'src/app/util/animation';
+import { SearchComponent } from './search/search.component';
 
 
 @Component({
@@ -32,7 +34,9 @@ export class MomentComponent implements OnInit {
   constructor(
     public modalController:ModalController,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private userService: UserService
+    private userService: UserService,
+    public animationCtrl: AnimationController
+
   ) { }
 
   ngOnInit() {
@@ -58,8 +62,28 @@ export class MomentComponent implements OnInit {
     });
   }
 
+  async createSearchModal() {
+    let animation=MyAnimation(this.animationCtrl);
+
+    const modal = await this.modalController.create({
+      component:SearchComponent,
+      cssClass:'fullscreen-class',
+      componentProps:{
+        uid:this.uid,
+      },
+      enterAnimation:animation.EnterAnimation,
+      leaveAnimation:animation.LeaveAnimation,
+    });
+
+    return await modal.present();
+  }
+
 
   lazyLoad(pids:string[]):void{
+    if(this.lazyLoadLock){
+      console.log("lazyLoad is locked");
+      return;
+    }
     this.lazyLoadLock=true;
     this.reqFailed=false;
     let index_strat=this.counter*this.card_size;
